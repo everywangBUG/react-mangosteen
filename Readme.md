@@ -47,4 +47,7 @@
 - 建议不要使用`prettier`
 - 可以在`.eslintrc`文件下新建`rules:{}`规则下通过vscode提示配置
 
-### 
+## 路由
+- `npm install react-router-dom`
+
+### 初始化路由
