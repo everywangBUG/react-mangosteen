@@ -51,3 +51,8 @@
 - `npm install react-router-dom`
 
 ### 初始化路由
+- 见官网`react-router-dom`
+
+### 配置404not found路由页面
+- 见官网`react-router-dom`，`handle Not Found Errors`
+- 
