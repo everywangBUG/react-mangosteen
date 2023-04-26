@@ -15,7 +15,6 @@
   看版本匹配问题，点击了兼容lastest后可以保持版本最新，锁死所有的依赖版本号
 - 后面安装的库可能会有`^`括号的问题，可以使用`npm config set save-prefix=""`，运行后下次安装任何库不加`^`
 
-
 #### tsconfig.json
 
 - 基本不动
@@ -55,4 +54,14 @@
 
 ### 配置404not found路由页面
 - 见官网`react-router-dom`，`handle Not Found Errors`
-- 
+
+### 嵌套路由
+
+### 路由重定向
+- 可以使用`errorElement`实现路由的重定向，错误的路由直接转到404 not found
+- 使用`redirect`函数: redirect('/path')
+- 使用`useNavigator`重定向路由
+
+### react-spring动画库
+- `npm install @react-spring/web`
+- 教程见react-spring的官网
