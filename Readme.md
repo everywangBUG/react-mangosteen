@@ -65,3 +65,6 @@
 ### react-spring动画库
 - `npm install @react-spring/web`
 - 教程见react-spring的官网
+
+#### react-router-transiform-animation
+- 使用hashMap解决路由动画先旧更替的问题
