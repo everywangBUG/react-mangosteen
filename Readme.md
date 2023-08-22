@@ -35,6 +35,25 @@
 - `git add .` `git commit -m "mangosten"` `git push origin master`
 - 可以使用linux命令设置自动部署
 
+##### 部署到github请求404原因
+- 在github的setting页面部署项目
+- 直接部署页面中资源项404，需要在index.html页面添加，在package.json中配置文件
+
+##### 配置shebang
+```
+  #!/usr/bin/env bash
+  cd dist
+  rm -rf dist
+  npm run build
+  git init
+  git add .
+  git commit -m deploy
+  git remote add origin git@github.com:everywangBUG/react-mangosteen_preview.git
+  git push -f origin master:master
+  cd -
+```
+- `sh bin/deploy_to_github.sh`脚本部署到github
+
 ### 如何创建snippet
 
 - 使用`snippet generator`网站进行配置
