@@ -1,18 +1,17 @@
-import React from 'react'
 import { createBrowserRouter } from 'react-router-dom'
-import { RedirectToWelcome } from '../components/Redirect'
 import { Welcome1 } from '../pages/Welcome1'
 import { Welcome2 } from '../pages/Welcome2'
 import { Welcome3 } from '../pages/Welcome3'
 import { Welcome4 } from '../pages/Welcome4'
 import { MainLayout } from '../layouts/MainLayout'
 import { WelcomeLayout } from '../layouts/WelcomeLayout'
+import { ErrorPage } from '../components/ErrorPage'
 
 export const router = createBrowserRouter([
   {
     path: '/',
     element: <MainLayout />,
-    errorElement: <RedirectToWelcome />,
+    errorElement: <ErrorPage />,
     children: [
       {
         path: 'welcome',
