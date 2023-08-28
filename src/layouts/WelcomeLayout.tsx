@@ -23,18 +23,20 @@ export const WelcomeLayout: React.FC = () => {
   return (<div flex flex-col items-stretch bg="#6335c3"
                h-screen
             >
-              <header shrink-0 text-center>
+              <header shrink-0 text-center my-10px>
                 <img src={logo} w-65px/>
-                <h1 text="#dccff6">山竹记账</h1>
+                <h1 text="#dccff6" text-28px my-10px>山竹记账</h1>
               </header>
-              <main grow-1 shrink-1 flex justify-center items-center mx-16px>
+              <main grow-1 shrink-1 mx-16px>
                 {transitions((style, pathname) =>
-                    <animated.div key={pathname} style={style} w="100%" h="100%">
+                    <animated.div key={pathname} style={style} w="100%" h="100%"
+                                  flex justify-center items-center bg="#ffffff" rounded-8px
+                    >
                       {map.current[pathname]}
                     </animated.div>
                 )}
               </main>
-              <footer shrink-0 text-center mt-40px mb-24px grid grid-cols-3 grid-r>
+              <footer shrink-0 text-center mt-40px mb-24px grid grid-cols-3 grid-rows-1>
                 <Link style={{ gridArea: '1 / 2 / 2 / 3' }} text-28px text="#dccff6" to={linkMap[location.pathname]}>下一页</Link>
                 <Link style={{ gridArea: '1 / 3 / 2 / 4' }} text-28px text="#dccff6" to='/welcome/xxx'>跳过</Link>
               </footer>
