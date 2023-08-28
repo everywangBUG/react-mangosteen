@@ -1,32 +1,43 @@
 import { animated, useTransition } from '@react-spring/web'
-import type { ReactNode } from 'react'
-import { useLocation, useOutlet } from 'react-router-dom'
+import { type ReactNode, useRef } from 'react'
+import { Link, useLocation, useOutlet } from 'react-router-dom'
+import logo from '../assets/images/logo.svg'
 
-const map: Record<string, ReactNode> = {}
 export const WelcomeLayout: React.FC = () => {
-  const location = useLocation() // 获取当前地址栏的信息
-  // location.pathname ===== /welcome/1
-  // location.pathname ===== /welcome/2
-  // 拿到当前的outlet
+  const map = useRef<Record<string, ReactNode>>({})
+  const location = useLocation()
   const outlet = useOutlet()
-  // 每次进入一个新的location中，放入map，对应welcome1把welcome1存起来，以此类推
-  map[location.pathname] = outlet
+  const linkMap = {
+    '/welcome/1': '/welcome/2',
+    '/welcome/2': '/welcome/3',
+    '/welcome/3': '/welcome/4',
+    '/welcome/4': '/welcome/xxx',
+  }
+  map.current[location.pathname] = outlet
   const transitions = useTransition(location.pathname, {
-    // 进入状态
-    from: { transform: 'translateX(100%)' },
-    // 稳定状态
+    from: { transform: location.pathname === '/welcome/1' ? 'translate(0%)' : 'translateX(100%)' },
     enter: { transform: 'translateX(0%)' },
-    // 退出状态
     leave: { transform: 'translateX(-100%)' },
     config: { duration: 1000 }
   })
-  return transitions((style, pathname) => {
-    return <animated.div key={pathname} style={style}>
-      <div style={{ textAlign: 'center' }}>
-        {/* 不显示最新的Outlet，如果显示，那么点击路由动画变化会显示之后的2，使用map显示之前缓存的Outlet */}
-        {/* <Outlet /> */}
-        {map[pathname]}
-      </div>
-    </animated.div>
-  })
+  return (<div flex flex-col items-stretch bg="#6335c3"
+                 h-screen
+            >
+              <header shrink-0 text-center>
+                <img src={logo} w-65px/>
+                <h1 text="#dccff6">山竹记账</h1>
+              </header>
+              <main grow-1 shrink-1 flex justify-center items-center mx-16px>
+                {transitions((style, pathname) =>
+                    <animated.div key={pathname} style={style} w="100%" h="100%">
+                      {map.current[pathname]}
+                    </animated.div>
+                )}
+              </main>
+              <footer shrink-0 text-center mt-40px mb-24px grid grid-cols-3 grid-r>
+                <Link style={{ gridArea: '1 / 2 / 2 / 3' }} text-28px text="#dccff6" to={linkMap[location.pathname]}>下一页</Link>
+                <Link style={{ gridArea: '1 / 3 / 2 / 4' }} text-28px text="#dccff6" to='/welcome/xxx'>跳过</Link>
+              </footer>
+            </div>
+  )
 }
