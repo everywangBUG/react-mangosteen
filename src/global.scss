@@ -4,3 +4,10 @@
   font-size: 12px;
   box-sizing: border-box;
 }
+
+*::before, *::after {box-sizing: border-box;}
+
+a {
+  color:inherit;
+  text-decoration: none;
+}
