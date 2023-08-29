@@ -8,6 +8,7 @@ declare module "react" {
     grid?: boolean
     before?: string
     after?: string
-    shadow?: boolean
+    shadow?: boolean,
+    w?: string
   }
 }

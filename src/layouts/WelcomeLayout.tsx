@@ -7,13 +7,13 @@ export const WelcomeLayout: React.FC = () => {
   const map = useRef<Record<string, ReactNode>>({})
   const location = useLocation()
   const outlet = useOutlet()
-  const linkMap = {
+  const linkMap: Record<string, string> = {
     '/welcome/1': '/welcome/2',
     '/welcome/2': '/welcome/3',
     '/welcome/3': '/welcome/4',
     '/welcome/4': '/welcome/xxx',
   }
-  const [extraStyle, setExtraStyle] = useState({ position: 'relative' })
+  const [extraStyle, setExtraStyle] = useState<{ position: 'relative' | 'absolute' }>({ position: 'relative' })
   map.current[location.pathname] = outlet
   const transitions = useTransition(location.pathname, {
     from: { transform: location.pathname === '/welcome/1' ? 'translate(0%)' : 'translateX(100%)' },
