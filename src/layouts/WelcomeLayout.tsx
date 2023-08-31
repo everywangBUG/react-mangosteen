@@ -1,9 +1,13 @@
 import { animated, useTransition } from '@react-spring/web'
-import { type ReactNode, useRef, useState } from 'react'
-import { Link, useLocation, useOutlet } from 'react-router-dom'
+import { type ReactNode, useRef, useState, useEffect } from 'react'
+import { Link, useLocation, useOutlet, useNavigate } from 'react-router-dom'
 import logo from '../assets/images/logo.svg'
+import { useWipe } from '../hooks/useWipe'
 
 export const WelcomeLayout: React.FC = () => {
+  const nav = useNavigate()
+  const animating = useRef(false)
+  const mainRef = useRef(null)
   const map = useRef<Record<string, ReactNode>>({})
   const location = useLocation()
   const outlet = useOutlet()
@@ -13,6 +17,14 @@ export const WelcomeLayout: React.FC = () => {
     '/welcome/3': '/welcome/4',
     '/welcome/4': '/welcome/xxx',
   }
+  const { direction } = useWipe(mainRef, { onTouchStart: e => e.preventDefault() })
+  useEffect(() => {
+    if (direction === 'left') {
+      if (animating.current) { return }
+      animating.current = true
+      nav(linkMap[location.pathname])
+    }
+  }, [direction, linkMap[location.pathname], location.pathname])
   const [extraStyle, setExtraStyle] = useState<{ position: 'relative' | 'absolute' }>({ position: 'relative' })
   map.current[location.pathname] = outlet
   const transitions = useTransition(location.pathname, {
@@ -24,6 +36,7 @@ export const WelcomeLayout: React.FC = () => {
       setExtraStyle({ position: 'absolute' })
     },
     onRest: () => {
+      animating.current = false
       setExtraStyle({ position: 'relative' })
     }
   })
@@ -35,7 +48,7 @@ export const WelcomeLayout: React.FC = () => {
         <img src={logo} w-65px h-70px/>
         <h1 text="#dccff6" text-28px my-5px>山竹记账</h1>
       </header>
-      <main grow-1 shrink-1 relative>
+      <main grow-1 shrink-1 relative ref={mainRef}>
         {transitions((style, pathname) =>
             <animated.div key={pathname} style={{ ...style, ...extraStyle }} w="100%" h="100%">
               <div flex justify-center items-center bg="#ffffff" rounded-8px mx-16px h="100%">
