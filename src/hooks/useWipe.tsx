@@ -1,4 +1,4 @@
-import { RefObject, useEffect, useRef, useState } from "react"
+import { type RefObject, useEffect, useRef, useState } from 'react'
 
 interface Config {
   onTouchStart?: (e: TouchEvent) => void
@@ -6,7 +6,7 @@ interface Config {
   onTouchEnd?: (e: TouchEvent) => void
 }
 
-export const useWipe = (elementRef: RefObject<HTMLElement>, config?: Config) => {
+export function useWipe(elementRef: RefObject<HTMLElement>, config?: Config) {
   const [direction, setDirection] = useState<'' | 'left' | 'right'>('')
   const x = useRef(-1)
   const onTouchStart = (e: TouchEvent) => {
@@ -19,9 +19,11 @@ export const useWipe = (elementRef: RefObject<HTMLElement>, config?: Config) => 
     const d = x.current - newx
     if (Math.abs(d) > 5) {
       setDirection('left')
-    } else if (d < 3) {
+    }
+    else if (d < 3) {
       setDirection('')
-    } else {
+    }
+    else {
       setDirection('right')
     }
   }
@@ -34,7 +36,7 @@ export const useWipe = (elementRef: RefObject<HTMLElement>, config?: Config) => 
     elementRef.current.addEventListener('touchstart', onTouchStart)
     elementRef.current.addEventListener('touchmove', onTouchMove)
     elementRef.current.addEventListener('touchend', onTouchEnd)
-    
+
     return () => {
       if (!elementRef.current) { return }
       elementRef.current.addEventListener('touchstart', onTouchStart)

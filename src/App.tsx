@@ -1,10 +1,10 @@
-function App() {
-  // const [count, setCount] = useState(0)
+import { Navigate } from 'react-router-dom'
+import { useLocalStorage } from './stores/useLocalStorage'
 
-  return (
-    <div className="App">
-    </div>
-  )
+export const App: React.FC = () => {
+  const { isReadWelcome } = useLocalStorage()
+  if (isReadWelcome) {
+    return <Navigate to={'/home'} />
+  }
+  return <Navigate to={'/welcome/1'} />
 }
-
-export default App

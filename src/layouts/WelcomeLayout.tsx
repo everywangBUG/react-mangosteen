@@ -1,8 +1,9 @@
 import { animated, useTransition } from '@react-spring/web'
-import { type ReactNode, useRef, useState, useEffect } from 'react'
-import { Link, useLocation, useOutlet, useNavigate } from 'react-router-dom'
+import { type ReactNode, useEffect, useRef, useState } from 'react'
+import { Link, useLocation, useNavigate, useOutlet } from 'react-router-dom'
 import logo from '../assets/images/logo.svg'
 import { useWipe } from '../hooks/useWipe'
+import { useLocalStorage } from '../stores/useLocalStorage'
 
 export const WelcomeLayout: React.FC = () => {
   const nav = useNavigate()
@@ -15,7 +16,7 @@ export const WelcomeLayout: React.FC = () => {
     '/welcome/1': '/welcome/2',
     '/welcome/2': '/welcome/3',
     '/welcome/3': '/welcome/4',
-    '/welcome/4': '/welcome/xxx',
+    '/welcome/4': '/home',
   }
   const { direction } = useWipe(mainRef, { onTouchStart: e => e.preventDefault() })
   useEffect(() => {
@@ -40,6 +41,10 @@ export const WelcomeLayout: React.FC = () => {
       setExtraStyle({ position: 'relative' })
     }
   })
+  const { setIsReadWelcome } = useLocalStorage()
+  const onSkip = () => {
+    setIsReadWelcome(true)
+  }
   return (
     <div flex flex-col items-stretch bg="#6335c3"
         h-screen
@@ -59,7 +64,7 @@ export const WelcomeLayout: React.FC = () => {
       </main>
       <footer shrink-0 text-center mt-40px mb-24px grid grid-cols-3 grid-rows-1>
         <Link style={{ gridArea: '1 / 2 / 2 / 3' }} text-28px text="#dccff6" to={linkMap[location.pathname]}>下一页</Link>
-        <Link style={{ gridArea: '1 / 3 / 2 / 4' }} text-28px text="#dccff6" to='/welcome/xxx'>跳过</Link>
+        <Link style={{ gridArea: '1 / 3 / 2 / 4' }} text-28px text="#dccff6" to='/home' onClick={onSkip}>跳过</Link>
       </footer>
     </div>
   )

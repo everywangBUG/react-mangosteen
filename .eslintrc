@@ -1,7 +1,11 @@
 {
   "extends": "@antfu",
   "rules": {
+    "curly": "off",
     "@typescript-eslint/comma-dangle": "off",
-    "eslint-disable no-console": "off"
+    "eslint-disable no-console": "off",
+    "arrow-parens": "off",
+    "eslint-disable-next-line": "off",
+    "max-statements-per-line": "off"
   }
 }
