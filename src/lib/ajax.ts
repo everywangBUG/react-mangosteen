@@ -5,10 +5,10 @@ axios.defaults.headers.post['content-Type'] = 'applocation/json'
 axios.defaults.timeout = 10000
 
 export const ajax = {
-  get: (path: string) => {
-    return axios.get(path)
+  get: <T>(path: string) => {
+    return axios.get<T>(path)
   },
-  post() {},
-  patch() {},
-  delete() {}
+  post: () => {},
+  patch: () => {},
+  delete: () => {}
 }

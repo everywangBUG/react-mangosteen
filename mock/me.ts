@@ -4,8 +4,8 @@ export default [
   {
     url: '/api/v1/me',
     method: 'get',
-    timeout: 1000,
-    response: (): Resource<User> => {
+    // timeout: 3000,
+    response: (): IResource<IUser> => {
       return {
         resource: {
           id: 1,
@@ -19,8 +19,8 @@ export default [
   {
     url: '/api/v1/items',
     method: 'get',
-    timeout: 1000,
-    response: (): Resources<Item> => {
+    // timeout: 1000,
+    response: (): IResources<IItems> => {
       return {
         resources: [{
           id: 1,
