@@ -4,45 +4,45 @@ export default [
   {
     url: '/api/v1/me',
     method: 'get',
-    // timeout: 3000,
+    timeout: 300000,
     response: (): IResource<IUser> => {
       return {
-        resource: {
-          id: 1,
-          email: 'frank@frank.com',
-          updated_at: '2021-08-01T00:00:00.000Z',
-          created_at: '2021-08-01T00:00:00.000Z',
-        }
+        resource: undefined
+        // resource: {
+        //   id: 1,
+        //   email: 'frank@frank.com',
+        //   updated_at: '2021-08-01T00:00:00.000Z',
+        //   created_at: '2021-08-01T00:00:00.000Z',
+        // }
       }
     },
   },
   {
     url: '/api/v1/items',
     method: 'get',
-    // timeout: 1000,
+    timeout: 100000,
     response: (): IResources<IItems> => {
       return {
-        resources: [],
         pager: {
           page: 0,
           per_page: 25,
           count: 0
+        },
+        resources: [{
+          id: 1,
+          user_id: 1,
+          amount: 1000,
+          tag_ids: [1, 2],
+          happen_at: '2021-08-01T00:00:00.000Z',
+          created_at: '2021-08-01T00:00:00.000Z',
+          updated_at: '2021-08-01T00:00:00.000Z',
+          kind: 'expenses',
+        }],
+        pager: {
+          page: 1,
+          per_page: 25,
+          count: 100
         }
-        // resources: [{
-        //   id: 1,
-        //   user_id: 1,
-        //   amount: 1000,
-        //   tag_ids: [1, 2],
-        //   happen_at: '2021-08-01T00:00:00.000Z',
-        //   created_at: '2021-08-01T00:00:00.000Z',
-        //   updated_at: '2021-08-01T00:00:00.000Z',
-        //   kind: 'expenses',
-        // }],
-        // pager: {
-        //   page: 1,
-        //   per_page: 25,
-        //   count: 100
-        // }
       }
     },
   },

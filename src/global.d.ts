@@ -10,7 +10,7 @@ interface IResources<T> {
 }
 
 interface IResource<T> {
-  resource: T
+  resource?: T
 }
 
 interface IUser {
