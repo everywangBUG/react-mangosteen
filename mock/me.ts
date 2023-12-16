@@ -4,7 +4,7 @@ export default [
   {
     url: '/api/v1/me',
     method: 'get',
-    timeout: 300000,
+    timeout: 300,
     response: (): IResource<IUser> => {
       return {
         resource: undefined
@@ -23,11 +23,11 @@ export default [
     timeout: 100000,
     response: (): IResources<IItems> => {
       return {
-        pager: {
-          page: 0,
-          per_page: 25,
-          count: 0
-        },
+        // pager: {
+        //   page: 0,
+        //   per_page: 25,
+        //   count: 0
+        // },
         resources: [{
           id: 1,
           user_id: 1,
