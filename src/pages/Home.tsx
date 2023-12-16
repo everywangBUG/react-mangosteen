@@ -5,6 +5,7 @@ import pig from '../assets/images/pig.svg'
 import { useTitle } from '../hooks/useTitle'
 import { Loading } from '../components/Loading'
 import { AddButton } from '../components/AddButton'
+import type { IItems, IResource, IResources, IUser } from '../global.d.ts'
 
 interface IProps {
   title: string
@@ -33,7 +34,7 @@ export const Home: React.FC<IProps> = (props) => {
           <img src={pig} w='128px' h='130px'/>
         </div>
         <div mt-20vh w='100%' text-center>
-          <button h='48px' bg='#5926b9' text-white w='90%' rounded='8px' text-18px>开始记账</button>
+          <button w-btn>开始记账</button>
         </div>
         <AddButton />
       </div>

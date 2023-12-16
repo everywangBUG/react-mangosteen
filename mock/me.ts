@@ -1,4 +1,5 @@
 import type { MockMethod } from 'vite-plugin-mock'
+import type { IItems, IResource, IResources, IUser } from '../src/global.d.ts'
 
 export default [
   {
@@ -7,27 +8,21 @@ export default [
     timeout: 300,
     response: (): IResource<IUser> => {
       return {
-        resource: undefined
-        // resource: {
-        //   id: 1,
-        //   email: 'frank@frank.com',
-        //   updated_at: '2021-08-01T00:00:00.000Z',
-        //   created_at: '2021-08-01T00:00:00.000Z',
-        // }
+        resource: {
+          id: 1,
+          email: 'frank@frank.com',
+          updated_at: '2021-08-01T00:00:00.000Z',
+          created_at: '2021-08-01T00:00:00.000Z',
+        }
       }
     },
   },
   {
     url: '/api/v1/items',
     method: 'get',
-    timeout: 100000,
+    timeout: 100,
     response: (): IResources<IItems> => {
       return {
-        // pager: {
-        //   page: 0,
-        //   per_page: 25,
-        //   count: 0
-        // },
         resources: [{
           id: 1,
           user_id: 1,

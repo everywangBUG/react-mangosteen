@@ -1,6 +1,6 @@
 declare var isDev: boolean
 
-interface IResources<T> {
+export interface IResources<T> {
   resources: T[]
   pager: {
     page: number
@@ -9,18 +9,18 @@ interface IResources<T> {
   }
 }
 
-interface IResource<T> {
+export interface IResource<T> {
   resource?: T
 }
 
-interface IUser {
+export interface IUser {
   id: number
   email: string
   updated_at: string
   created_at: string
 }
 
-interface IItems {
+export export interface IItems {
   id: number
   user_id: number
   amount: number

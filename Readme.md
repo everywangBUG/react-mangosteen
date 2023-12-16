@@ -87,3 +87,6 @@
 
 #### react-router-transiform-animation
 - 使用hashMap解决路由动画先旧更替的问题
+
+### 引入Fonts.css跨平台中文字体解决方案
+* "Noto Sans"删掉，会有bug
