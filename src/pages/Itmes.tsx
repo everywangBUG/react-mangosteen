@@ -20,8 +20,8 @@ export const Items: React.FC = () => {
           <TopNav title='山竹记账' name='menu'/>
           <TopTimeBar selected={timeRange} onSelected={setTimeTange}/>
         </Div>
-        <CountDetail />
         <CountItems />
+        <CountDetail />
         <TimePicker />
     </div>
   )
