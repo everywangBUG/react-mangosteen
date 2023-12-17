@@ -5,7 +5,7 @@ import { TopMenu } from '../components/TopMenu'
 import { TopTimeBar } from '../components/TopTimeBar'
 import type { TimeRange } from '../components/TopTimeBar'
 import type { IItems } from '../global.d.ts'
-import { menuContext } from '../contexts/menuContext'
+import { useMenuVisible } from '../stores/useMenuVisible'
 import { CountItems } from './items/CountItems'
 import { CountDetailList } from './items/CountDetailList'
 
@@ -15,7 +15,7 @@ const Div = s.div`
 
 export const Items: React.FC = () => {
   const [timeRange, setTimeTange] = useState<TimeRange>('thisMonth')
-  const [visible, setVisible] = useState<boolean>(false)
+  const { visible, setVisible } = useMenuVisible()
   const [items, setItems] = useState<IItems>([
     {
       id: 1,
@@ -41,15 +41,13 @@ export const Items: React.FC = () => {
 
   return (
     <div>
-      <menuContext.Provider value={{ setVisible }}>
-        <Div>
-          <TopNav title='橙子记账' name='menu'/>
-          <TopTimeBar selected={timeRange} onSelected={setTimeTange}/>
-        </Div>
-        <CountItems />
-        <CountDetailList items={items} />
-        { visible && <TopMenu /> }
-      </menuContext.Provider>
+      <Div>
+        <TopNav title='橙子记账' name='menu'/>
+        <TopTimeBar selected={timeRange} onSelected={setTimeTange}/>
+      </Div>
+      <CountItems />
+      <CountDetailList items={items} />
+      { visible && <TopMenu /> }
     </div>
   )
 }
