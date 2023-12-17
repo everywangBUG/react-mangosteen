@@ -1,10 +1,11 @@
 import s from 'styled-components'
-import { useState } from 'react'
-import { TimePicker } from '../components/TimePicker'
+import React, { useState } from 'react'
 import { TopNav } from '../components/TopNav'
+import { TopMenu } from '../components/TopMenu'
 import { TopTimeBar } from '../components/TopTimeBar'
 import type { TimeRange } from '../components/TopTimeBar'
 import type { IItems } from '../global.d.ts'
+import { menuContext } from '../contexts/menuContext'
 import { CountItems } from './items/CountItems'
 import { CountDetailList } from './items/CountDetailList'
 
@@ -14,6 +15,7 @@ const Div = s.div`
 
 export const Items: React.FC = () => {
   const [timeRange, setTimeTange] = useState<TimeRange>('thisMonth')
+  const [visible, setVisible] = useState<boolean>(false)
   const [items, setItems] = useState<IItems>([
     {
       id: 1,
@@ -39,13 +41,15 @@ export const Items: React.FC = () => {
 
   return (
     <div>
+      <menuContext.Provider value={{ setVisible }}>
         <Div>
           <TopNav title='橙子记账' name='menu'/>
           <TopTimeBar selected={timeRange} onSelected={setTimeTange}/>
         </Div>
         <CountItems />
         <CountDetailList items={items} />
-        <TimePicker />
+        { visible && <TopMenu /> }
+      </menuContext.Provider>
     </div>
   )
 }
