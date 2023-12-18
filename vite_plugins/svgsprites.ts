@@ -8,6 +8,7 @@ interface Options {
   id?: string
   inputFolder?: string
   inline?: boolean
+  noOptimizeList?: string[]
 }
 export function svgsprites(options: Options = {}): Plugin {
   const virtualModuleId = `virtual:svgsprites${options.id ? `-${options.id}` : ''}`
@@ -22,15 +23,17 @@ export function svgsprites(options: Options = {}): Plugin {
       const filepath = path.join(iconsDir, file)
       const svgId = path.parse(file).name
       const code = fs.readFileSync(filepath, { encoding: 'utf-8' })
-      sprites.add(svgId, code)
+      const symbol = options.noOptimizeList?.includes(svgId)
+        ? code
+        : optimize(code, {
+          plugins: [
+            'cleanupAttrs', 'removeDoctype', 'removeComments', 'removeTitle', 'removeDesc', 'removeEmptyAttrs',
+            { name: 'removeAttrs', params: { attrs: '(data-name|fill)' } },
+          ],
+        }).data
+      sprites.add(svgId, symbol)
     }
-    const { data: code } = optimize(sprites.toString({ inline }), {
-      plugins: [
-        'cleanupAttrs', 'removeDoctype', 'removeComments', 'removeTitle', 'removeDesc', 'removeEmptyAttrs',
-        { name: 'removeAttrs', params: { attrs: '(data-name|fill)' } },
-      ],
-    })
-    return code
+    return sprites.toString({ inline })
   }
   const handleFileCreationOrUpdate = (file: string, server: ViteDevServer) => {
     if (!file.includes(inputFolder)) { return }
@@ -60,39 +63,39 @@ export function svgsprites(options: Options = {}): Plugin {
       if (id === resolvedVirtualModuleId) {
         const code = generateCode()
         return `!function(){
-          const div = document.createElement('div')
-          div.innerHTML = \`${code}\`
-          const svg = div.getElementsByTagName('svg')[0]
-          const updateSvg = (svg) => {
-            if (!svg) { return }
-            svg.style.position = 'absolute'
-            svg.style.width = 0
-            svg.style.height = 0
-            svg.style.overflow = 'hidden'
-            svg.setAttribute("aria-hidden", "true")
-          }
-          const insert = () => {
-            if (document.body.firstChild) {
-              document.body.insertBefore(div, document.body.firstChild)
-            } else {
-              document.body.appendChild(div)
-            }
-          }
-          updateSvg(svg)
-          if (document.body){
-            insert()
-          } else {
-            document.addEventListener('DOMContentLoaded', insert)
-          }
-          if (import.meta.hot) {
-            import.meta.hot.on('svgsprites:change', (data) => {
-              const code = data.code
-              div.innerHTML = code
-              const svg = div.getElementsByTagName('svg')[0]
-              updateSvg(svg)
-            })
-          }
-        }()`
+  const div = document.createElement('div')
+  div.innerHTML = \`${code}\`
+  const svg = div.getElementsByTagName('svg')[0]
+  const updateSvg = (svg) => {
+    if (!svg) { return }
+    svg.style.position = 'absolute'
+    svg.style.width = 0
+    svg.style.height = 0
+    svg.style.overflow = 'hidden'
+    svg.setAttribute("aria-hidden", "true")
+  }
+  const insert = () => {
+    if (document.body.firstChild) {
+      document.body.insertBefore(div, document.body.firstChild)
+    } else {
+      document.body.appendChild(div)
+    }
+  }
+  updateSvg(svg)
+  if (document.body){
+    insert()
+  } else {
+    document.addEventListener('DOMContentLoaded', insert)
+  }
+  if (import.meta.hot) {
+    import.meta.hot.on('svgsprites:change', (data) => {
+      const code = data.code
+      div.innerHTML = code
+      const svg = div.getElementsByTagName('svg')[0]
+      updateSvg(svg)
+    })
+  }
+}()`
       }
     },
   }
