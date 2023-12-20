@@ -13,7 +13,7 @@ export const MenuList: React.FC<Props> = ({ className }) => {
   return (<div>
     <ul className={className} bg-white text-20px py-16px
         children-flex children-items-center children-px-16px
-        children-py-8px children-mb-4px
+        children-py-8px children-mb-4px h-screen
     >
         <li><MyIcon name="chart"/>统计图表</li>
         <li><MyIcon name="export"/>导出数据</li>

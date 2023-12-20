@@ -47,7 +47,7 @@ export const Items: React.FC = () => {
       </Div>
       <CountItems />
       <CountDetailList items={items} />
-      { visible && <TopMenu /> }
+      { <TopMenu visible={visible} onClickMask={() => { setVisible(false) }}/> }
     </div>
   )
 }
