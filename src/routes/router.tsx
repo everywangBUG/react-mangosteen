@@ -6,14 +6,8 @@ import { Items } from '../pages/Itmes'
 import { welcomeRoute } from './welcomeRoute'
 
 export const router = createBrowserRouter([
-  {
-    path: '/',
-    element: <App />
-  },
-  {
-    path: '/home',
-    element: <Home title='首页' />
-  },
+  { path: '/', element: <App /> },
+  { path: '/home', element: <Home title='首页' /> },
   {
     path: '/',
     errorElement: <ErrorPage />,
@@ -21,8 +15,10 @@ export const router = createBrowserRouter([
       welcomeRoute
     ]
   },
-  {
-    path: '/items',
-    element: <Items />
-  }
+  { path: '/items', element: <Items /> },
+  { path: '/sign_in', element: <div>登录</div> },
+  { path: '/chart', element: <div>图表</div> },
+  { path: '/export', element: <div>不做</div> },
+  { path: '/tags', element: <div>标签</div> },
+  { path: '/noty', element: <div>不做</div> },
 ])
