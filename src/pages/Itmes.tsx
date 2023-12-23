@@ -16,7 +16,7 @@ const Div = s.div`
 export const Items: React.FC = () => {
   const [timeRange, setTimeTange] = useState<TimeRange>('thisMonth')
   const { visible, setVisible } = useMenuVisible()
-  const [items, setItems] = useState<IItems>([
+  const [items] = useState<IItems[]>([
     {
       id: 1,
       user_id: 123,

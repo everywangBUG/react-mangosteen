@@ -1,11 +1,19 @@
+import useSWRInfinite from 'swr/infinite'
 import { AddButton } from '../../components/AddButton.js'
-import type { IItems } from '../../global.d.ts'
+import type { IItems, Resources } from '../../global.d.ts'
+import { ajax } from '../../lib/ajax'
 
-interface Props {
-  items: IItems[]
+const items: IItems[] = []
+
+function getKey(pageIndex: number) {
+  return `/api/v1/items/?page=${pageIndex + 1}`
 }
 
-export const CountDetailList: React.FC<Props> = ({ items }) => {
+export const CountDetailList: React.FC = () => {
+  const { data, error } = useSWRInfinite(
+    getKey, async (path) => (await ajax.get<Resources<IItems>>(path)).data
+  )
+  console.log('data', data, error)
   return (
     <div>
       <ol>
