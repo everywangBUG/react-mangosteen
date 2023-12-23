@@ -28,8 +28,10 @@ const createList = (n: number, attrs?: Partial<IItems>): IItems[] => {
 }
 
 const createResponse = ({ count = 10, perPage = 10, page = 1 }, attrs?: Partial<IItems>): IResources<IItems> => {
+  const sendCount = (page - 1) * perPage
+  const left = count - sendCount
   return {
-    resources: createList(perPage, attrs),
+    resources: left > 0 ? createList(Math.min(left, perPage), attrs) : [],
     pager: {
       page,
       per_page: perPage,
@@ -44,7 +46,7 @@ export default [
     method: 'get',
     timeout: 100,
     response: ({ query }: ResponseParams): IResources<IItems> => {
-      return createResponse({ count: 10, perPage: 10, page: parseInt(query.page) })
+      return createResponse({ count: 33, perPage: 10, page: parseInt(query.page) })
     }
   },
 ] as MockMethod[]
