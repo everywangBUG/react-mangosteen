@@ -16,7 +16,7 @@ const getKey = (pageIndex: number, pre: IResources<IItems>) => {
 }
 
 export const CountDetailList: React.FC = () => {
-  const { data, size, setSize } = useSWRInfinite(
+  const { data, error, size, setSize } = useSWRInfinite(
     getKey, async (path) => (await ajax.get<IResources<IItems>>(path)).data
   )
 
@@ -25,8 +25,19 @@ export const CountDetailList: React.FC = () => {
     setSize(size + 1)
   }
 
+  // 加载第一页数据的加载中
+  const isLoadingInitialData = !data && !error
+  // 加载后面数据的加载中
+  const isLoadingMore = data?.[size - 1] === undefined && !error
+  // 综合判断是否是在加载中
+  const isLoading = isLoadingMore || isLoadingInitialData
+
   if (!data) {
-    return <span>网络请求未到达</span>
+    // 第一页加载错误
+    return <div px-16px text-center>
+      { error && <span>网络请求错误，请刷新页面</span> }
+      { isLoading && <span>加载中...</span>}
+    </div>
   }
   else {
     const last = data[data.length - 1]
@@ -52,9 +63,11 @@ export const CountDetailList: React.FC = () => {
           )
         })
       }</ol>
+      {/* 后面的页面加载错误 */}
+      { error && <span>网络请求错误，请刷新页面</span>}
       <div flex justify-center items-center p-16px>
         {
-          hasMore ? <button w-btn onClick={onLoadMore}>加载更多</button> : <div>没有更多了</div>
+          !hasMore ? <div>没有更多了</div> : (isLoading ? <span>加载中...</span> : <button w-btn onClick={onLoadMore}>加载更多</button>)
         }
       </div>
       <AddButton />

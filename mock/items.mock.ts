@@ -44,7 +44,8 @@ export default [
   {
     url: '/api/v1/items',
     method: 'get',
-    timeout: 100,
+    statusCode: 200,
+    timeout: 300,
     response: ({ query }: ResponseParams): IResources<IItems> => {
       return createResponse({ count: 33, perPage: 10, page: parseInt(query.page) })
     }
