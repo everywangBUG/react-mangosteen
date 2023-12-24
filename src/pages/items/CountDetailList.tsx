@@ -1,6 +1,7 @@
 import useSWRInfinite from 'swr/infinite'
 import type { IItems, IResources } from '../../global.d.ts'
 import { ajax } from '../../lib/ajax'
+import { AddButton } from '../../components/AddButton'
 
 const getKey = (pageIndex: number, pre: IResources<IItems>) => {
   // 发送请求的所有count
@@ -28,6 +29,10 @@ export const CountDetailList: React.FC = () => {
     return <span>网络请求未到达</span>
   }
   else {
+    const last = data[data.length - 1]
+    const { page, per_page, count } = last.pager
+    const hasMore = (page - 1) * per_page + last.resources.length < count
+
     return <>
       <ol>{
         data.map(({ resources }) => {
@@ -48,18 +53,11 @@ export const CountDetailList: React.FC = () => {
         })
       }</ol>
       <div flex justify-center items-center p-16px>
-        <button w-btn onClick={onLoadMore}>加载更多</button>
+        {
+          hasMore ? <button w-btn onClick={onLoadMore}>加载更多</button> : <div>没有更多了</div>
+        }
       </div>
+      <AddButton />
     </>
   }
-  // return (
-  //   <div>
-  //     <ol>
-  //     </ol>
-  //     <div flex justify-center items-center p-16px>
-  //       <button w-btn>加载更多</button>
-  //     </div>
-  //     <AddButton />
-  //   </div>
-  // )
 }
