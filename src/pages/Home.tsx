@@ -34,7 +34,7 @@ export const Home: React.FC<IProps> = (props) => {
           <img src={pig} w='128px' h='130px'/>
         </div>
         <div mt-20vh w='100%' text-center>
-          <button w-btn>开始记账</button>
+          <button j-btn>开始记账</button>
         </div>
         <AddButton />
       </div>

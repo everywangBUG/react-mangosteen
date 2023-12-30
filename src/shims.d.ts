@@ -13,7 +13,8 @@ declare module "react" {
     rounded?: string,
     right?: string,
     bottom?: string,
-    b?: string
+    b?: string,
+    'focus:shadow'?: boolean
   }
   interface SVGProps<T> extends SVGAttributes<T>, ClassAttributes<T> {
     w?: string,

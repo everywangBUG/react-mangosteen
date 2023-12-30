@@ -67,7 +67,7 @@ export const CountDetailList: React.FC = () => {
       { error && <span>网络请求错误，请刷新页面</span>}
       <div flex justify-center items-center p-16px>
         {
-          !hasMore ? <div>没有更多了</div> : (isLoading ? <span>加载中...</span> : <button w-btn onClick={onLoadMore}>加载更多</button>)
+          !hasMore ? <div>没有更多了</div> : (isLoading ? <span>加载中...</span> : <button j-btn onClick={onLoadMore}>加载更多</button>)
         }
       </div>
       <AddButton />
