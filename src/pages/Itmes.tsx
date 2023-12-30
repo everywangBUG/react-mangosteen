@@ -1,17 +1,14 @@
-import s from 'styled-components'
 import React, { useState } from 'react'
+import { Icon } from '../components/Icon'
 import { TopNav } from '../components/TopNav'
 import { TopMenu } from '../components/TopMenu'
 import { TopTimeBar } from '../components/TopTimeBar'
 import type { TimeRange } from '../components/TopTimeBar'
 import type { IItems } from '../global.d.ts'
 import { useMenuVisible } from '../stores/useMenuVisible'
+import { Gradient } from '../components/Gradient'
 import { CountItems } from './items/CountItems'
 import { CountDetailList } from './items/CountDetailList'
-
-const Div = s.div`
-  background: linear-gradient(0deg, rgba(89,38,185,1) 0%, rgba(150,0,255,1) 100%);
-`
 
 export const Items: React.FC = () => {
   const [timeRange, setTimeTange] = useState<TimeRange>('thisMonth')
@@ -41,10 +38,10 @@ export const Items: React.FC = () => {
 
   return (
     <div>
-      <Div>
-        <TopNav title='橙子记账' name='menu'/>
+      <Gradient>
+        <TopNav title='橙子记账' icon={<Icon name='menu' className="w-24px h-24px" onClick={() => { setVisible(!visible) }}/>}/>
         <TopTimeBar selected={timeRange} onSelected={setTimeTange}/>
-      </Div>
+      </Gradient>
       <CountItems />
       <CountDetailList items={items} />
       { <TopMenu visible={visible} onClickMask={() => { setVisible(false) }}/> }

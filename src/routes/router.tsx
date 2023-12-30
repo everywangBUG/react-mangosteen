@@ -3,6 +3,7 @@ import { ErrorPage } from '../components/ErrorPage'
 import { Home } from '../pages/Home'
 import { App } from '../App'
 import { Items } from '../pages/Itmes'
+import { SiginIn } from '../pages/SiginIn'
 import { welcomeRoute } from './welcomeRoute'
 
 export const router = createBrowserRouter([
@@ -16,7 +17,7 @@ export const router = createBrowserRouter([
     ]
   },
   { path: '/items', element: <Items /> },
-  { path: '/sign_in', element: <div>登录</div> },
+  { path: '/sign_in', element: <SiginIn /> },
   { path: '/chart', element: <div>图表</div> },
   { path: '/export', element: <div>不做</div> },
   { path: '/tags', element: <div>标签</div> },

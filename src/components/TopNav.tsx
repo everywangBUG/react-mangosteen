@@ -1,20 +1,16 @@
-import { useMenuVisible } from '../stores/useMenuVisible'
-import { Icon } from './Icon'
+import type { ReactNode } from 'react'
 
 interface IProps {
-  name: string
   title?: string
+  icon: ReactNode
 }
 
-export const TopNav: React.FC<IProps> = ({ name, title }) => {
-  const { visible, setVisible } = useMenuVisible()
+export const TopNav: React.FC<IProps> = ({ title, icon }) => {
   return (
     <div flex items-center text-white p-16px>
-      <Icon name={name} className="w-24px h24px"
-        onClick={() => {
-          setVisible(!visible)
-        }}
-      />
+      <span flex w-24px h24px children-max-w="100%" children-max-h="100%">
+        {icon}
+      </span>
       <h1 text-24px ml-16px>{title}</h1>
     </div>
   )
