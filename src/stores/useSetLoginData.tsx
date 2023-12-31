@@ -39,7 +39,6 @@ export const useSetLoginData = create<LoginStore>((set) => ({
       {
         ...state,
         error: {
-          ...state.error,
           ...error
         }
       }
