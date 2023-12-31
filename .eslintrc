@@ -7,6 +7,7 @@
     "arrow-parens": "off",
     "eslint-disable-next-line": "off",
     "max-statements-per-line": "off",
-    "antfu/top-level-function": "off"
+    "antfu/top-level-function": "off",
+    "@typescript-eslint/consistent-type-definitions": "off"
   }
 }

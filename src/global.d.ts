@@ -1,5 +1,7 @@
 declare var isDev: boolean
 
+export type JSONValue = string | number | boolean | null | { [k: string]: JSONValue } | JSONValue[]
+
 export interface IResources<T> {
   resources: T[]
   pager: {
