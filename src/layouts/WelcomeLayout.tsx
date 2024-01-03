@@ -11,6 +11,7 @@ export const WelcomeLayout: React.FC = () => {
   const mainRef = useRef(null)
   const map = useRef<Record<string, ReactNode>>({})
   const location = useLocation()
+  const isLastPage = location.pathname === '/welcome/4'
   const outlet = useOutlet()
   const linkMap: Record<string, string> = {
     '/welcome/1': '/welcome/2',
@@ -18,7 +19,7 @@ export const WelcomeLayout: React.FC = () => {
     '/welcome/3': '/welcome/4',
     '/welcome/4': '/home',
   }
-  const { direction } = useWipe(mainRef, { onTouchStart: e => e.preventDefault() })
+  const { direction } = useWipe(mainRef)
   useEffect(() => {
     if (direction === 'left') {
       if (animating.current) { return }
@@ -44,10 +45,11 @@ export const WelcomeLayout: React.FC = () => {
   const { setIsReadWelcome } = useLocalStorage()
   const onSkip = () => {
     setIsReadWelcome(true)
+    nav('/home')
   }
   return (
     <div flex flex-col items-stretch bg="#6335c3"
-        h-screen
+        h-screen overflow-x-hidden
     >
       <header shrink-0 text-center my-10px mt-60px>
         <img src={logo} w-65px h-70px/>
@@ -62,10 +64,14 @@ export const WelcomeLayout: React.FC = () => {
             </animated.div>
         )}
       </main>
-      <footer shrink-0 text-center mt-40px mb-24px grid grid-cols-3 grid-rows-1>
-        <Link style={{ gridArea: '1 / 2 / 2 / 3' }} text-28px text="#dccff6" to={linkMap[location.pathname]}>下一页</Link>
-        <Link style={{ gridArea: '1 / 3 / 2 / 4' }} text-28px text="#dccff6" to='/home' onClick={onSkip}>跳过</Link>
-      </footer>
+      <div>
+        { !isLastPage
+          && <footer shrink-0 text-center mt-40px mb-24px grid grid-cols-3 grid-rows-1>
+            <Link style={{ gridArea: '1 / 2 / 2 / 3' }} text-28px text="#dccff6" to={linkMap[location.pathname]}>下一页</Link>
+            <span style={{ gridArea: '1 / 3 / 2 / 4' }} text-28px text="#dccff6" onClick={onSkip}>跳过</span>
+          </footer>
+      }
+      </div>
     </div>
   )
 }
