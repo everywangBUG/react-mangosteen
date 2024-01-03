@@ -4,7 +4,8 @@ import { Gradient } from '../components/Gradient'
 import { TopNav } from '../components/TopNav'
 import { Icon } from '../components/Icon'
 import { useSetLoginData } from '../stores/useSetLoginData'
-import { validate } from '../lib/validate'
+import { hasError, validate } from '../lib/validate'
+import { ajax } from '../lib/ajax'
 
 export const SignIn: React.FC = () => {
   const navigator = useNavigate()
@@ -25,6 +26,9 @@ export const SignIn: React.FC = () => {
       { key: 'code', type: 'length', min: 6, max: 6, message: '验证码为6位' }
     ])
     setLoginError(errorData)
+    if (!hasError(errorData)) {
+      ajax.post('/api/v1/api/session', data)
+    }
   }
 
   return (
@@ -37,9 +41,7 @@ export const SignIn: React.FC = () => {
         <h1 text-32px text="#7878FF" font-bold>山竹记账</h1>
       </div>
       <form j-form onSubmit={onSubmit}>
-        <div>{JSON.stringify(data) }</div>
         <div>
-          <div>{JSON.stringify(error)}</div>
           <span j-form-label>邮箱地址{error.email?.[0] && <span text-18px text-red>{error.email[0]}</span>}</span>
           <input j-input-text type="text" placeholder='请输入邮箱，然后点击发送验证码' value={data.email} onChange={e => setLoginData({ email: e.target.value })}/>
         </div>
