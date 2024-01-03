@@ -48,8 +48,8 @@ export const SignIn: React.FC = () => {
         <div>
           <span j-form-label>验证码{error.code?.[0] && <span text-18px text-red>{error.code[0]}</span>}</span>
           <div flex gap-x-16px justify-between>
-            <input j-input-text type="text" placeholder='六位数字' value={data.code} onChange={e => setLoginData({ code: e.target.value })}/>
-            <button j-btn>发送验证码</button>
+            <input j-input-text type="text" max-w="[calc(40%-8px)]" placeholder='六位数字' value={data.code} onChange={e => setLoginData({ code: e.target.value })}/>
+            <button j-btn max-w="[calc(60%-8px)]">发送验证码</button>
           </div>
         </div>
         <div mt-100px>

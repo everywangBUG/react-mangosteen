@@ -7,24 +7,41 @@ interface Config {
 }
 
 export function useWipe(elementRef: RefObject<HTMLElement>, config?: Config) {
-  const [direction, setDirection] = useState<'' | 'left' | 'right'>('')
+  const [direction, setDirection] = useState<'' | 'left' | 'right' | 'up' | 'down'>('')
   const x = useRef(-1)
+  const y = useRef(-1)
   const onTouchStart = (e: TouchEvent) => {
     config?.onTouchStart?.(e)
     x.current = e.touches[0].clientX
+    y.current = e.touches[0].clientY
   }
   const onTouchMove = (e: TouchEvent) => {
     config?.onTouchMove?.(e)
     const newx = e.touches[0].clientX
-    const d = x.current - newx
-    if (Math.abs(d) > 5) {
-      setDirection('left')
-    }
-    else if (d < 3) {
-      setDirection('')
+    const newy = e.touches[0].clientY
+    const dx = newx - x.current
+    const dy = newy - y.current
+    if (Math.abs(dx) > Math.abs(dy)) {
+      if (Math.abs(dx) < 3) {
+        setDirection('')
+      }
+      else if (dx > 0) {
+        setDirection('right')
+      }
+      else {
+        setDirection('left')
+      }
     }
     else {
-      setDirection('right')
+      if (Math.abs(dy) < 3) {
+        setDirection('')
+      }
+      else if (dy > 0) {
+        setDirection('down')
+      }
+      else {
+        setDirection('up')
+      }
     }
   }
   const onTouchEnd = (e: TouchEvent) => {
