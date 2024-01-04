@@ -1,16 +1,15 @@
 import { useState } from 'react'
 import type { ReactNode } from 'react'
-import { Gradient } from '../../components/Gradient'
-import { TopNav } from '../../components/TopNav'
-import { Icon } from '../../components/Icon'
-import { Tabs } from '../../components/Tabs'
+import { Gradient } from '../components/Gradient'
+import { TopNav } from '../components/TopNav'
+import { Icon } from '../components/Icon'
+import { Tabs } from '../components/Tabs'
 import s from './ItemsNew.module.scss'
-
-export type ExpendIncome = 'expenses' | 'income'
+import { Tags } from './itemsNew/Tags'
 
 const itemsNewArr: { key: ExpendIncome; value: string; element: ReactNode }[] = [
-  { key: 'expenses', value: '支出', element: <span>支出</span> },
-  { key: 'income', value: '收入', element: <span>收入</span> }
+  { key: 'expenses', value: '支出', element: <Tags kind="expenses" /> },
+  { key: 'income', value: '收入', element: <Tags kind="income" /> }
 ]
 
 export const ItemsNew: React.FC = () => {

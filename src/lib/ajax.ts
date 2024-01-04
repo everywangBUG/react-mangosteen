@@ -1,5 +1,4 @@
 import axios from 'axios'
-import type { JSONValue } from '../global.d.ts'
 
 axios.defaults.baseURL = isDev ? '/' : 'http://121.196.236.94:8080/api/v1'
 axios.defaults.headers.post['content-Type'] = 'applocation/json'

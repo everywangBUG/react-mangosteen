@@ -5,7 +5,6 @@ import pig from '../assets/images/pig.svg'
 import { useTitle } from '../hooks/useTitle'
 import { Loading } from '../components/Loading'
 import { AddButton } from '../components/AddButton'
-import type { IItems, IResource, IResources, IUser } from '../global.d.ts'
 
 interface IProps {
   title: string

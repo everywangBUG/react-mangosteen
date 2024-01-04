@@ -1,5 +1,4 @@
 import useSWRInfinite from 'swr/infinite'
-import type { IItems, IResources } from '../../global.d.ts'
 import { ajax } from '../../lib/ajax'
 import { AddButton } from '../../components/AddButton'
 

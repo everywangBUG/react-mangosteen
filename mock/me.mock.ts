@@ -1,5 +1,4 @@
 import type { MockMethod } from 'vite-plugin-mock'
-import type { IResource, IUser } from '../src/global.js'
 
 export default [
   {

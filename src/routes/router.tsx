@@ -4,7 +4,7 @@ import { Home } from '../pages/Home'
 import { App } from '../App'
 import { Items } from '../pages/Itmes'
 import { SignIn } from '../pages/SignIn'
-import { ItemsNew } from '../pages/itemsNew/ItemsNew'
+import { ItemsNew } from '../pages/ItemsNew'
 import { welcomeRoute } from './welcomeRoute'
 
 export const router = createBrowserRouter([

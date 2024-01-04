@@ -1,8 +1,8 @@
-declare var isDev: boolean
+var isDev: boolean
 
-export type JSONValue = string | number | boolean | null | { [k: string]: JSONValue } | JSONValue[]
+type JSONValue = string | number | boolean | null | { [k: string]: JSONValue } | JSONValue[]
 
-export interface IResources<T> {
+interface IResources<T> {
   resources: T[]
   pager: {
     page: number
@@ -11,18 +11,18 @@ export interface IResources<T> {
   }
 }
 
-export interface IResource<T> {
+interface IResource<T> {
   resource?: T
 }
 
-export interface IUser {
+interface IUser {
   id: number
   email: string
   updated_at: string
   created_at: string
 }
 
-export export interface IItems {
+interface IItems {
   id: number
   user_id: number
   amount: number
@@ -32,3 +32,5 @@ export export interface IItems {
   updated_at: string
   kind: 'expenses' | 'incomes'
 }
+
+type ExpendIncome = 'expenses' | 'income'

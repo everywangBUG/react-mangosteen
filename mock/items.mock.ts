@@ -1,6 +1,5 @@
 import type { MockMethod } from 'vite-plugin-mock'
 import { faker } from '@faker-js/faker'
-import type { IItems, IResources } from '../src/global.js'
 import type { ResponseParams } from './mock.js'
 
 let id = 0
@@ -9,7 +8,7 @@ const createId = () => {
   return id
 }
 
-const create = (attrs: Partial<IItems>): IItems => {
+const create = (attrs?: Partial<IItems>): IItems => {
   return {
     id: createId(),
     user_id: 1,

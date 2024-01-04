@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { animated, useSpring } from '@react-spring/web'
-import { CurrentUser } from './TopMenu/currentUser'
+import { CurrentUser } from './TopMenu/CurrentUser'
 import { MenuList } from './TopMenu/MenuList'
 
 interface Props {

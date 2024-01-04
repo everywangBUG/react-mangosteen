@@ -1,5 +1,3 @@
-import type { JSONValue } from '../global.d.ts'
-
 interface Data {
   [k: string]: JSONValue
 }
