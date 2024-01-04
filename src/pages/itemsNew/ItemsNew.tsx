@@ -1,26 +1,23 @@
+import { useState } from 'react'
 import { Gradient } from '../../components/Gradient'
 import { TopNav } from '../../components/TopNav'
 import { Icon } from '../../components/Icon'
 import { Tabs } from '../../components/Tabs'
 
-type ExpendIncome = 'expend' | 'income'
+export type ExpendIncome = 'expenses' | 'income'
 
-const itemsNew: { key: ExpendIncome; value: string }[] = [
-  { key: 'expend', value: '支出' },
+const itemsNewArr: { key: ExpendIncome; value: string }[] = [
+  { key: 'expenses', value: '支出' },
   { key: 'income', value: '收入' }
 ]
 
-interface Props {
-  selected: ExpendIncome
-  onSelect: (selected: ExpendIncome) => void
-}
-
-export const ItemsNew: React.FC<Props> = ({ selected, onSelect }) => {
+export const ItemsNew: React.FC = () => {
+  const [tabItem, setTabItem] = useState<ExpendIncome>('expenses')
   return (
     <>
       <Gradient>
         <TopNav title='记一笔' icon={<Icon name="back" className="w-24px h-24px" />} />
-        <Tabs tabItems={itemsNew} selected={selected} onChange={onSelect} />
+        <Tabs tabItems={itemsNewArr} selected={tabItem} onChange={(item) => setTabItem(item) } className='children-flex-1 text-center'/>
       </Gradient>
     </>
   )
