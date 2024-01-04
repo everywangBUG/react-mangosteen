@@ -40,8 +40,8 @@ export const Items: React.FC = () => {
     <div>
       <Gradient>
         <TopNav title='橙子记账' icon={<Icon name='menu' className="w-24px h-24px" onClick={() => { setVisible(!visible) }}/>}/>
-        <TopTimeBar selected={timeRange} onSelect={setTimeTange}/>
       </Gradient>
+      <TopTimeBar selected={timeRange} onSelect={setTimeTange}/>
       <CountItems />
       <CountDetailList items={items} />
       { <TopMenu visible={visible} onClickMask={() => { setVisible(false) }}/> }
