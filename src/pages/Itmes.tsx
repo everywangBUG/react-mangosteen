@@ -40,7 +40,7 @@ export const Items: React.FC = () => {
     <div>
       <Gradient>
         <TopNav title='橙子记账' icon={<Icon name='menu' className="w-24px h-24px" onClick={() => { setVisible(!visible) }}/>}/>
-        <TopTimeBar selected={timeRange} onSelected={setTimeTange}/>
+        <TopTimeBar selected={timeRange} onSelect={setTimeTange}/>
       </Gradient>
       <CountItems />
       <CountDetailList items={items} />

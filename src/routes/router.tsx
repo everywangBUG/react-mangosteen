@@ -4,6 +4,7 @@ import { Home } from '../pages/Home'
 import { App } from '../App'
 import { Items } from '../pages/Itmes'
 import { SignIn } from '../pages/SignIn'
+import { ItemsNew } from '../pages/itemsNew/ItemsNew'
 import { welcomeRoute } from './welcomeRoute'
 
 export const router = createBrowserRouter([
@@ -17,6 +18,7 @@ export const router = createBrowserRouter([
     ]
   },
   { path: '/items', element: <Items /> },
+  { path: '/items/new', element: <ItemsNew /> },
   { path: '/sign_in', element: <SignIn /> },
   { path: '/chart', element: <div>图表</div> },
   { path: '/export', element: <div>不做</div> },
