@@ -1,0 +1,10 @@
+.wrapper {
+    :global {
+        .tabs-menu-item {
+            flex: 1;
+        }
+        .tabs-pane {
+            border: 1px solid red;
+        }
+    }
+}
