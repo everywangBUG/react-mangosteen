@@ -6,11 +6,11 @@ interface Props {
 
 export const Tags: React.FC<Props> = (props) => {
   const { kind } = props
-  const tags = Array.from({ length: 19 })
+  const tags = Array.from({ length: 99 })
 
   return (
     <div>
-      <ol grid grid-cols="[repeat(auto-fit,48px)]" justify-center gap-x-32px gap-y-16px py-16px px-4px>
+      <ol grid grid-cols="[repeat(auto-fit,48px)]" justify-center gap-x-32px gap-y-16px pt-16px pb-32px px-4px>
         <span flex justify-center items-center w-48px h-48px block bg="#EFEFEFEF" rounded='50%' text="#8F4CD7"><Icon name="add" className="h-24px w-24px" /></span>
         {tags.map((tag, index) => (
           <li key={index} w-48px flex flex-col justify-center items-center gap-y-8px>
