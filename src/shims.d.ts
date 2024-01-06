@@ -2,6 +2,7 @@ import type { AttributifyAttributes } from 'unocss/preset-attributify'
 
 declare module "react" {
   interface HTMLAttributes<T> extends AttributifyAttributes {
+    absolute?: boolean,
     flex?: boolean,
     relative?: boolean
     text?: string
@@ -15,7 +16,8 @@ declare module "react" {
     bottom?: string,
     b?: string,
     'focus:shadow'?: boolean,
-    py?: string
+    py?: string,
+    top?: string
   }
   interface SVGProps<T> extends SVGAttributes<T>, ClassAttributes<T> {
     w?: string,
