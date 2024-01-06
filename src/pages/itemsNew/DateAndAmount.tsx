@@ -1,25 +1,19 @@
-import { useState } from 'react'
 import { Icon } from '../../components/Icon'
-import { Popup } from '../../components/Popup'
+import { usePopup } from '../../hooks/usePopup'
 
 interface Props {
   className: string
 }
 
 export const DateAndAmount: React.FC<Props> = ({ className }) => {
-  const [x, setX] = useState('')
-  const [visible, setVisible] = useState(false)
-
-  const onClickDate = () => {
-    setVisible(!visible)
-  }
+  const { popup, toggle } = usePopup()
 
   return (
     <>
       <div>
         <div>
           <div flex items-center p-16px b-t-1px b-t="#ddd">
-            <span flex items-center gap-x-8px onClick={onClickDate}>
+            <span flex items-center gap-x-8px onClick={toggle}>
               <Icon className="h-24px w-24px" name="calendar" grow-0 shrink-0/>
               <span grow-0 shrink-0 text-14px text="gray">2021-1-10</span>
             </span>
@@ -44,7 +38,7 @@ export const DateAndAmount: React.FC<Props> = ({ className }) => {
           <button style={{ gridArea: '3 / 4 / 5 / 5' }}>提交</button>
         </div>
       </div>
-      <Popup visible={visible} onClickMask={() => setVisible(false)}/>
+      { popup }
     </>
   )
 }
