@@ -8,6 +8,7 @@
     "eslint-disable-next-line": "off",
     "max-statements-per-line": "off",
     "antfu/top-level-function": "off",
-    "@typescript-eslint/consistent-type-definitions": "off"
+    "@typescript-eslint/consistent-type-definitions": "off",
+    "@typescript-eslint/no-use-before-define": "off"
   }
 }
