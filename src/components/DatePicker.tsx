@@ -5,14 +5,29 @@ type Props = {
   start?: Date
   end?: Date
   value?: Date
+  itemHeight?: number
 }
 
 export const DatePicker: React.FC<Props> = (props) => {
-  const { start, end, value } = props
-  console.log('-10年', time().add(-10, 'years').format('yyyy年MM月dd日 HH:mm:ss.fff'))
+  const { start, end, value, itemHeight = 36 } = props
+  const startTime = start ? time(start) : time().add(-10, 'years')
+  const endTime = end ? time(end) : time().add(10, 'years')
+  const valueTime = value ? time(value) : time()
+  if (endTime.timestamp < startTime.timestamp) {
+    throw new Error('end time must be greater than start time')
+  }
+  const yearList = Array.from({ length: endTime.year - startTime.year + 1 }).map((_, index) => startTime.year + index)
+  const index = yearList.indexOf(valueTime.year)
   const [isTouching, setIsTouching] = useState(false)
   const [lastY, setLastY] = useState(-1)
-  const [translateY, setTranslateY] = useState(0)
+  const [translateY, _setTranslateY] = useState(-index * itemHeight)
+  const setTranslateY = (y: number) => {
+    // if (y > 0) { y = 0 }
+    // if (y < -(yearList.length - 1) * itemHeight) { y = -(yearList.length - 1) * itemHeight }
+    y = Math.min(y, 0)
+    y = Math.max(y, -(yearList.length - 1) * itemHeight)
+    _setTranslateY(y)
+  }
 
   return (
     <div
@@ -32,57 +47,22 @@ export const DatePicker: React.FC<Props> = (props) => {
       }
     }}
     onTouchEnd={() => {
-      const remainder = translateY % 36
+      const remainder = translateY % itemHeight
       if (Math.abs(remainder) < 18) {
         setTranslateY(translateY - remainder)
       }
       else {
-        setTranslateY(translateY - remainder + 36 * Math.sign(remainder))
+        setTranslateY(translateY - remainder + itemHeight * Math.sign(remainder))
       }
       setIsTouching(false)
     }}
   >
-    <div b-1 b-red h-36px absolute top="[calc(50%-18px)]" w-full />
-    <div b-1 b-red h-36px absolute top="[calc(50%-18px)]" w-full>
-      <ol flex flex-col children-h-36px text-center children-leading-36px
+    <div b-1 b-red absolute w-full top="50%" style={{ height: itemHeight, transform: `translateY(${-itemHeight / 2})` }} />
+    <div b-1 b-red absolute w-full top="50%" style={{ height: itemHeight, transform: `translateY(${-itemHeight / 2})` }} >
+      <ol flex flex-col text-center children-flex children-items-center children-justify-center
         style={{ transform: `translateY(${translateY}px)` }}
       >
-        <li>2013</li>
-        <li>2014</li>
-        <li>2015</li>
-        <li>2016</li>
-        <li>2017</li>
-        <li>2018</li>
-        <li>2019</li>
-        <li>2020</li>
-        <li>2021</li>
-        <li>2013</li>
-        <li>2014</li>
-        <li>2015</li>
-        <li>2016</li>
-        <li>2017</li>
-        <li>2018</li>
-        <li>2019</li>
-        <li>2020</li>
-        <li>2021</li>
-        <li>2013</li>
-        <li>2014</li>
-        <li>2015</li>
-        <li>2016</li>
-        <li>2017</li>
-        <li>2018</li>
-        <li>2019</li>
-        <li>2020</li>
-        <li>2021</li>
-        <li>2013</li>
-        <li>2014</li>
-        <li>2015</li>
-        <li>2016</li>
-        <li>2017</li>
-        <li>2018</li>
-        <li>2019</li>
-        <li>2020</li>
-        <li>2021</li>
+        {yearList.map(item => <li style={{ height: itemHeight }} key={item}>{item}</li>) }
       </ol>
     </div>
   </div>
