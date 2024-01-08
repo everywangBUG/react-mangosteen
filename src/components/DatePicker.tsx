@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { time } from '../lib/time'
 
 type Props = {
@@ -41,6 +41,10 @@ type ColumnProps = {
 
 export const Column: React.FC<ColumnProps> = (props) => {
   const { itemHeight = 36, className, items, value, onChange } = props
+  useEffect(() => {
+    const index = items.indexOf(value)
+    setTranslateY(-index * itemHeight)
+  }, [value])
   const index = items.indexOf(value)
   const [isTouching, setIsTouching] = useState(false)
   const [lastY, setLastY] = useState(-1)
