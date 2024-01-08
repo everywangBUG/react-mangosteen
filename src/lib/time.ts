@@ -62,6 +62,7 @@ export class Time {
   }
 
   get date() {
+    // 获取date的拷贝
     return new Date(this.#date)
   }
 

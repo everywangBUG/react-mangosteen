@@ -5,11 +5,13 @@ type Props = {
   start?: Date
   end?: Date
   value?: Date
+  onCancel?: () => void
+  onConfirm?: (value: Date) => void
 }
 
 // useRef+forcedate强制更新方案
 export const DatePicker: React.FC<Props> = (props) => {
-  const { start, end, value } = props
+  const { start, end, value, onCancel, onConfirm } = props
   const startTime = start ? time(start) : time().add(-10, 'years')
   const endTime = end ? time(end) : time().add(10, 'year')
   if (endTime.timestamp <= startTime.timestamp) {
@@ -23,10 +25,17 @@ export const DatePicker: React.FC<Props> = (props) => {
   const monthList = Array.from({ length: 12 }).map((_, index) => index + 1)
   const dayList = Array.from({ length: valueTime.current.lastDayOfMonth.day }).map((_, index) => index + 1)
   return (
-    <div flex>
-      <Column className="grow-1" items={yearList} value={valueTime.current.year} onChange={year => { valueTime.current.year = year; update({}) }} />
-      <Column className="grow-1" items={monthList} value={valueTime.current.month} onChange={month => { valueTime.current.month = month; update({}) }} />
-      <Column className="grow-1" items={dayList} value={valueTime.current.day} onChange={day => { valueTime.current.day = day; update({}) }} />
+    <div >
+      <div p-8px flex justify-between border-b-2px b="#f3f3f3" children-p-8px>
+        <span onClick={onCancel}>取消</span>
+        <span>时间选择</span>
+        <span onClick={() => onConfirm?.(valueTime.current.date)}>确定</span>
+      </div>
+      <div flex p-8px>
+        <Column className="grow-1" items={yearList} value={valueTime.current.year} onChange={year => { valueTime.current.year = year; update({}) }} />
+        <Column className="grow-1" items={monthList} value={valueTime.current.month} onChange={month => { valueTime.current.month = month; update({}) }} />
+        <Column className="grow-1" items={dayList} value={valueTime.current.day} onChange={day => { valueTime.current.day = day; update({}) }} />
+      </div>
     </div>
   )
 }

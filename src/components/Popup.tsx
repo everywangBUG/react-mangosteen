@@ -48,7 +48,7 @@ export const Popup: React.FC<Props> = ({ visible, onClickMask, children }) => {
         onClick={() => onClickMask?.()}
       />
       <animated.div
-        fixed bottom-0 left-0 w-full min-h-100px bg-white z="[calc(var(--z-popup))]"
+        fixed bottom-0 left-0 w-full min-h-100px bg-white z="[calc(var(--z-popup))]" rounded-t-12px overflow-hidden
         style={menuStyles}
       >
         {children}
