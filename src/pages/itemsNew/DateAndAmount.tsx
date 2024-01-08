@@ -7,7 +7,9 @@ interface Props {
 }
 
 export const DateAndAmount: React.FC<Props> = ({ className }) => {
-  const { popup, toggle } = usePopup(true, <DatePicker />)
+  const { popup, toggle, closePopup } = usePopup(true,
+    <DatePicker onConfirm={d => console.log(d.toLocaleString())} onCancel={() => closePopup()}/>
+  )
 
   return (
     <>
