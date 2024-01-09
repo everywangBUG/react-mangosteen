@@ -10,7 +10,7 @@ interface Props {
 
 export const DateAndAmount: React.FC<Props> = ({ className }) => {
   const [date, setDate] = useState(new Date())
-  const [output, _setOutput] = useState('0')
+  const [output, _setOutput] = useState('')
   const { popup, toggle, closePopup } = usePopup(false,
     <DatePicker onConfirm={d => { setDate(d); closePopup() }} onCancel={() => closePopup()}/>
   )
@@ -75,7 +75,7 @@ export const DateAndAmount: React.FC<Props> = ({ className }) => {
           <button style={{ gridArea: '4 / 1 / 5 / 3' }} onClick={() => append('0')}>0</button>
           <button style={{ gridArea: '4 / 3 / 5 / 4' }} onClick={() => append('.')}>.</button>
           <button style={{ gridArea: '1 / 4 / 3 / 5' }} onClick={clear}>清空</button>
-          <button style={{ gridArea: '3 / 4 / 5 / 5' }} onClick={() => {}}>提交</button>
+          <button bg="#ff8c09" text-white style={{ gridArea: '3 / 4 / 5 / 5' }} onClick={() => {}}>提交</button>
         </div>
       </div>
       { popup }
