@@ -24,15 +24,20 @@ export const TagsNew: React.FC = () => {
               <span>符号:</span>
               <span text-24px>😃</span>
             </div>
-          <div b-1 b="#ff8e0a" rounded-8px p-8px>
-            <div flex justify-between>
-              {emojis.map(emojis => <span key={emojis.name} onClick={() => setEmojiKind(emojis.name)}>
+          <div b-1 b="#ff8e0a" rounded-8px p-8px h="400px" overflow-auto>
+            <div flex justify-between overflow-auto gap-x-8px text="#999">
+              {emojis.map(emojis => <span whitespace-nowrap
+                className={emojis.name === emojiKind ? 'text-[#ff8e0a]' : ''}
+                key={emojis.name} onClick={() => setEmojiKind(emojis.name)}>
                 {emojis.name}
               </span>)}
             </div>
-            <div>
-              {emojis.map(emojis => <div text-24px key={emojis.name} style={{ display: emojis.name === emojiKind ? '' : 'none' }}>
-                {emojis.chars}
+            <div mt-8px>
+              {emojis.map(emojis => <div key={emojis.name}
+                style={{ display: emojis.name === emojiKind ? '' : 'none' }}
+                grid grid-cols="[repeat(auto-fit,24px)]" grid-rows="[repeat(auto-fit,24px)]" gap-8px justify-center
+              >
+                {emojis.chars.map(char => <span flex justify-center items-center text-24px key={char}>{char}</span>)}
               </div>)}
             </div>
           </div>
