@@ -3,6 +3,7 @@ import type { FormEventHandler } from 'react'
 import { Gradient } from '../components/Gradient'
 import { TopNav } from '../components/TopNav'
 import { Icon } from '../components/Icon'
+import { Input } from '../components/Input'
 import { useSetLoginData } from '../stores/useSetLoginData'
 import { hasError, validate } from '../lib/validate'
 import { ajax } from '../lib/ajax'
@@ -41,10 +42,17 @@ export const SignIn: React.FC = () => {
         <h1 text-32px text="#7878FF" font-bold>山竹记账</h1>
       </div>
       <form j-form onSubmit={onSubmit}>
-        <div>
+        {/* <div>
           <span j-form-label>邮箱地址{error.email?.[0] && <span text-18px text-red>{error.email[0]}</span>}</span>
           <input j-input-text type="text" placeholder='请输入邮箱，然后点击发送验证码' value={data.email} onChange={e => setLoginData({ email: e.target.value })}/>
-        </div>
+        </div> */}
+        <Input
+          label={'邮箱地址'}
+          placeholder={'请输入邮箱，然后点击发送验证码'}
+          value={data.email}
+          onChange={value => setLoginData({ email: value })}
+          error={error.email[0]}
+        />
         <div>
           <span j-form-label>验证码{error.code?.[0] && <span text-18px text-red>{error.code[0]}</span>}</span>
           <div flex gap-x-16px justify-between>
