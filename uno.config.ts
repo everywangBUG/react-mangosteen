@@ -12,7 +12,7 @@ export default defineConfig({
   shortcuts: {
     'j-btn': 'h-48px bg-#5926b9 text-white rounded-8px text-18px w-full',
     'j-input-text': 'h-48px px-16px leading-32px py-8px b-#5C33BE b-1 focus:shadow focus:shadow-inset rounded-8px text-18px',
-    'j-form': 'px-16px flex flex-col gap-y-24px children-flex children-flex-col',
+    'j-form': 'px-16px flex flex-col gap-y-8px children-flex children-flex-col',
     'j-form-label': 'text-18px mb-8px',
   },
   safelist: [],

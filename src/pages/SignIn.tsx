@@ -42,10 +42,6 @@ export const SignIn: React.FC = () => {
         <h1 text-32px text="#7878FF" font-bold>山竹记账</h1>
       </div>
       <form j-form onSubmit={onSubmit}>
-        {/* <div>
-          <span j-form-label>邮箱地址{error.email?.[0] && <span text-18px text-red>{error.email[0]}</span>}</span>
-          <input j-input-text type="text" placeholder='请输入邮箱，然后点击发送验证码' value={data.email} onChange={e => setLoginData({ email: e.target.value })}/>
-        </div> */}
         <Input
           label={'邮箱地址'}
           placeholder={'请输入邮箱，然后点击发送验证码'}
@@ -54,11 +50,7 @@ export const SignIn: React.FC = () => {
           error={error.email[0]}
         />
         <div>
-          <span j-form-label>验证码{error.code?.[0] && <span text-18px text-red>{error.code[0]}</span>}</span>
-          <div flex gap-x-16px justify-between>
-            <input j-input-text type="text" max-w="[calc(40%-8px)]" placeholder='六位数字' value={data.code} onChange={e => setLoginData({ code: e.target.value })}/>
-            <button j-btn max-w="[calc(60%-8px)]">发送验证码</button>
-          </div>
+          <Input type='sms_code' label={'验证码'} placeholder={'六位数字'} value={data.code} onChange={value => setLoginData({ code: value })} error={error.code?.[0]} />
         </div>
         <div mt-100px>
           <button j-btn type="submit">登录</button>
