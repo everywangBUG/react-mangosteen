@@ -35,22 +35,29 @@ export const SignIn: React.FC = () => {
   return (
     <>
       <Gradient>
-        <TopNav title='登录' icon={<Icon name="back" className="w-24px h-24px" onClick={onHandleBack}/>} />
+        <TopNav title='登录' icon={<Icon name="back" className="w-24px h-24px" onClick={onHandleBack} />} />
       </Gradient>
       <div text-center pt-40px pb-16px>
         <Icon name="logo" className='w-64px h-68px' />
-        <h1 text-32px text="#7878FF" font-bold>山竹记账</h1>
+        <h1 text-32px text="#7878FF" font-bold>橙子记账</h1>
       </div>
       <form j-form onSubmit={onSubmit}>
         <Input
           label={'邮箱地址'}
           placeholder={'请输入邮箱，然后点击发送验证码'}
           value={data.email}
-          onChange={value => setLoginData({ email: value })}
+          onChange={email => setLoginData({ email })}
           error={error.email[0]}
         />
         <div>
-          <Input type='sms_code' label={'验证码'} placeholder={'六位数字'} value={data.code} onChange={value => setLoginData({ code: value })} error={error.code?.[0]} />
+          <Input
+            type='sms_code'
+            label={'验证码'}
+            placeholder={'六位数字'}
+            value={data.code}
+            onChange={code => setLoginData({ code })}
+            error={error.code?.[0]}
+          />
         </div>
         <div mt-100px>
           <button j-btn type="submit">登录</button>

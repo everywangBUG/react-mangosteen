@@ -34,3 +34,14 @@ interface IItems {
 }
 
 type ExpendIncome = 'expenses' | 'income'
+
+interface Tag {
+  id: number
+  sign: string
+  deleted_at: string
+  created_at: string
+  updated_at: string
+  user_id: number
+  name: string
+  kind: 'expenses' | 'incomes'
+}
