@@ -6,6 +6,7 @@ import { TopTimeBar } from '../components/TopTimeBar'
 import type { TimeRange } from '../components/TopTimeBar'
 import { useMenuVisible } from '../stores/useMenuVisible'
 import { Gradient } from '../components/Gradient'
+import { AddButton } from '../components/AddButton'
 import { CountItems } from './items/CountItems'
 import { CountDetailList } from './items/CountDetailList'
 
@@ -21,6 +22,7 @@ export const Items: React.FC = () => {
       <TopTimeBar selected={timeRange} onSelect={setTimeTange}/>
       <CountItems />
       <CountDetailList />
+      <AddButton />
       { <TopMenu visible={visible} onClickMask={() => { setVisible(false) }}/> }
     </div>
   )
