@@ -6,6 +6,7 @@ import { Gradient } from '../components/Gradient'
 import type { TimeRange } from '../components/TopTimeBar'
 import { LineChart } from '../components/LineChart'
 import { PieChart } from '../components/PieChart'
+import { RankChart } from '../components/RankChart'
 
 export const Statistics: React.FC = () => {
   const [timeRange, setTimeTange] = useState<TimeRange>('thisMonth')
@@ -22,10 +23,10 @@ export const Statistics: React.FC = () => {
 
   const items2 = [
     { tag: '餐饮', value: 10000 },
-    { tag: '购物', value: 20000 },
     { tag: '交通', value: 15000 },
-    { tag: '娱乐', value: 30000 },
+    { tag: '购物', value: 20000 },
     { tag: '旅行', value: 25000 },
+    { tag: '娱乐', value: 30000 },
   ].map(it => ({ x: it.tag, y: it.value / 100 }))
 
   return (
@@ -35,7 +36,8 @@ export const Statistics: React.FC = () => {
       </Gradient>
       <TopTimeBar selected={timeRange} onSelect={setTimeTange} />
       <LineChart className="h-120px" items={items1} />
-      <PieChart className="h-400px mt-10" items={items2}/>
+      <PieChart className="h-400px mt-10" items={items2} />
+      <RankChart className="h-100px mt-10" />
     </div>
   )
 }
