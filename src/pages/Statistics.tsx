@@ -12,8 +12,12 @@ export const Statistics: React.FC = () => {
     { date: '2022-01-01', value: 10000 },
     { date: '2022-01-02', value: 20000 },
     { date: '2022-01-03', value: 15000 },
+    { date: '2022-01-04', value: 30000 },
+    { date: '2022-01-05', value: 25000 },
+    { date: '2022-01-06', value: 18000 },
+    { date: '2022-01-07', value: 22000 },
     { date: '2022-01-29', value: 18000 },
-  ].map(it => ({ x: it.date, y: it.value }))
+  ].map(it => ({ x: it.date, y: it.value / 100 }))
 
   return (
     <div>
@@ -21,7 +25,7 @@ export const Statistics: React.FC = () => {
         <TopNav title='账目列表' icon={<Icon name='back' />} />
       </Gradient>
       <TopTimeBar selected={timeRange} onSelect={setTimeTange} />
-      <LineChart className="h-400px" items={items} />
+      <LineChart className="h-120px" items={items} />
     </div>
   )
 }

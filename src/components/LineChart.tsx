@@ -16,17 +16,40 @@ export const LineChart: React.FC<Props> = (props) => {
     const myChart = echarts.init(div.current)
 
     const option = {
+      tooltip: {
+        trigger: 'axis',
+        formatter: ([{ axisValue, data }]: any) => {
+          const parts = axisValue.split('-')
+          const label = `${parts[0]}年${parts[1]}月${parts[2]}日`
+          const value = data === null ? '无数据' : `${data} 元`
+          return `${label}<br/><div style="text-align: right;">${value}</div>`
+        }
+      },
+      grid: {
+        left: 16,
+        right: 16,
+        top: 8,
+        bottom: 20
+      },
       xAxis: {
         type: 'category',
-        data: xItems
+        data: xItems,
+        axisLabel: {
+          formatter: (value: string) => {
+            return value.slice(value.indexOf('-') + 1)
+          }
+        },
       },
       yAxis: {
-        type: 'value'
+        type: 'value',
+        axisLabel: {
+          show: false
+        }
       },
       series: [
         {
           data: yItems,
-          type: 'line'
+          type: 'line',
         }
       ]
     }
