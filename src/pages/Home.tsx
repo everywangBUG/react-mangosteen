@@ -13,22 +13,10 @@ interface IProps {
 export const Home: React.FC<IProps> = (props) => {
   useTitle(props.title)
   const { data: meData, error: meError } = useSWR('/api/v1/me', async path =>
-    (await ajax.get<IResource<IUser>>(path,
-      {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem('jwt')}`
-        }
-      }
-    )).data.resource
+    (await ajax.get<IResource<IUser>>(path)).data.resource
   )
   const { data: itemsData, error: itemsError } = useSWR(meData ? '/api/v1/items' : null, async path =>
-    (await ajax.get<IResources<IItems>>(path,
-      {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem('jwt')}`
-        }
-      }
-    )).data
+    (await ajax.get<IResources<IItems>>(path)).data
   )
   const isLoadingMe = !meData && !meError
   const isLoadingItems = meData && !itemsData && !itemsError
