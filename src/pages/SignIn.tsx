@@ -28,7 +28,7 @@ export const SignIn: React.FC = () => {
     ])
     setLoginError(errorData)
     if (!hasError(errorData)) {
-      const response = await ajax.post<{ jwt: string }>('/api/v1/api/session', data)
+      const response = await ajax.post<{ session: string }>('/api/v1/api/session', data)
       const jwt = response.data.session
       localStorage.setItem('jwt', jwt)
       navigator('/home')
