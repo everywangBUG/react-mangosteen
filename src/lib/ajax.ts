@@ -15,8 +15,8 @@ axios.interceptors.request.use((config: AxiosRequestConfig<any>) => {
 })
 
 export const ajax = {
-  get: <T>(path: string) => {
-    return axios.get<T>(path)
+  get: <T>(path: string, config?: AxiosRequestConfig<any>) => {
+    return axios.get<T>(path, config)
   },
   post: <T>(path: string, data: JSONValue) => {
     return axios.post<T>(path, data)
