@@ -1,6 +1,5 @@
 import useSWRInfinite from 'swr/infinite'
 import { ajax } from '../../lib/ajax'
-import { AddButton } from '../../components/AddButton'
 
 const getKey = (pageIndex: number, pre: IResources<IItems>) => {
   // 发送请求的所有count
@@ -69,7 +68,6 @@ export const CountDetailList: React.FC = () => {
           !hasMore ? <div>没有更多了</div> : (isLoading ? <span>加载中...</span> : <button j-btn onClick={onLoadMore}>加载更多</button>)
         }
       </div>
-      <AddButton />
     </>
   }
 }
