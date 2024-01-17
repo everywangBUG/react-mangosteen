@@ -27,6 +27,5 @@ export const Statistics: React.FC = () => {
       <TopTimeBar selected={timeRange} onSelect={setTimeTange} />
       <LineChart className="h-120px" items={items} />
     </div>
-    <div>尝试git revert</div>
   )
 }

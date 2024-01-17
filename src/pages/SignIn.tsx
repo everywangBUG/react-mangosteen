@@ -17,7 +17,7 @@ export const SignIn: React.FC = () => {
     navigator('/items')
   }
 
-  const onSubmit: FormEventHandler<HTMLFormElement> = (e) => {
+  const onSubmit: FormEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault()
     // 两种方式存储登录的邮箱和验证码数据，useState和zustand，第一种刷新过后充重置表单问题，第二种可以解决第一种的问题
     const errorData = validate(data, [
@@ -28,7 +28,10 @@ export const SignIn: React.FC = () => {
     ])
     setLoginError(errorData)
     if (!hasError(errorData)) {
-      ajax.post('/api/v1/api/session', data)
+      const response = await ajax.post<{ jwt: string }>('/api/v1/api/session', data)
+      const jwt = response.data.session
+      localStorage.setItem('jwt', jwt)
+      navigator('/home')
     }
   }
 
@@ -47,7 +50,7 @@ export const SignIn: React.FC = () => {
           placeholder={'请输入邮箱，然后点击发送验证码'}
           value={data.email}
           onChange={email => setLoginData({ email })}
-          error={error.email[0]}
+          error={error.email?.[0]}
         />
         <div>
           <Input
