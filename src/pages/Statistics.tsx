@@ -20,13 +20,15 @@ export const Statistics: React.FC = () => {
   ].map(it => ({ x: it.date, y: it.value / 100 }))
 
   return (
-    <div>
-      <Gradient>
-        <TopNav title='账目列表' icon={<Icon name='back' />} />
-      </Gradient>
-      <TopTimeBar selected={timeRange} onSelect={setTimeTange} />
-      <LineChart className="h-120px" items={items} />
-    </div>
-    <div>尝试git revert</div>
+    <>
+      <div>
+        <Gradient>
+          <TopNav title='账目列表' icon={<Icon name='back' />} />
+        </Gradient>
+        <TopTimeBar selected={timeRange} onSelect={setTimeTange} />
+        <LineChart className="h-120px" items={items} />
+      </div>
+      <div>尝试git revert</div>
+    </>
   )
 }
