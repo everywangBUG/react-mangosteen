@@ -47,7 +47,7 @@ export const SignIn: React.FC = () => {
           placeholder={'请输入邮箱，然后点击发送验证码'}
           value={data.email}
           onChange={email => setLoginData({ email })}
-          error={error.email[0]}
+          error={error.email?.[0]}
         />
         <div>
           <Input
