@@ -7,6 +7,7 @@ import type { TimeRange } from '../components/TopTimeBar'
 import { LineChart } from '../components/LineChart'
 import { PieChart } from '../components/PieChart'
 import { RankChart } from '../components/RankChart'
+import { Input } from '../components/Input'
 
 export const Statistics: React.FC = () => {
   const [timeRange, setTimeTange] = useState<TimeRange>('thisMonth')
@@ -41,6 +42,7 @@ export const Statistics: React.FC = () => {
       <Gradient>
         <TopNav title='账目列表' icon={<Icon name='back' />} />
       </Gradient>
+      <Input type='select' options={[{ value: '19', text: '红色' }, { value: '支出', text: '白色' }]} value='expenses' />
       <TopTimeBar selected={timeRange} onSelect={setTimeTange} />
       <LineChart className="h-120px mt-10" items={items1} />
       <PieChart className="h-400px mt-10" items={items2} />

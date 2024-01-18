@@ -9,7 +9,6 @@ export const RankChart: React.FC<Props> = (props) => {
   const { className, items } = props
   const total = items?.reduce((acc, it) => acc + it.value, 0) ?? 0
   const max = items?.reduce((prev, it) => Math.max(prev, it.value), 0) ?? 0
-  const size = items.length ?? 0
   return (
     <div className={className}>
       {
