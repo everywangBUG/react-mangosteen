@@ -26,7 +26,7 @@ export const PieChart: React.FC<Props> = (props) => {
       series: [
         {
           type: 'pie',
-          radius: [20, 140],
+          radius: [20, 100],
           roseType: 'area',
           itemStyle: {
             borderRadius: 5
