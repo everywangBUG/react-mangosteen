@@ -42,7 +42,7 @@ export const Statistics: React.FC = () => {
         <TopNav title='账目列表' icon={<Icon name='back' />} />
       </Gradient>
       <TopTimeBar selected={timeRange} onSelect={setTimeTange} />
-      <LineChart className="h-120px mt-10" items={items1} />
+      <LineChart className="h-120px" items={items1} />
       <PieChart className="h-400px mt-10" items={items2} />
       <RankChart className="h-100px mt-10" items={items3} />
     </div>
