@@ -29,6 +29,13 @@ export const Statistics: React.FC = () => {
     { tag: '娱乐', value: 30000 },
   ].map(it => ({ x: it.tag, y: it.value / 100 }))
 
+  const items3 = [
+    { tag: { name: '餐饮', sign: '🍈' }, amount: 10000 },
+    { tag: { name: '交通', sign: '🚗' }, amount: 15000 },
+    { tag: { name: '购物', sign: '🛍' }, amount: 20000 },
+    { tag: { name: '旅行', sign: '🚂' }, amount: 25000 },
+  ].map(it => ({ name: it.tag.name, value: it.amount / 100, icon: it.tag.sign }))
+
   return (
     <div>
       <Gradient>
@@ -37,7 +44,7 @@ export const Statistics: React.FC = () => {
       <TopTimeBar selected={timeRange} onSelect={setTimeTange} />
       <LineChart className="h-120px" items={items1} />
       <PieChart className="h-400px mt-10" items={items2} />
-      <RankChart className="h-100px mt-10" />
+      <RankChart className="h-100px mt-10" items={items3} />
     </div>
   )
 }
