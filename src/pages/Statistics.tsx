@@ -42,8 +42,13 @@ export const Statistics: React.FC = () => {
       <Gradient>
         <TopNav title='账目列表' icon={<Icon name='back' />} />
       </Gradient>
-      <Input type='select' options={[{ value: '19', text: '红色' }, { value: '支出', text: '白色' }]} value='expenses' />
       <TopTimeBar selected={timeRange} onSelect={setTimeTange} />
+      <div flex items-center px-16px gap-x-16px p-16px>
+        <span grow-0 shrink-0 text->类型</span>
+        <div grow-1 shrink-1>
+          <Input type='select' options={[{ value: '19', text: '红色' }, { value: '支出', text: '白色' }]} value='expenses' disableError={true} />
+        </div>
+      </div>
       <LineChart className="h-120px mt-10" items={items1} />
       <PieChart className="h-400px mt-10" items={items2} />
       <RankChart className="h-100px mt-10" items={items3} />

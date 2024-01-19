@@ -7,6 +7,7 @@ type Props = {
   value?: string
   placeholder?: string
   onChange?: (value: string) => void
+  disableError: boolean
 } & (
   | { type: 'text' }
   | { type: 'emoji' }
@@ -15,7 +16,7 @@ type Props = {
 )
 
 export const Input: React.FC<Props> = (props) => {
-  const { label, placeholder, value, onChange, type, error } = props
+  const { label, placeholder, value, onChange, type, error, disableError } = props
 
   const renderInput = () => {
     switch (props.type) {
@@ -33,7 +34,7 @@ export const Input: React.FC<Props> = (props) => {
           <button j-btn max-w="[calc(60%-8px)]">发送验证码</button>
         </div>)
       case 'select':
-        return <select j-input-select value={value} onChange={e => onChange?.(e.target.value)}>
+        return <select j-input-select value={value} onChange={e => onChange?.(e.target.value)} className='h-36px'>
           <option value="">请选择</option>
           {
             props.options?.map(option => (
@@ -51,7 +52,7 @@ export const Input: React.FC<Props> = (props) => {
       <div flex flex-col gap-y-8px>
         {label ? <span j-form-label>{label}</span> : null}
         {renderInput()}
-        <span text-red>{error || '　'}</span>
+        { disableError ? null : <span text-red>{error || '　'}</span>}
       </div>
     </>
   )
