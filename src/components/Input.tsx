@@ -34,7 +34,7 @@ export const Input: React.FC<Props> = (props) => {
           <button j-btn max-w="[calc(60%-8px)]">发送验证码</button>
         </div>)
       case 'select':
-        return <select j-input-select value={value} onChange={e => onChange?.(e.target.value)} className='h-36px'>
+        return <select value={value} onChange={e => onChange?.(e.target.value)} className='h-36px'>
           <option value="">请选择</option>
           {
             props.options?.map(option => (

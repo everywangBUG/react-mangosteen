@@ -44,7 +44,7 @@ export const Statistics: React.FC = () => {
       </Gradient>
       <TopTimeBar selected={timeRange} onSelect={setTimeTange} />
       <div flex items-center px-16px gap-x-16px p-16px>
-        <span grow-0 shrink-0 text->类型</span>
+        <span grow-0 shrink-0>类型</span>
         <div grow-1 shrink-1>
           <Input type='select' options={[{ value: '19', text: '红色' }, { value: '支出', text: '白色' }]} value='expenses' disableError={true} />
         </div>
