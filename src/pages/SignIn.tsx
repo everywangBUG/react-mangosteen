@@ -35,19 +35,6 @@ export const SignIn: React.FC = () => {
     }
   }
 
-  const onHandleSendCode = () => {
-    const errorData = validate(data, [
-      { key: 'email', type: 'pattern', regex: /^.+@.+$/, message: '邮箱地址格式不正确' },
-    ])
-    setLoginError(errorData)
-    if (!hasError(errorData)) {
-      console.log('没错')
-    }
-    else {
-      console.log('错了', 'response')
-    }
-  }
-
   return (
     <>
       <Gradient>
@@ -73,7 +60,6 @@ export const SignIn: React.FC = () => {
             value={data.code}
             onChange={code => setLoginData({ code })}
             error={error.code?.[0]}
-            onClick={onHandleSendCode}
           />
         </div>
         <div mt-100px>
