@@ -37,6 +37,7 @@ export const SignIn: React.FC = () => {
 
   const onHandleSendCode = () => {
     const errorData = validate(data, [
+      { key: 'email', type: 'required', message: '邮箱地址不能为空' },
       { key: 'email', type: 'pattern', regex: /^.+@.+$/, message: '邮箱地址格式不正确' },
     ])
     setLoginError(errorData)
