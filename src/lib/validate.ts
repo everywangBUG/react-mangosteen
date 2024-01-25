@@ -1,22 +1,22 @@
 interface Data {
   [k: string]: JSONValue
 }
-  type Rule<T> = {
-    key: keyof T
-    message: string
-  } & (
-    { type: 'required' } |
-    { type: 'chinese' } |
-    { type: 'equalField'; field: keyof T } |
-    { type: 'pattern'; regex: RegExp } |
-    { type: 'notEqual'; value: JSONValue } |
-    { type: 'length'; min?: number; max?: number }
-  )
-  type Rules<T> = Rule<T>[]
+type Rule<T> = {
+  key: keyof T
+  message: string
+} & (
+  { type: 'required' } |
+  { type: 'chinese' } |
+  { type: 'equalField'; field: keyof T } |
+  { type: 'pattern'; regex: RegExp } |
+  { type: 'notEqual'; value: JSONValue } |
+  { type: 'length'; min?: number; max?: number }
+)
+type Rules<T> = Rule<T>[]
 
-  type FormError<T> = {
-    [k in keyof T]?: string[]
-  }
+export type FormError<T> = {
+  [k in keyof T]?: string[]
+}
 export type { Rules, Rule, Data, FormError }
 
 export const validate = <T extends Data>(formData: T, rules: Rules<T>): FormError<T> => {

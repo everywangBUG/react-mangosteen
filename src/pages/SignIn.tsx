@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom'
 import type { FormEventHandler } from 'react'
+import type { AxiosError } from 'axios'
 import { Gradient } from '../components/Gradient'
 import { TopNav } from '../components/TopNav'
 import { Icon } from '../components/Icon'
@@ -7,6 +8,7 @@ import { Input } from '../components/Input'
 import { useSetLoginData } from '../stores/useSetLoginData'
 import { hasError, validate } from '../lib/validate'
 import { ajax } from '../lib/ajax'
+import type { FormError } from '../lib/validate'
 
 export const SignIn: React.FC = () => {
   const navigator = useNavigate()
@@ -15,6 +17,11 @@ export const SignIn: React.FC = () => {
   const onHandleBack = () => {
     // 返回上一页
     navigator('/items')
+  }
+
+  const onSubmitError = (err: AxiosError<FormError<typeof data>>) => {
+    err.response?.data && setLoginError(err.response.data.errors)
+    throw error
   }
 
   const onSubmit: FormEventHandler<HTMLFormElement> = async (e) => {
@@ -28,14 +35,15 @@ export const SignIn: React.FC = () => {
     ])
     setLoginError(errorData)
     if (!hasError(errorData)) {
-      const response = await ajax.post<{ session: string }>('/api/v1/api/session', data)
+      const response = await ajax.post<{ session: string }>('/api/v1/api/sessio1n', data)
+        .catch(onSubmitError)
       const jwt = response.data.session
       localStorage.setItem('jwt', jwt)
       navigator('/home')
     }
   }
 
-  const onHandleSendCode = () => {
+  const onHandleSendCode = async () => {
     const errorData = validate(data, [
       { key: 'email', type: 'required', message: '邮箱地址不能为空' },
       { key: 'email', type: 'pattern', regex: /^.+@.+$/, message: '邮箱地址格式不正确' },
@@ -43,6 +51,10 @@ export const SignIn: React.FC = () => {
     setLoginError(errorData)
     if (!hasError(errorData)) {
       console.log('没错')
+      const response = await ajax.post('http://121.196.236.94:8080/api/v1/validation_codes', {
+        email: data.email
+      })
+      return response
     }
     else {
       console.log('错了', 'response')
@@ -74,7 +86,7 @@ export const SignIn: React.FC = () => {
             value={data.code}
             onChange={code => setLoginData({ code })}
             error={error.code?.[0]}
-            onClick={onHandleSendCode}
+            request={onHandleSendCode}
           />
         </div>
         <div mt-100px>

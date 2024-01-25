@@ -41,8 +41,9 @@ export const SmsCodeInput: React.FC<Props> = (props) => {
   }, [started, count])
 
   const onClick = async () => {
+    console.log('999', request)
     if (!request) { return }
-    await request?.(() => {})
+    await request()
     // 开始倒计时
     setStarted(new Date())
   }

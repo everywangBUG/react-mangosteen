@@ -30,7 +30,7 @@ export const Input: React.FC<Props> = (props) => {
       case 'emoji':
         return <EmojiInput value={value} onChange={value => onChange?.(value)} />
       case 'sms_code':
-        return (<SmsCodeInput value={value} onChange={value => onChange?.(value)} request={props.onClick} />)
+        return (<SmsCodeInput value={value} onChange={value => onChange?.(value)} request={props.request} />)
       case 'select':
         return <select value={value} onChange={e => onChange?.(e.target.value)} className='h-36px'>
           <option value="">请选择</option>
