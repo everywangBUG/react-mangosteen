@@ -11,11 +11,11 @@ type Options = {
 }
 
 export const usePopup = (options: Options) => {
-  const { isShow = false, children, position } = options
+  const { isShow = false, children, position = 'bottom' } = options
   const [visible, setVisible] = useState(isShow)
   // 传送门挂载到root根节点下面防止css继承链断裂
   const popup = ReactDOM.createPortal(
-  <Popup visible={visible} onClickMask={() => setVisible(false)}>
+  <Popup visible={visible} onClickMask={() => setVisible(false)} position={position}>
     {children}
   </Popup>, rootDiv)
   return {

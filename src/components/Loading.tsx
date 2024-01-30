@@ -5,7 +5,7 @@ import { Icon } from './Icon'
 const Div = styled.div`
   svg {
     text-color: #5926b9;
-    animation: svg 4s infinite;
+    animation: svg 2s infinite;
   }
 
   @keyframes svg {

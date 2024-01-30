@@ -18,6 +18,7 @@ declare module "react" {
     'focus:shadow'?: boolean,
     py?: string,
     top?: string
+    translate?: string
   }
   interface SVGProps<T> extends SVGAttributes<T>, ClassAttributes<T> {
     w?: string,

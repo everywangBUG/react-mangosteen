@@ -4,15 +4,18 @@ import type { AxiosError } from 'axios'
 import { Gradient } from '../components/Gradient'
 import { TopNav } from '../components/TopNav'
 import { Icon } from '../components/Icon'
+import { Loading } from '../components/Loading'
 import { Input } from '../components/Input'
 import { useSetLoginData } from '../stores/useSetLoginData'
 import { hasError, validate } from '../lib/validate'
 import { ajax } from '../lib/ajax'
 import type { FormError } from '../lib/validate'
+import { usePopup } from '../hooks/usePopup'
 
 export const SignIn: React.FC = () => {
   const navigator = useNavigate()
   const { data, error, setLoginData, setLoginError } = useSetLoginData()
+  const { popup, openPopup, closePopup } = usePopup({ children: <div><Loading className="p-16px" message="加载中"/></div>, position: 'center' })
 
   const onHandleBack = () => {
     // 返回上一页
@@ -49,16 +52,12 @@ export const SignIn: React.FC = () => {
       { key: 'email', type: 'pattern', regex: /^.+@.+$/, message: '邮箱地址格式不正确' },
     ])
     setLoginError(errorData)
-    if (!hasError(errorData)) {
-      console.log('没错')
-      const response = await ajax.post('http://121.196.236.94:8080/api/v1/validation_codes', {
-        email: data.email
-      })
-      return response
-    }
-    else {
-      console.log('错了', 'response')
-    }
+    if (hasError(errorData)) { throw new Error('验证码发送失败') }
+    openPopup()
+    const response = await ajax.post('http://121.196.236.94:8080/api/v1/validation_codes', {
+      email: data.email
+    }).finally(() => closePopup())
+    return response
   }
 
   return (
@@ -93,6 +92,7 @@ export const SignIn: React.FC = () => {
           <button j-btn type="submit">登录</button>
         </div>
       </form>
+      { popup }
     </>
   )
 }
