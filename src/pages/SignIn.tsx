@@ -1,21 +1,20 @@
 import { useNavigate } from 'react-router-dom'
+import { useContext } from 'react'
 import type { FormEventHandler } from 'react'
 import type { AxiosError } from 'axios'
 import { Gradient } from '../components/Gradient'
 import { TopNav } from '../components/TopNav'
 import { Icon } from '../components/Icon'
-import { Loading } from '../components/Loading'
 import { Input } from '../components/Input'
 import { useSetLoginData } from '../stores/useSetLoginData'
 import { hasError, validate } from '../lib/validate'
 import { ajax } from '../lib/ajax'
 import type { FormError } from '../lib/validate'
-import { usePopup } from '../hooks/usePopup'
+import { LoadingContext } from '../App'
 
 export const SignIn: React.FC = () => {
   const navigator = useNavigate()
   const { data, error, setLoginData, setLoginError } = useSetLoginData()
-  const { popup, openPopup, closePopup } = usePopup({ children: <div><Loading className="p-16px" message="加载中"/></div>, position: 'center' })
 
   const onHandleBack = () => {
     // 返回上一页
@@ -46,6 +45,7 @@ export const SignIn: React.FC = () => {
     }
   }
 
+  const { show, hide } = useContext(LoadingContext)
   const onHandleSendCode = async () => {
     const errorData = validate(data, [
       { key: 'email', type: 'required', message: '邮箱地址不能为空' },
@@ -53,10 +53,10 @@ export const SignIn: React.FC = () => {
     ])
     setLoginError(errorData)
     if (hasError(errorData)) { throw new Error('验证码发送失败') }
-    openPopup()
+    show()
     const response = await ajax.post('http://121.196.236.94:8080/api/v1/validation_codes', {
       email: data.email
-    }).finally(() => closePopup())
+    }).finally(() => hide())
     return response
   }
 
@@ -92,7 +92,6 @@ export const SignIn: React.FC = () => {
           <button j-btn type="submit">登录</button>
         </div>
       </form>
-      { popup }
     </>
   )
 }
