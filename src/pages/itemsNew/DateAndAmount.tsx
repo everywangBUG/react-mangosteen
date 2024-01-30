@@ -11,9 +11,9 @@ interface Props {
 export const DateAndAmount: React.FC<Props> = ({ className }) => {
   const [date, setDate] = useState(new Date())
   const [output, _setOutput] = useState('')
-  const { popup, toggle, closePopup } = usePopup(false,
-    <DatePicker onConfirm={d => { setDate(d); closePopup() }} onCancel={() => closePopup()}/>
-  )
+  const { popup, toggle, closePopup } = usePopup({
+    children: <DatePicker onConfirm={d => { setDate(d); closePopup() }} onCancel={() => closePopup()}/>
+  })
 
   const setOutput = (str: string) => {
     if (str.length > 16) { return }

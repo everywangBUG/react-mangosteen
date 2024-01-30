@@ -4,9 +4,16 @@ import { useState } from 'react'
 import { Popup } from '../components/Popup'
 import { rootDiv } from '../main'
 
-export const usePopup = (isShow: boolean, children: ReactNode) => {
+type Options = {
+  isShow?: boolean
+  children: ReactNode
+  position?: 'bottom' | 'center'
+}
+
+export const usePopup = (options: Options) => {
+  const { isShow = false, children, position } = options
   const [visible, setVisible] = useState(isShow)
-  // 挂载到root根节点下面防止css继承链断裂
+  // 传送门挂载到root根节点下面防止css继承链断裂
   const popup = ReactDOM.createPortal(
   <Popup visible={visible} onClickMask={() => setVisible(false)}>
     {children}

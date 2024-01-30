@@ -6,12 +6,13 @@ interface Props {
   visible: boolean
   onClickMask?: () => void
   children?: ReactNode
+  position?: 'bottom' | 'center'
 }
 
 export const Popup: React.FC<Props> = ({ visible, onClickMask, children }) => {
   const [maskVisible, setMaskVisible] = useState(visible)
 
-  const menuStyles = useSpring({
+  const wrapperStyles = useSpring({
     opacity: visible ? 1 : 0,
     transform: visible ? 'translateY(0%)' : 'translateY(100%)',
   })
@@ -49,7 +50,7 @@ export const Popup: React.FC<Props> = ({ visible, onClickMask, children }) => {
       />
       <animated.div
         fixed bottom-0 left-0 w-full min-h-100px bg-white z="[calc(var(--z-popup))]" rounded-t-12px overflow-hidden
-        style={menuStyles}
+        style={wrapperStyles}
       >
         {children}
       </animated.div>
