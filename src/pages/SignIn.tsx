@@ -8,7 +8,7 @@ import { Icon } from '../components/Icon'
 import { Input } from '../components/Input'
 import { useSetLoginData } from '../stores/useSetLoginData'
 import { hasError, validate } from '../lib/validate'
-import { ajax } from '../lib/ajax'
+import { ajax, useAjax } from '../lib/ajax'
 import type { FormError } from '../lib/validate'
 import { LoadingContext } from '../App'
 
@@ -46,6 +46,7 @@ export const SignIn: React.FC = () => {
   }
 
   const { show, hide } = useContext(LoadingContext)
+  const { post } = useAjax({ showLoading: true })
   const onHandleSendCode = async () => {
     const errorData = validate(data, [
       { key: 'email', type: 'required', message: '邮箱地址不能为空' },
@@ -54,7 +55,7 @@ export const SignIn: React.FC = () => {
     setLoginError(errorData)
     if (hasError(errorData)) { throw new Error('验证码发送失败') }
     show()
-    const response = await ajax.post('http://121.196.236.94:8080/api/v1/validation_codes', {
+    const response = await post('http://121.196.236.94:8080/api/v1/validation_codes', {
       email: data.email
     }).finally(() => hide())
     return response
