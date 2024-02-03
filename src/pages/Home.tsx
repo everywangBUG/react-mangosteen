@@ -1,6 +1,6 @@
 import { Navigate } from 'react-router-dom'
 import useSWR from 'swr'
-import { ajax } from '../lib/ajax'
+import { useAjax } from '../lib/ajax'
 import pig from '../assets/images/pig.svg'
 import { useTitle } from '../hooks/useTitle'
 import { Loading } from '../components/Loading'
@@ -12,11 +12,12 @@ interface IProps {
 
 export const Home: React.FC<IProps> = (props) => {
   useTitle(props.title)
+  const { get } = useAjax()
   const { data: meData, error: meError } = useSWR('/api/v1/me', async path =>
-    (await ajax.get<IResource<IUser>>(path)).data.resource
+    (await get<IResource<IUser>>(path)).data.resource
   )
   const { data: itemsData, error: itemsError } = useSWR(meData ? '/api/v1/items' : null, async path =>
-    (await ajax.get<IResources<IItems>>(path)).data
+    (await get<IResources<IItems>>(path)).data
   )
   const isLoadingMe = !meData && !meError
   const isLoadingItems = meData && !itemsData && !itemsError

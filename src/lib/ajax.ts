@@ -16,24 +16,9 @@ axios.interceptors.request.use((config: AxiosRequestConfig<any>) => {
   return config
 })
 
-export const ajax = {
-  get: <T>(path: string, config?: AxiosRequestConfig<any>) => {
-    return axios.get<T>(path, config)
-  },
-  post: <T>(path: string, data: JSONValue) => {
-    return axios.post<T>(path, data)
-  },
-  patch: () => {},
-  delete: () => {}
-}
-
-type Options = {
-  showLoading?: boolean
-}
-
 export const useAjax = (options: Options) => {
   const { show, hide } = useContext(LoadingContext)
-  const showLoading = options.showLoading ?? false
+  const showLoading = options?.showLoading ?? false
 
   const ajax = {
     get: <T>(path: string, config?: AxiosRequestConfig<any>) => {

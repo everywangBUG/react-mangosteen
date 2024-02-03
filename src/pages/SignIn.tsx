@@ -8,7 +8,7 @@ import { Icon } from '../components/Icon'
 import { Input } from '../components/Input'
 import { useSetLoginData } from '../stores/useSetLoginData'
 import { hasError, validate } from '../lib/validate'
-import { ajax, useAjax } from '../lib/ajax'
+import { useAjax } from '../lib/ajax'
 import type { FormError } from '../lib/validate'
 import { LoadingContext } from '../App'
 
@@ -26,6 +26,7 @@ export const SignIn: React.FC = () => {
     throw error
   }
 
+  const { post } = useAjax({ showLoading: true })
   const onSubmit: FormEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault()
     // 两种方式存储登录的邮箱和验证码数据，useState和zustand，第一种刷新过后充重置表单问题，第二种可以解决第一种的问题
@@ -37,7 +38,7 @@ export const SignIn: React.FC = () => {
     ])
     setLoginError(errorData)
     if (!hasError(errorData)) {
-      const response = await ajax.post<{ session: string }>('/api/v1/api/sessio1n', data)
+      const response = await post<{ session: string }>('/api/v1/api/sessio1n', data)
         .catch(onSubmitError)
       const jwt = response.data.session
       localStorage.setItem('jwt', jwt)
@@ -46,7 +47,6 @@ export const SignIn: React.FC = () => {
   }
 
   const { show, hide } = useContext(LoadingContext)
-  const { post } = useAjax({ showLoading: true })
   const onHandleSendCode = async () => {
     const errorData = validate(data, [
       { key: 'email', type: 'required', message: '邮箱地址不能为空' },

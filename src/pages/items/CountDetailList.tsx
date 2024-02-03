@@ -1,5 +1,5 @@
 import useSWRInfinite from 'swr/infinite'
-import { ajax } from '../../lib/ajax'
+import { useAjax } from '../../lib/ajax'
 
 const getKey = (pageIndex: number, pre: IResources<IItems>) => {
   // 发送请求的所有count
@@ -14,8 +14,9 @@ const getKey = (pageIndex: number, pre: IResources<IItems>) => {
 }
 
 export const CountDetailList: React.FC = () => {
+  const { get } = useAjax()
   const { data, error, size, setSize } = useSWRInfinite(
-    getKey, async (path) => (await ajax.get<IResources<IItems>>(path)).data
+    getKey, async (path) => (await get<IResources<IItems>>(path)).data
   )
 
   // 加载更多的时候页码加一
