@@ -12,10 +12,11 @@ interface IProps {
 
 export const Home: React.FC<IProps> = (props) => {
   useTitle(props.title)
-  const { get } = useAjax()
-  const { data: meData, error: meError } = useSWR('/api/v1/me', async path =>
-    (await get<IResource<IUser>>(path)).data.resource
-  )
+  const { get } = useAjax({ handleError: false })
+  const { data: meData, error: meError } = useSWR('/api/v1/me', async path => {
+    const response = await get<IResource<IUser>>(path)
+    return response.data.resource
+  })
   const { data: itemsData, error: itemsError } = useSWR(meData ? '/api/v1/items' : null, async path =>
     (await get<IResources<IItems>>(path)).data
   )
