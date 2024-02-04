@@ -1,13 +1,13 @@
 import { Navigate, useRouteError } from 'react-router-dom'
-import { errors } from '../constants/itemErrors'
+import { ErrorEmptyData, ErrorUnauthorized } from '../constants/itemErrors'
 
 export const ItemsErrors: React.FC = () => {
   const error = useRouteError()
   const e = error as Error
-  if (e.message === errors.UNAUTHORIZED) {
+  if (e instanceof ErrorUnauthorized) {
     return <Navigate to='/sign_in' />
   }
-  else if (e.message === errors.EMPTY_DATA) {
+  else if (e instanceof ErrorEmptyData) {
     return <Navigate to='/home' />
   }
   else {

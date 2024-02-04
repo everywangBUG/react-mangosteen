@@ -11,7 +11,7 @@ import { TagsNew } from '../pages/TagsNew'
 import { TagsEditNew } from '../pages/TagsEditNew'
 import { Statistics } from '../pages/Statistics'
 import { ItemsErrors } from '../pages/itemsError'
-import { errors } from '../constants/itemErrors'
+import { ErrorEmptyData, ErrorUnauthorized } from '../constants/itemErrors'
 import { welcomeRoute } from './welcomeRoute'
 
 export const router = createBrowserRouter([
@@ -31,7 +31,7 @@ export const router = createBrowserRouter([
     loader: async () => {
       const onError = (error: AxiosError) => {
         if (error.response?.status === 401) {
-          throw new Error(errors.UNAUTHORIZED)
+          throw new ErrorUnauthorized()
         }
       }
       const response = await axios.get<IResources<IItems>>('/api/v1/items?page=1').catch(onError)
@@ -39,7 +39,7 @@ export const router = createBrowserRouter([
         return response.data
       }
       else {
-        throw new Error(errors.EMPTY_DATA)
+        throw new ErrorEmptyData()
       }
     }
   },
