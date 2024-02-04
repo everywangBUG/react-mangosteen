@@ -1,4 +1,6 @@
 import { createBrowserRouter } from 'react-router-dom'
+import type { AxiosError } from 'axios'
+import axios from 'axios'
 import { ErrorPage } from '../components/ErrorPage'
 import { Home } from '../pages/Home'
 import { Root } from '../components/Root'
@@ -8,6 +10,8 @@ import { ItemsNew } from '../pages/ItemsNew'
 import { TagsNew } from '../pages/TagsNew'
 import { TagsEditNew } from '../pages/TagsEditNew'
 import { Statistics } from '../pages/Statistics'
+import { ItemsErrors } from '../pages/itemsError'
+import { errors } from '../constants/itemErrors'
 import { welcomeRoute } from './welcomeRoute'
 
 export const router = createBrowserRouter([
@@ -20,7 +24,25 @@ export const router = createBrowserRouter([
       welcomeRoute
     ]
   },
-  { path: '/items', element: <Items /> },
+  {
+    path: '/items',
+    element: <Items />,
+    errorElement: <ItemsErrors />,
+    loader: async () => {
+      const onError = (error: AxiosError) => {
+        if (error.response?.status === 401) {
+          throw new Error(errors.UNAUTHORIZED)
+        }
+      }
+      const response = await axios.get<IResources<IItems>>('/api/v1/items?page=1').catch(onError)
+      if (response.data.resources.length > 0) {
+        return response.data
+      }
+      else {
+        throw new Error(errors.EMPTY_DATA)
+      }
+    }
+  },
   { path: '/items/new', element: <ItemsNew /> },
   { path: '/tags/new', element: <TagsNew /> },
   { path: '/tags/:id', element: <TagsEditNew /> },

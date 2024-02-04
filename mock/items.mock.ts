@@ -46,7 +46,7 @@ export default [
     statusCode: 200,
     timeout: 300,
     response: ({ query }: ResponseParams): IResources<IItems> => {
-      return createResponse({ count: 33, perPage: 10, page: parseInt(query.page) })
+      return createResponse({ count: 40, perPage: 10, page: parseInt(query.page) || 1 })
     }
   },
 ] as MockMethod[]
