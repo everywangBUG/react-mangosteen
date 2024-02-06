@@ -10,7 +10,7 @@ const getKey = (pageIndex: number, pre: IResources<IItems>) => {
       return null
     }
   }
-  return `/api/v1/items/?page=${pageIndex + 1}`
+  return `/api/v1/items?page=${pageIndex + 1}`
 }
 
 export const CountDetailList: React.FC = () => {
@@ -34,8 +34,8 @@ export const CountDetailList: React.FC = () => {
   if (!data) {
     // 第一页加载错误
     return <div px-16px text-center>
-      { error && <span>网络请求错误，请刷新页面</span> }
-      { isLoading && <span>加载中...</span>}
+      {error && <span>网络请求错误，请刷新页面</span>}
+      {isLoading && <span>加载中...</span>}
     </div>
   }
   else {
@@ -56,14 +56,14 @@ export const CountDetailList: React.FC = () => {
               <div row-start-1 col-start-2 row-end-2 col-end-3 flex items-center>旅行</div>
               <div row-start-2 col-start-2 row-end-3 col-end-3 text="#999999" flex items-center>{item.created_at}</div>
               <div row-start-1 col-start-3 row-end-3 col-end-4 flex items-center text="#53A867">
-                { `￥${item.amount}` }
+                {`￥${item.amount}`}
               </div>
             </li>
           )
         })
       }</ol>
       {/* 后面的页面加载错误 */}
-      { error && <span>网络请求错误，请刷新页面</span>}
+      {error && <span>网络请求错误，请刷新页面</span>}
       <div flex justify-center items-center p-16px>
         {
           !hasMore ? <div>没有更多了</div> : (isLoading ? <span>加载中...</span> : <button j-btn onClick={onLoadMore}>加载更多</button>)
