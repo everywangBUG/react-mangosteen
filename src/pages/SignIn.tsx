@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 import type { FormEventHandler } from 'react'
 import type { AxiosError } from 'axios'
 import { Gradient } from '../components/Gradient'
@@ -25,6 +25,7 @@ export const SignIn: React.FC = () => {
   }
 
   const { post } = useAjax({ showLoading: true })
+  const [search] = useSearchParams()
   const onSubmit: FormEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault()
     // 两种方式存储登录的邮箱和验证码数据，useState和zustand，第一种刷新过后有重置表单问题，第二种可以解决第一种的问题
@@ -40,7 +41,9 @@ export const SignIn: React.FC = () => {
         .catch(onSubmitError)
       const jwt = response.data.session
       localStorage.setItem('jwt', jwt)
-      navigator('/home')
+      // 设置哪里跳过去的路由
+      const from = search.get('from') || '/items'
+      navigator(from)
     }
   }
 
