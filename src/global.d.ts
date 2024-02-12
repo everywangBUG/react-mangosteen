@@ -33,7 +33,7 @@ interface IItems {
   kind: 'expenses' | 'incomes'
 }
 
-type ExpendIncome = 'expenses' | 'income'
+type ExpendIncome = 'expenses' | 'incomes'
 
 interface Tag {
   id: number

@@ -1,23 +1,27 @@
 import { create } from 'zustand'
 import type { FormError } from '../lib/validate'
 
-interface CreateTag {
-  data: Partial<Tag>
-  error: FormError<Tag>
-  setData: (data: Partial<Tag>) => void
-  setError: (error: Partial<FormError<Tag>>) => void
+type Data = IItems
+
+type CreateItem = {
+  data: Partial<Data>
+  error: FormError<Data>
+  setData: (data: Partial<Data>) => void
+  setError: (error: Partial<FormError<Data>>) => void
 }
 
-export const useCreateTag = create<CreateTag>((set) => ({
+export const useCreateItems = create<CreateItem>((set) => ({
   data: {
     kind: 'expenses',
-    sign: '😀',
-    name: '',
+    tag_ids: [],
+    happen_at: '',
+    amount: 0
   },
   error: {
     kind: [],
-    sign: [],
-    name: [],
+    tag_ids: [],
+    happen_at: [],
+    amount: []
   },
   setData: (data: Partial<Tag>) => {
     set(state => (
@@ -30,7 +34,7 @@ export const useCreateTag = create<CreateTag>((set) => ({
       }
     ))
   },
-  setError: (error: Partial<FormError<Tag>>) => {
+  setError: (error: Partial<FormError<IItems>>) => {
     set(state => (
       {
         ...state,

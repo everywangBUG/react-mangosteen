@@ -4,6 +4,7 @@ import { Gradient } from '../components/Gradient'
 import { TopNav } from '../components/TopNav'
 import { Icon } from '../components/Icon'
 import { Tabs } from '../components/Tabs'
+import { useCreateItems } from '../stores/useCreateItems'
 import s from './ItemsNew.module.scss'
 import { Tags } from './itemsNew/Tags'
 import { DateAndAmount } from './itemsNew/DateAndAmount'
@@ -15,6 +16,7 @@ const itemsNewArr: { key: ExpendIncome; value: string; element: ReactNode }[] = 
 
 export const ItemsNew: React.FC = () => {
   const [tabItem, setTabItem] = useState<ExpendIncome>('expenses')
+  const { data, error, setData, setError } = useCreateItems()
   return (
     <div className={s.wrapper} h-screen flex flex-col>
       <Gradient className="grow-0 shrink-0">
@@ -22,9 +24,10 @@ export const ItemsNew: React.FC = () => {
       </Gradient>
       <Tabs
         tabItems={itemsNewArr}
-        selected={tabItem}
-        onChange={(tabItem) => setTabItem(tabItem as ExpendIncome) }
-        className='text-center grow-1 shrink-1 overflow-hidden' classPrefix="tabs"
+        selected={data.kind!}
+        onChange={(tabItem) => { setData({ kind: tabItem }) }}
+        className='text-center grow-1 shrink-1 overflow-hidden'
+        classPrefix="tabs"
       />
       <DateAndAmount className="grow-0 shrink-0"/>
     </div>
