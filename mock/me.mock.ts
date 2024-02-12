@@ -5,7 +5,7 @@ export default [
     url: '/api/v1/me',
     method: 'get',
     timeout: 300,
-    // statusCode: 401,
+    statusCode: 401,
     response: (): IResource<IUser> => {
       return {
         resource: {

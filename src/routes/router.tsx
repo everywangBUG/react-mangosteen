@@ -2,7 +2,7 @@ import { preload } from 'swr'
 import { createBrowserRouter } from 'react-router-dom'
 import type { AxiosError } from 'axios'
 import axios from 'axios'
-import { ErrorPage } from '../components/ErrorPage'
+import { ErrorPage } from '../pages/ErrorPage'
 import { Home } from '../pages/Home'
 import { Root } from '../components/Root'
 import { Items } from '../pages/Itmes'
@@ -46,7 +46,15 @@ export const router = createBrowserRouter([
       })
     }
   },
-  { path: '/items/new', element: <ItemsNew /> },
+  {
+    path: '/items/new',
+    element: <ItemsNew />,
+    errorElement: <ErrorPage />,
+    loader: () =>
+      preload('/api/v1/me', (path) =>
+        axios.get<IResource<IUser>>(path).then(r => r.data).catch(() => { throw new ErrorUnauthorized() })
+      )
+  },
   { path: '/tags/new', element: <TagsNew /> },
   { path: '/tags/:id', element: <TagsEditNew /> },
   { path: '/sign_in', element: <SignIn /> },
