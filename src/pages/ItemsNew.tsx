@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import type { ReactNode } from 'react'
 import { Gradient } from '../components/Gradient'
 import { TopNav } from '../components/TopNav'
@@ -9,14 +8,12 @@ import s from './ItemsNew.module.scss'
 import { Tags } from './itemsNew/Tags'
 import { DateAndAmount } from './itemsNew/DateAndAmount'
 
-const itemsNewArr: { key: ExpendIncome; value: string; element: ReactNode }[] = [
-  { key: 'expenses', value: '支出', element: <Tags kind="expenses" /> },
-  { key: 'incomes', value: '收入', element: <Tags kind="incomes" /> }
-]
-
 export const ItemsNew: React.FC = () => {
-  const [tabItem, setTabItem] = useState<ExpendIncome>('expenses')
   const { data, error, setData, setError } = useCreateItems()
+  const itemsNewArr: { key: ExpendIncome; value: string; element: ReactNode }[] = [
+    { key: 'expenses', value: '支出', element: <Tags kind="expenses" value={data.tag_ids} onChange={ (ids) => setData({ tag_ids: ids }) }/> },
+    { key: 'incomes', value: '收入', element: <Tags kind="incomes" value={data.tag_ids} onChange={ (ids) => setData({ tag_ids: ids }) }/> }
+  ]
   return (
     <div className={s.wrapper} h-screen flex flex-col>
       <Gradient className="grow-0 shrink-0">
@@ -29,6 +26,7 @@ export const ItemsNew: React.FC = () => {
         className='text-center grow-1 shrink-1 overflow-hidden'
         classPrefix="tabs"
       />
+      <div>{JSON.stringify(data)}</div>
       <DateAndAmount className="grow-0 shrink-0"/>
     </div>
   )
