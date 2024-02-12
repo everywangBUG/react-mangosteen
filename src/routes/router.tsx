@@ -1,5 +1,5 @@
 import { preload } from 'swr'
-import { createBrowserRouter } from 'react-router-dom'
+import { Outlet, createBrowserRouter } from 'react-router-dom'
 import type { AxiosError } from 'axios'
 import axios from 'axios'
 import { ErrorPage } from '../pages/ErrorPage'
@@ -25,41 +25,45 @@ export const router = createBrowserRouter([
       welcomeRoute
     ]
   },
+  // 需要登录才可见的页面
   {
-    path: '/items',
-    element: <Items />,
-    errorElement: <ItemsErrors />,
-    loader: async () => {
-      const onError = (error: AxiosError) => {
-        if (error.response?.status === 401) {
-          throw new ErrorUnauthorized()
-        }
-      }
-      return preload('/api/v1/items?page=1', async (path) => {
-        const response = await axios.get<IResources<IItems>>(path).catch(onError)
-        if (response.data.resources.length > 0) {
-          return response.data
-        }
-        else {
-          throw new ErrorEmptyData()
-        }
-      })
-    }
-  },
-  {
-    path: '/items/new',
-    element: <ItemsNew />,
+    path: '/',
+    element: <Outlet />,
     errorElement: <ErrorPage />,
     loader: () =>
       preload('/api/v1/me', (path) =>
         axios.get<IResource<IUser>>(path).then(r => r.data).catch(() => { throw new ErrorUnauthorized() })
-      )
+      ),
+    children: [
+      {
+        path: '/items',
+        element: <Items />,
+        errorElement: <ItemsErrors />,
+        loader: async () => {
+          const onError = (error: AxiosError) => {
+            if (error.response?.status === 401) {
+              throw new ErrorUnauthorized()
+            }
+          }
+          return preload('/api/v1/items?page=1', async (path) => {
+            const response = await axios.get<IResources<IItems>>(path).catch(onError)
+            if (response.data.resources.length > 0) {
+              return response.data
+            }
+            else {
+              throw new ErrorEmptyData()
+            }
+          })
+        }
+      },
+      { path: '/items/new', element: <ItemsNew />, },
+      { path: '/tags/new', element: <TagsNew /> },
+      { path: '/tags/:id', element: <TagsEditNew /> },
+      { path: '/statistics', element: <Statistics /> },
+      { path: '/export', element: <div>不做</div> },
+      { path: '/tags', element: <div>标签</div> },
+      { path: '/noty', element: <div>不做</div> },
+    ]
   },
-  { path: '/tags/new', element: <TagsNew /> },
-  { path: '/tags/:id', element: <TagsEditNew /> },
   { path: '/sign_in', element: <SignIn /> },
-  { path: '/statistics', element: <Statistics /> },
-  { path: '/export', element: <div>不做</div> },
-  { path: '/tags', element: <div>标签</div> },
-  { path: '/noty', element: <div>不做</div> },
 ])

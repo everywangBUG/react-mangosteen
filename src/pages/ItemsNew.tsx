@@ -10,7 +10,7 @@ import { DateAndAmount } from './itemsNew/DateAndAmount'
 
 const itemsNewArr: { key: ExpendIncome; value: string; element: ReactNode }[] = [
   { key: 'expenses', value: '支出', element: <Tags kind="expenses" /> },
-  { key: 'income', value: '收入', element: <Tags kind="income" /> }
+  { key: 'incomes', value: '收入', element: <Tags kind="incomes" /> }
 ]
 
 export const ItemsNew: React.FC = () => {
