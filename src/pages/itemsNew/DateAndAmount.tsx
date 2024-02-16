@@ -1,19 +1,13 @@
+import type { ReactNode } from 'react'
 import { useState } from 'react'
-import { DatePicker } from '../../components/DatePicker'
-import { Icon } from '../../components/Icon'
-import { usePopup } from '../../hooks/usePopup'
-import { time } from '../../lib/time'
 
 interface Props {
   className: string
+  itemDate: ReactNode
 }
 
-export const DateAndAmount: React.FC<Props> = ({ className }) => {
-  const [date, setDate] = useState(new Date())
+export const DateAndAmount: React.FC<Props> = ({ className, itemDate }) => {
   const [output, _setOutput] = useState('')
-  const { popup, toggle, closePopup } = usePopup({
-    children: <DatePicker onConfirm={d => { setDate(d); closePopup() }} onCancel={() => closePopup()}/>
-  })
 
   const setOutput = (str: string) => {
     if (str.length > 16) { return }
@@ -52,15 +46,12 @@ export const DateAndAmount: React.FC<Props> = ({ className }) => {
       <div>
         <div>
           <div flex items-center p-16px b-t-1px b-t="#ddd">
-            <span flex items-center gap-x-8px onClick={toggle}>
-              <Icon className="h-24px w-24px" name="calendar" grow-0 shrink-0/>
-              <span grow-0 shrink-0 text-14px text="gray">{ time(date).format() }</span>
-            </span>
+            {itemDate}
             <code flex-1 text-right text="#53A867" text-16px>{output}</code>
           </div>
         </div>
         <div py="0.5px" b="#ddd" children-bg-white bg="#ddd" grid grid-cols="[repeat(4,1fr)]"
-          grid-rows="[repeat(4,48px)]"gap-1px children-text-16px
+          grid-rows="[repeat(4,48px)]" gap-1px children-text-16px
           className={className}
         >
           <button style={{ gridArea: '1 / 1 / 2 / 2' }} onClick={() => append('1')}>1</button>
@@ -75,10 +66,9 @@ export const DateAndAmount: React.FC<Props> = ({ className }) => {
           <button style={{ gridArea: '4 / 1 / 5 / 3' }} onClick={() => append('0')}>0</button>
           <button style={{ gridArea: '4 / 3 / 5 / 4' }} onClick={() => append('.')}>.</button>
           <button style={{ gridArea: '1 / 4 / 3 / 5' }} onClick={clear}>清空</button>
-          <button bg="#ff8c09" text-white style={{ gridArea: '3 / 4 / 5 / 5' }} onClick={() => {}}>提交</button>
+          <button bg="#ff8c09" text-white style={{ gridArea: '3 / 4 / 5 / 5' }} onClick={() => { }}>提交</button>
         </div>
       </div>
-      { popup }
     </>
   )
 }

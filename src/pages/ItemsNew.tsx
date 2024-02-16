@@ -4,6 +4,7 @@ import { TopNav } from '../components/TopNav'
 import { Icon } from '../components/Icon'
 import { Tabs } from '../components/Tabs'
 import { useCreateItems } from '../stores/useCreateItems'
+import { ItemDate } from './itemsNew/ItemDate'
 import s from './ItemsNew.module.scss'
 import { Tags } from './itemsNew/Tags'
 import { DateAndAmount } from './itemsNew/DateAndAmount'
@@ -27,7 +28,7 @@ export const ItemsNew: React.FC = () => {
         classPrefix="tabs"
       />
       <div>{JSON.stringify(data)}</div>
-      <DateAndAmount className="grow-0 shrink-0"/>
+      <DateAndAmount className="grow-0 shrink-0" itemDate={<ItemDate />} />
     </div>
   )
 }
