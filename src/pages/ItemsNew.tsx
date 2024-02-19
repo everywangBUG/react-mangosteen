@@ -7,13 +7,13 @@ import { useCreateItems } from '../stores/useCreateItems'
 import { ItemDate } from './itemsNew/ItemDate'
 import s from './ItemsNew.module.scss'
 import { Tags } from './itemsNew/Tags'
-import { DateAndAmount } from './itemsNew/DateAndAmount'
+import { ItemAmount } from './itemsNew/ItemAmount'
 
 export const ItemsNew: React.FC = () => {
   const { data, error, setData, setError } = useCreateItems()
   const itemsNewArr: { key: ExpendIncome; value: string; element: ReactNode }[] = [
-    { key: 'expenses', value: '支出', element: <Tags kind="expenses" value={data.tag_ids} onChange={ (ids) => setData({ tag_ids: ids }) }/> },
-    { key: 'incomes', value: '收入', element: <Tags kind="incomes" value={data.tag_ids} onChange={ (ids) => setData({ tag_ids: ids }) }/> }
+    { key: 'expenses', value: '支出', element: <Tags kind="expenses" value={data.tag_ids} onChange={(ids) => setData({ tag_ids: ids })} /> },
+    { key: 'incomes', value: '收入', element: <Tags kind="incomes" value={data.tag_ids} onChange={(ids) => setData({ tag_ids: ids })} /> }
   ]
   return (
     <div className={s.wrapper} h-screen flex flex-col>
@@ -28,7 +28,7 @@ export const ItemsNew: React.FC = () => {
         classPrefix="tabs"
       />
       <div>{JSON.stringify(data)}</div>
-      <DateAndAmount className="grow-0 shrink-0" itemDate={<ItemDate />} />
+      <ItemAmount className="grow-0 shrink-0" itemDate={<ItemDate value={data.happen_at} onChange={(d) => setData({ happen_at: d })}/>} />
     </div>
   )
 }

@@ -6,7 +6,7 @@ interface Props {
   itemDate: ReactNode
 }
 
-export const DateAndAmount: React.FC<Props> = ({ className, itemDate }) => {
+export const ItemAmount: React.FC<Props> = ({ className, itemDate }) => {
   const [output, _setOutput] = useState('')
 
   const setOutput = (str: string) => {
