@@ -158,7 +158,7 @@ export class Time {
   }
 
   get toISOString() {
-    // FIXME：获取timezone时区有问题，只能获取郑整数的时区，如 +08:00，不能获取+7:30的非整数时区
+    // FIXME：获取timezone时区有问题，只能获取整数的时区，如 +08:00，不能获取+7:30的非整数时区
     const timezone = Math.round(-this.#date.getTimezoneOffset() / 60)
     const absoluteTimezone = Math.abs(timezone)
     const sign = timezone > 0 ? '+' : '-'
