@@ -10,8 +10,6 @@ type Props = {
 
 export const ItemDate: React.FC<Props> = (props) => {
   const { value, onChange } = props
-  console.log(value, 'value')
-  console.log(time(value), 'value')
   const { popup, toggle, closePopup } = usePopup({
     children: <DatePicker onConfirm={d => { onChange?.(time(d).toISOString); closePopup() }} onCancel={() => closePopup()} />
   })

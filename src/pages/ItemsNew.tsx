@@ -15,8 +15,12 @@ export const ItemsNew: React.FC = () => {
     { key: 'expenses', value: '支出', element: <Tags kind="expenses" value={data.tag_ids} onChange={(ids) => setData({ tag_ids: ids })} /> },
     { key: 'incomes', value: '收入', element: <Tags kind="incomes" value={data.tag_ids} onChange={(ids) => setData({ tag_ids: ids })} /> }
   ]
+  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    console.log('提交')
+  }
   return (
-    <div className={s.wrapper} h-screen flex flex-col>
+    <form className={s.wrapper} h-screen flex flex-col onSubmit={onSubmit}>
       <Gradient className="grow-0 shrink-0">
         <TopNav title='记一笔' icon={<Icon name="back" className="w-24px h-24px" />} />
       </Gradient>
@@ -31,6 +35,6 @@ export const ItemsNew: React.FC = () => {
       <ItemAmount className="grow-0 shrink-0" value={data.amount} onChange={(amount) => setData({ amount })}
         itemDate={<ItemDate value={data.happen_at} onChange={(happen_at) => setData({ happen_at })}/>}
       />
-    </div>
+    </form>
   )
 }
