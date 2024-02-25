@@ -32,6 +32,9 @@ export const useAjax = (options?: Options) => {
     },
     403: () => {
       alert('没有权限')
+    },
+    404: () => {
+      alert('未知的错误')
     }
   }
   const { show, hide } = useContext(LoadingContext)

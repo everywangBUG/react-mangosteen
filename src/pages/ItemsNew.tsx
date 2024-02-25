@@ -4,20 +4,36 @@ import { TopNav } from '../components/TopNav'
 import { Icon } from '../components/Icon'
 import { Tabs } from '../components/Tabs'
 import { useCreateItems } from '../stores/useCreateItems'
+import { hasError, validate } from '../lib/validate'
+import { useAjax } from '../lib/ajax'
 import { ItemDate } from './itemsNew/ItemDate'
 import s from './ItemsNew.module.scss'
 import { Tags } from './itemsNew/Tags'
 import { ItemAmount } from './itemsNew/ItemAmount'
 
 export const ItemsNew: React.FC = () => {
+  const { post } = useAjax({ showLoading: true, handleError: true })
   const { data, error, setData, setError } = useCreateItems()
   const itemsNewArr: { key: ExpendIncome; value: string; element: ReactNode }[] = [
     { key: 'expenses', value: '支出', element: <Tags kind="expenses" value={data.tag_ids} onChange={(ids) => setData({ tag_ids: ids })} /> },
     { key: 'incomes', value: '收入', element: <Tags kind="incomes" value={data.tag_ids} onChange={(ids) => setData({ tag_ids: ids })} /> }
   ]
-  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    console.log('提交')
+    const error = validate(data, [
+      { key: 'kind', type: 'required', message: '请选择类型' },
+      { key: 'tag_ids', type: 'required', message: '请选择一个标签' },
+      { key: 'happen_at', type: 'required', message: '请选择一个时间' },
+      { key: 'amount', type: 'notEqual', value: 0, message: '金额不能为0' },
+    ])
+    setError(error)
+    if (hasError(error)) {
+      const errorMessage = Object.values(error).flat().join('\n')
+      window.alert(errorMessage)
+    } else {
+      const response = await post<IResources<IItems>>('/api/v1/items', data)
+      consoel.log(response.data.resources)
+    }
   }
   return (
     <form className={s.wrapper} h-screen flex flex-col onSubmit={onSubmit}>
