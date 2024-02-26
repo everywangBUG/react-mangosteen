@@ -38,7 +38,7 @@ type ExpendIncome = 'expenses' | 'incomes'
 interface Tag {
   id: number
   sign: string
-  deleted_at: string
+  deleted_at: string | null
   created_at: string
   updated_at: string
   user_id: number

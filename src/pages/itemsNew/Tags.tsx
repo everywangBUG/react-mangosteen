@@ -1,5 +1,8 @@
 import { Link } from 'react-router-dom'
+import useSWR from 'swr'
 import { Icon } from '../../components/Icon'
+import { useTagsStore } from '../../stores/useTag'
+import { useAjax } from '../../lib/ajax'
 
 // 使用IItems['kind]这种形式的引用值，可以在global.ts中改动了类型的时候能及时通知此处
 interface Props {
@@ -10,11 +13,15 @@ interface Props {
 
 export const Tags: React.FC<Props> = (props) => {
   const { kind } = props
-  const tags = Array.from({ length: 99 }).map((tag, index) => ({
-    sign: '😁',
-    name: `打车${index}`,
-    id: index
-  }))
+
+  const { list: tags, setList } = useTagsStore()
+  const { get } = useAjax({ showLoading: true, handleError: true })
+  useSWR('/api/v1/tags', async (path) => {
+    const response = await get<IResources<Tag>>(path)
+    console.log(response.data.resources, 'placeholder')
+    setList(response.data.resources)
+  }
+  )
 
   return (
     <div>

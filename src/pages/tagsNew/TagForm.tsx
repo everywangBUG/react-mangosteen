@@ -60,8 +60,8 @@ export const TagForm: React.FC<Props> = (props) => {
       <Input
         type='emoji'
         label={<span>图标：<span text-24px>{data.sign}</span></span>}
-        value={data.sign}
         error={error.sign?.[0]}
+        value={data.sign}
         onChange={sign => setData({ sign })}
       />
       <p text-center mb-16px>记账的时候长按即可，可以编辑</p>
