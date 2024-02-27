@@ -27,7 +27,3 @@ export const tagsMock: MockMethod = {
     }
   }
 }
-
-export default [
-  tagsMock,
-]
