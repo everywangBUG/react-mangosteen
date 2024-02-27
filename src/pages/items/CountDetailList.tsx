@@ -16,7 +16,7 @@ const getKey = (pageIndex: number, pre: IResources<IItems>) => {
 export const CountDetailList: React.FC = () => {
   const { get } = useAjax()
   const { data, error, size, setSize } = useSWRInfinite(
-    getKey, async (path) => (await get<IResources<IItems>>(path)).data
+    getKey, async (path) => (await get<IResources<IItems>>(path)).data, { revalidateFirstPage: false }
   )
 
   // 加载更多的时候页码加一
