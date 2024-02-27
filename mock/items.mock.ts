@@ -39,14 +39,12 @@ const createResponse = ({ count = 10, perPage = 10, page = 1 }, attrs?: Partial<
   }
 }
 
-export default [
-  {
-    url: '/api/v1/items',
-    method: 'get',
-    // statusCode: 401,
-    timeout: 300,
-    response: ({ query }: ResponseParams): IResources<IItems> => {
-      return createResponse({ count: 40, perPage: 10, page: parseInt(query.page) || 1 })
-    }
-  },
-] as MockMethod[]
+export const itemsMock: MockMethod = {
+  url: '/api/v1/items',
+  method: 'get',
+  // statusCode: 401,
+  timeout: 300,
+  response: ({ query }: ResponseParams): IResources<IItems> => {
+    return createResponse({ count: 40, perPage: 10, page: parseInt(query.page) || 1 })
+  }
+}

@@ -18,7 +18,6 @@ export const Tags: React.FC<Props> = (props) => {
   const { get } = useAjax({ showLoading: true, handleError: true })
   useSWR('/api/v1/tags', async (path) => {
     const response = await get<IResources<Tag>>(path)
-    console.log(response.data.resources, 'placeholder')
     setList(response.data.resources)
   }
   )

@@ -6,7 +6,7 @@ export const tagsMock: MockMethod = {
   method: 'get',
   statusCode: 200,
   response: ({ query }: ResponseParams): IResources<Tag> => {
-    const tags = Array.from({ length: 30 }).map<Tag>((tag, index) => ({
+    const tags = Array.from({ length: 20 }).map<Tag>((tag, index) => ({
       id: index,
       name: `打车${index}`,
       kind: 'expenses',
@@ -27,7 +27,3 @@ export const tagsMock: MockMethod = {
     }
   }
 }
-
-export default [
-  tagsMock,
-]
