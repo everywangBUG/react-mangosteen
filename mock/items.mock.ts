@@ -8,7 +8,7 @@ const createId = () => {
   return id
 }
 
-const create = (attrs?: Partial<IItems>): IItems => {
+const create = (attrs?: Partial<Tag>): Tag => {
   return {
     id: createId(),
     user_id: 1,
@@ -22,11 +22,11 @@ const create = (attrs?: Partial<IItems>): IItems => {
   }
 }
 
-const createList = (n: number, attrs?: Partial<IItems>): IItems[] => {
+const createList = (n: number, attrs?: Partial<Tag>): Tag[] => {
   return Array.from({ length: n }).map(() => create(attrs))
 }
 
-const createResponse = ({ count = 10, perPage = 10, page = 1 }, attrs?: Partial<IItems>): IResources<IItems> => {
+const createResponse = ({ count = 10, perPage = 10, page = 1 }, attrs?: Partial<Tag>): IResources<Tag> => {
   const sendCount = (page - 1) * perPage
   const left = count - sendCount
   return {
@@ -44,7 +44,7 @@ export const itemsMock: MockMethod = {
   method: 'get',
   // statusCode: 401,
   timeout: 300,
-  response: ({ query }: ResponseParams): IResources<IItems> => {
+  response: ({ query }: ResponseParams): IResources<Tag> => {
     return createResponse({ count: 40, perPage: 10, page: parseInt(query.page) || 1 })
   }
 }

@@ -31,7 +31,7 @@ export const ItemsNew: React.FC = () => {
       const errorMessage = Object.values(error).flat().join('\n')
       window.alert(errorMessage)
     } else {
-      const response = await post<IResources<IItems>>('/api/v1/items', data)
+      const response = await post<IResources<Tag>>('/api/v1/items', data)
       consoel.log(response.data.resources)
     }
   }

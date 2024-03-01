@@ -5,12 +5,12 @@ import { useAjax } from '../../lib/ajax'
 
 // 使用IItems['kind]这种形式的引用值，可以在global.ts中改动了类型的时候能及时通知此处
 interface Props {
-  kind: IItems['kind']
-  value?: IItems['tag_ids']
-  onChange?: (ids: IItems['tag_ids']) => void
+  kind: Tag['kind']
+  value?: Tag['tag_ids']
+  onChange?: (ids: Tag['tag_ids']) => void
 }
 
-const getKey = (pageIndex: number, pre: IResources<IItems>) => {
+const getKey = (pageIndex: number, pre: IResources<Tag>) => {
   // 发送请求的所有count
   if (pre) {
     const sendCount = (pre.pager.page - 1) * pre.pager.per_page + pre.resources.length
