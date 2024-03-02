@@ -77,7 +77,9 @@ export const Tags: React.FC<Props> = (props) => {
         {error && <span>网络请求错误，请刷新页面</span>}
         <div flex justify-center items-center p-16px>
           {
-            !hasMore ? <div>没有更多了</div> : (isLoading ? <span>加载中...</span> : <button j-btn onClick={onLoadMore}>加载更多</button>)
+            !hasMore
+              ? (page === 1 && last.resources.length === 0 ? <div>点击加号，创建标签</div> : <div>没有更多了</div>)
+              : (isLoading ? <span>加载中...</span> : <button j-btn onClick={onLoadMore}>加载更多</button>)
           }
         </div>
       </div>
