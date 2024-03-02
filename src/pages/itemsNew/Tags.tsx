@@ -10,20 +10,20 @@ interface Props {
   onChange?: (ids: Tag['tag_ids']) => void
 }
 
-const getKey = (pageIndex: number, pre: IResources<Tag>) => {
-  // 发送请求的所有count
-  if (pre) {
-    const sendCount = (pre.pager.page - 1) * pre.pager.per_page + pre.resources.length
-    const count = pre.pager.count
-    if (sendCount >= count) {
-      return null
-    }
-  }
-  return `/api/v1/tags?page=${pageIndex + 1}`
-}
-
 export const Tags: React.FC<Props> = (props) => {
   const { kind } = props
+
+  const getKey = (pageIndex: number, pre: IResources<Tag>) => {
+    // 发送请求的所有count
+    if (pre) {
+      const sendCount = (pre.pager.page - 1) * pre.pager.per_page + pre.resources.length
+      const count = pre.pager.count
+      if (sendCount >= count) {
+        return null
+      }
+    }
+    return `/api/v1/tags?page=${pageIndex + 1}&kind=${kind}`
+  }
 
   const { get } = useAjax({ showLoading: true, handleError: true })
   const { data, error, size, setSize } = useSWRInfinite(

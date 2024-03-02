@@ -1,3 +1,5 @@
+import type { EmojiType } from '@faker-js/faker'
+
 var isDev: boolean
 
 type JSONValue = string | number | boolean | null | { [k: string]: JSONValue } | JSONValue[]
@@ -37,7 +39,7 @@ type ExpendIncome = 'expenses' | 'incomes'
 
 interface Tag {
   id: number
-  sign: string
+  sign: string | EmojiType[] | undefined
   deleted_at: string | null
   created_at: string
   updated_at: string

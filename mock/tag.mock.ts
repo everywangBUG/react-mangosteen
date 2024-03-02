@@ -11,7 +11,7 @@ const createId = () => {
 const create = (attrs?: Partial<Tag>): Tag => {
   return {
     id: createId(),
-    sign: '😀',
+    sign: faker.internet.emoji,
     deleted_at: '2024-10-10T12:00:00.000Z',
     created_at: '2024-10-10T12:00:00.000Z',
     updated_at: '2024-10-10T12:00:00.000Z',
@@ -44,6 +44,6 @@ export const tagsMock: MockMethod = {
   method: 'get',
   statusCode: 200,
   response: ({ query }: ResponseParams): IResources<Tag> => {
-    return createResponse({ count: 4, perPage: 10, page: parseInt(query.page) || 1 })
+    return createResponse({ count: 54, perPage: 10, page: parseInt(query.page) || 1 })
   }
 }
