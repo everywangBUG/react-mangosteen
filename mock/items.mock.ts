@@ -44,7 +44,7 @@ export const itemsMock: MockMethod[] = [{
   method: 'get',
   // statusCode: 401,
   timeout: 300,
-  response: ({ query }: ResponseParams): IResources<Tag> => {
+  response: ({ query }: ResponseParams): IResources<IItems> => {
     return createResponse({ count: 40, perPage: 10, page: parseInt(query.page) || 1 })
   }
 }]
