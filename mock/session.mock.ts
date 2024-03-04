@@ -1,6 +1,6 @@
 import type { MockMethod } from 'vite-plugin-mock'
 
-export const sessionMock: MockMethod = {
+export const sessionMock: MockMethod[] = [{
   url: '/api/v1/api/session',
   method: 'post',
   response: () => {
@@ -8,4 +8,4 @@ export const sessionMock: MockMethod = {
       session: '1234567890',
     }
   },
-}
+}]

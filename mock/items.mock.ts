@@ -39,7 +39,7 @@ const createResponse = ({ count = 10, perPage = 10, page = 1 }, attrs?: Partial<
   }
 }
 
-export const itemsMock: MockMethod = {
+export const itemsMock: MockMethod[] = [{
   url: '/api/v1/items',
   method: 'get',
   // statusCode: 401,
@@ -47,4 +47,4 @@ export const itemsMock: MockMethod = {
   response: ({ query }: ResponseParams): IResources<Tag> => {
     return createResponse({ count: 40, perPage: 10, page: parseInt(query.page) || 1 })
   }
-}
+}]

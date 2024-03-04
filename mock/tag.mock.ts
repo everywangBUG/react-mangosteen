@@ -39,11 +39,26 @@ const createResponse = ({ count = 10, perPage = 10, page = 1 }, attrs?: Partial<
   }
 }
 
-export const tagsMock: MockMethod = {
+export const tagsMock: MockMethod[] = [{
   url: '/api/v1/tags',
   method: 'get',
   statusCode: 200,
   response: ({ query }: ResponseParams): IResources<Tag> => {
     return createResponse({ count: 54, perPage: 10, page: parseInt(query.page) || 1 })
   }
+},
+{
+  url: '/api/v1/tagsSubmit',
+  method: 'post',
+  statusCode: 200,
+  response: () => {
+    // return {
+    //   errors: ['不合法的输入']
+    // }
+    return {
+      kind: 'expense',
+      id: 1
+    }
+  }
 }
+]

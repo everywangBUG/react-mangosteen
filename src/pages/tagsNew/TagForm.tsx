@@ -1,9 +1,12 @@
 import { useEffect } from 'react'
-import { useParams, useSearchParams } from 'react-router-dom'
+import { useNavigate, useParams, useSearchParams } from 'react-router-dom'
 import type { FormEventHandler } from 'react'
+import type { AxiosError } from 'axios'
 import { Input } from '../../components/Input'
 import { useCreateTag } from '../../stores/useCreateTag'
+import type { FormError } from '../../lib/validate'
 import { hasError, validate } from '../../lib/validate'
+import { useAjax } from '../../lib/ajax'
 
 type Props = {
   type: 'create' | 'edit'
@@ -11,11 +14,12 @@ type Props = {
 
 export const TagForm: React.FC<Props> = (props) => {
   const { type } = props
+  const { post } = useAjax({ showLoading: true })
   const [searchParams] = useSearchParams()
   const { data, error, setData, setError } = useCreateTag()
+  const kind = searchParams.get('kind') ?? ''
   useEffect(() => {
     if (type !== 'create') { return }
-    const kind = searchParams.get('kind')
     if (!kind) {
       throw new Error('kind is required')
     }
@@ -25,6 +29,7 @@ export const TagForm: React.FC<Props> = (props) => {
     setData({ kind })
   }, [searchParams])
   const params = useParams()
+
   useEffect(() => {
     if (type !== 'edit') { return }
     const id = params.id
@@ -34,7 +39,20 @@ export const TagForm: React.FC<Props> = (props) => {
     // 发送请求
     // setData
   }, [])
-  const onSubmit: FormEventHandler = (e) => {
+
+  const onSubmitError = (error: AxiosError<{ errors: FormError<typeof data> }>) => {
+    if (error.response) {
+      const { status } = error.response
+      if (status === 422) {
+        const { errors } = error.response.data
+        setError(errors)
+      }
+    }
+    throw error
+  }
+
+  const nav = useNavigate()
+  const onSubmit: FormEventHandler = async (e) => {
     e.preventDefault()
     const newError = validate(data, [
       { key: 'kind', type: 'required', message: '标签类型必填' },
@@ -44,7 +62,9 @@ export const TagForm: React.FC<Props> = (props) => {
     ])
     setError(newError)
     if (!hasError(newError)) {
-      console.log('submit')
+      const response = await post<IResources<Tag>>('/api/v1/tagsSubmit', data).catch(onSubmitError)
+      setData(response.data.resource)
+      nav(`/items/new?kind=${kind}`)
     }
   }
 
