@@ -31,7 +31,7 @@ export const ItemsNew: React.FC = () => {
       const errorMessage = Object.values(error).flat().join('\n')
       window.alert(errorMessage)
     } else {
-      const response = await post<IResources<IItems>>('/api/v1/items', data)
+      const response = await post<IResources<Tag>>('/api/v1/items', data)
       consoel.log(response.data.resources)
     }
   }
@@ -47,7 +47,6 @@ export const ItemsNew: React.FC = () => {
         className='text-center grow-1 shrink-1 overflow-hidden'
         classPrefix="tabs"
       />
-      <div>{JSON.stringify(data)}</div>
       <ItemAmount className="grow-0 shrink-0" value={data.amount} onChange={(amount) => setData({ amount })}
         itemDate={<ItemDate value={data.happen_at} onChange={(happen_at) => setData({ happen_at })}/>}
       />

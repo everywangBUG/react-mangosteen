@@ -18,7 +18,7 @@ export const Home: React.FC<IProps> = (props) => {
     return response.data.resource
   })
   const { data: itemsData, error: itemsError } = useSWR(meData ? '/api/v1/items' : null, async path =>
-    (await get<IResources<IItems>>(path)).data
+    (await get<IResources<Tag>>(path)).data
   )
   const isLoadingMe = !meData && !meError
   const isLoadingItems = meData && !itemsData && !itemsError

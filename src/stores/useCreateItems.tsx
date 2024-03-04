@@ -2,7 +2,7 @@ import { create } from 'zustand'
 import { time } from '../lib/time'
 import type { FormError } from '../lib/validate'
 
-type Data = IItems
+type Data = Tag
 
 type CreateItem = {
   data: Partial<Data>
@@ -35,7 +35,7 @@ export const useCreateItems = create<CreateItem>((set) => ({
       }
     ))
   },
-  setError: (error: Partial<FormError<IItems>>) => {
+  setError: (error: Partial<FormError<Tag>>) => {
     set(state => (
       {
         ...state,
