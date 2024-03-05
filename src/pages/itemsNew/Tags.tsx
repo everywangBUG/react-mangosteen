@@ -1,5 +1,7 @@
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import useSWRInfinite from 'swr/infinite'
+import type { TouchEvent } from 'react'
+import { useRef } from 'react'
 import { Icon } from '../../components/Icon'
 import { useAjax } from '../../lib/ajax'
 
@@ -12,6 +14,8 @@ interface Props {
 
 export const Tags: React.FC<Props> = (props) => {
   const { kind } = props
+
+  const nav = useNavigate()
 
   const getKey = (pageIndex: number, pre: IResources<Tag>) => {
     // 发送请求的所有count
@@ -42,6 +46,32 @@ export const Tags: React.FC<Props> = (props) => {
   // 综合判断是否是在加载中
   const isLoading = isLoadingMore || isLoadingInitialData
 
+  const timer = useRef<number>()
+  const touchPosition = useRef<{ x?: number; y?: number }>({ x: undefined, y: undefined })
+  const onTouchStart = (e: TouchEvent<HTMLElement>, id: Tag['id']) => {
+    timer.current = window.setTimeout(() => {
+      nav(`/tags/${id}`)
+    }, 500)
+    const { clientX: x, clientY: y } = e.touches[0]
+    touchPosition.current = { x, y }
+  }
+  const onTouchMove = (e: TouchEvent<HTMLElement>) => {
+    const { clientX: newX, clientY: newY } = e.touches[0]
+    const { x, y } = touchPosition.current
+    if (x === undefined || y === undefined) { return }
+    const distance = Math.sqrt((newX - x) ** 2 + (newY - y) ** 2)
+    if (distance > 10) {
+      window.clearTimeout(timer.current)
+      timer.current = undefined
+    }
+  }
+  const onTouchEnd = () => {
+    if (timer.current) {
+      window.clearTimeout(timer.current)
+      timer.current = undefined
+    }
+  }
+
   if (!data) {
     return <div>空</div>
   } else {
@@ -62,7 +92,12 @@ export const Tags: React.FC<Props> = (props) => {
           {
             data.map(({ resources }) => {
               return resources.map((tag, index) =>
-                <li key={index} w-48px flex flex-col justify-center items-center gap-y-8px onClick={() => { props.onChange?.([tag.id]) }}>
+                <li key={index} w-48px flex flex-col justify-center items-center gap-y-8px
+                  onClick={() => { props.onChange?.([tag.id]) }}
+                  onTouchStart={(e) => onTouchStart(e, tag.id)}
+                  onTouchMove={(e) => onTouchMove(e)}
+                  onTouchEnd={() => onTouchEnd()}
+                >
                   {
                     props.value?.includes(tag.id)
                       ? <span flex justify-center items-center w-48px h-48px block bg="#EFEFEFEF" rounded='50%' text-24px b-1 b="#8F4CD7">{tag.sign}</span>
