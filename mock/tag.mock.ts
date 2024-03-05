@@ -50,15 +50,15 @@ export const tagsMock: MockMethod[] = [{
 {
   url: '/api/v1/tagsSubmit',
   method: 'post',
-  statusCode: 200,
+  statusCode: 422,
   response: () => {
-    // return {
-    //   errors: ['不合法的输入']
-    // }
     return {
-      kind: 'expense',
-      id: 1
+      errors: { name: ['不合法的输入'] }
     }
+    // return {
+    //   kind: 'expense',
+    //   id: 1
+    // }
   }
 }
 ]
