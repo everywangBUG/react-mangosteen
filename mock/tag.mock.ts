@@ -80,4 +80,14 @@ export const tagsMock: MockMethod[] = [{
       resource: '操作成功'
     }
   }
+},
+{
+  url: '/api/v1/tags/:id',
+  method: 'delete',
+  statusCode: 200,
+  response: () => {
+    return {
+      resource: '操作成功'
+    }
+  }
 }]

@@ -65,7 +65,12 @@ export const useAjax = (options?: Options) => {
         if (showLoading) { hide() }
       })
     },
-    delete: () => {}
+    destroy: <T>(path: string) => {
+      if (showLoading) { show() }
+      return axios.delete<T>(path).catch(onError).finally(() => {
+        if (showLoading) { hide() }
+      })
+    },
   }
   return ajax
 }
