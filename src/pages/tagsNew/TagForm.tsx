@@ -2,6 +2,7 @@ import { useEffect } from 'react'
 import { useNavigate, useParams, useSearchParams } from 'react-router-dom'
 import type { FormEventHandler } from 'react'
 import type { AxiosError } from 'axios'
+import useSWR from 'swr'
 import { Input } from '../../components/Input'
 import { useCreateTag } from '../../stores/useCreateTag'
 import type { FormError } from '../../lib/validate'
@@ -14,7 +15,7 @@ type Props = {
 
 export const TagForm: React.FC<Props> = (props) => {
   const { type } = props
-  const { post } = useAjax({ showLoading: true })
+  const { post, get, patch } = useAjax({ showLoading: true })
   const [searchParams] = useSearchParams()
   const { data, error, setData, setError } = useCreateTag()
   const kind = searchParams.get('kind') ?? ''
@@ -29,16 +30,17 @@ export const TagForm: React.FC<Props> = (props) => {
     setData({ kind })
   }, [searchParams])
   const params = useParams()
+  const id = params.id
+
+  const { data: tag } = useSWR(id ? `/api/v1/tags/${id}` : null, async (path) =>
+    (await get<IResources<Tag>>(path)).data.resource
+  )
 
   useEffect(() => {
-    if (type !== 'edit') { return }
-    const id = params.id
-    if (!id) {
-      throw new Error('id is required')
+    if (tag) {
+      setData(tag)
     }
-    // 发送请求
-    // setData
-  }, [])
+  }, [tag])
 
   const onSubmitError = (error: AxiosError<{ errors: FormError<typeof data> }>) => {
     if (error.response) {
@@ -62,8 +64,13 @@ export const TagForm: React.FC<Props> = (props) => {
     ])
     setError(newError)
     if (!hasError(newError)) {
-      const response = await post<IResources<Tag>>('/api/v1/tagsSubmit', data).catch(onSubmitError)
-      setData(response.data.resource)
+      if (type === 'create') {
+        const response = await post<IResources<Tag>>('/api/v1/tags', data).catch(onSubmitError)
+        setData(response.data.resource)
+      } else {
+        const response = await patch<IResources<Tag>>(`/api/v1/tags/${id}`, data).catch(onSubmitError)
+        setData(response.data.resource)
+      }
       nav(`/items/new?kind=${kind}`)
     }
   }

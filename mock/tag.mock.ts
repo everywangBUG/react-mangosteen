@@ -48,9 +48,9 @@ export const tagsMock: MockMethod[] = [{
   }
 },
 {
-  url: '/api/v1/tagsSubmit',
+  url: '/api/v1/tags',
   method: 'post',
-  statusCode: 422,
+  statusCode: 200,
   response: () => {
     return {
       errors: { name: ['不合法的输入'] }
@@ -60,5 +60,24 @@ export const tagsMock: MockMethod[] = [{
     //   id: 1
     // }
   }
-}
-]
+},
+{
+  url: '/api/v1/tags/:id',
+  method: 'get',
+  statusCode: 200,
+  response: () => {
+    return {
+      resource: create()
+    }
+  }
+},
+{
+  url: '/api/v1/tags/:id',
+  method: 'patch',
+  statusCode: 200,
+  response: () => {
+    return {
+      resource: '操作成功'
+    }
+  }
+}]
