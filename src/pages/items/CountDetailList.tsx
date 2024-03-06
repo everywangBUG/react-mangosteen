@@ -1,5 +1,6 @@
 import useSWRInfinite from 'swr/infinite'
 import { useAjax } from '../../lib/ajax'
+import { time } from '../../lib/time'
 
 const getKey = (pageIndex: number, pre: IResources<Tag>) => {
   // 发送请求的所有count
@@ -54,7 +55,7 @@ export const CountDetailList: React.FC = () => {
                 💖
               </div>
               <div row-start-1 col-start-2 row-end-2 col-end-3 flex items-center>旅行</div>
-              <div row-start-2 col-start-2 row-end-3 col-end-3 text="#999999" flex items-center>{item.created_at}</div>
+              <div row-start-2 col-start-2 row-end-3 col-end-3 text="#999999" flex items-center>{time(item.created_at).format('yyyy-MM-dd HH:mm:  ss')}</div>
               <div row-start-1 col-start-3 row-end-3 col-end-4 flex items-center text="#53A867">
                 {`￥${item.amount}`}
               </div>

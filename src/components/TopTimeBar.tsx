@@ -1,21 +1,28 @@
-import type { ReactNode } from 'react'
 import { Tabs } from './Tabs'
 
-export type TimeRange = 'thisMonth' | 'lastMonth' | 'thisYear' | 'customTime'
+export type TimeRange =
+  | 'thisMonth'
+  | 'lastMonth'
+  | 'thisYear'
+  | 'customTime'
+  | 'twoMonthsAgo'
+  | 'threeMonthsAgo'
 interface Props {
   selected: TimeRange
   onSelect: (selected: TimeRange) => void
+  timeRanges?: { key: TimeRange; value: string }[]
 }
-const timeRanges: { key: TimeRange; value: string; element: ReactNode }[] = [
-  { key: 'thisMonth', value: '本月', element: <span></span> },
-  { key: 'lastMonth', value: '上月', element: <span></span> },
-  { key: 'thisYear', value: '今年', element: <span></span> },
-  { key: 'customTime', value: '自定义时间', element: <span></span> }
+const defaultTimeRanges: { key: TimeRange; value: string }[] = [
+  { key: 'thisMonth', value: '本月' },
+  { key: 'lastMonth', value: '上月' },
+  { key: 'thisYear', value: '今年' },
+  { key: 'customTime', value: '自定义时间' }
 ]
-export const TopTimeBar: React.FC<Props> = ({ selected, onSelect }) => {
+export const TopTimeBar: React.FC<Props> = (props) => {
+  const { selected, onSelect, timeRanges = defaultTimeRanges } = props
   return (
     <>
-      <Tabs tabItems={timeRanges} selected={selected} onChange={onSelect}/>
+      <Tabs tabItems={timeRanges} selected={selected} onChange={onSelect} />
     </>
   )
 }

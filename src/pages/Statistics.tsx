@@ -37,12 +37,19 @@ export const Statistics: React.FC = () => {
     { tag: { name: '旅行', sign: '🚂' }, amount: 25000 },
   ].map(it => ({ name: it.tag.name, value: it.amount / 100, icon: it.tag.sign }))
 
+  const timeRanges = [
+    { key: 'thisMonth', value: '本月' },
+    { key: 'lastMonth', value: '上月' },
+    { key: 'twoMonthsAgo', value: '两月前' },
+    { key: 'threeMonthsAgo', value: '三月前' },
+  ]
+
   return (
     <div>
       <Gradient>
         <TopNav title='账目列表' icon={<BackIcon />} />
       </Gradient>
-      <TopTimeBar selected={timeRange} onSelect={setTimeRange} />
+      <TopTimeBar selected={timeRange} onSelect={setTimeRange} timeRanges={timeRanges} />
       <div flex items-center px-16px gap-x-16px p-16px>
         <span grow-0 shrink-0>类型</span>
         <div grow-1 shrink-1>
