@@ -1,4 +1,5 @@
 import type { MockMethod } from 'vite-plugin-mock'
+import type { ResponseParams } from './mock.js'
 
 export const summaryMock: MockMethod[] = [{
   url: '/api/v1/items/summary',

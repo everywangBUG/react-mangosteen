@@ -20,21 +20,21 @@ export const Statistics: React.FC = () => {
 
   const generateStartAndEnd = () => {
     if (timeRange === 'thisMonth') {
-      const defaultItems = []
-      const startTime = time().firstDayOfMonth
-      const start = startTime.format(format)
-      const endTime = time().lastDayOfMonth.add(1, 'day')
-      for (let i = 0; i < startTime.dayCountOfMonth; i++) {
-        const x = startTime.clone.add(i, 'day').format(format)
-        defaultItems.push({ x, y: 0 })
-      }
-      const end = endTime.format(format)
-      return { start, end, defaultItems }
+      const start = time().firstDayOfMonth
+      const end = time().lastDayOfMonth.add(1, 'day')
+      return { start, end }
     } else {
       return { start: '', end: '' }
     }
   }
-  const { start, end, defaultItems } = generateStartAndEnd()
+  const generateDefaultItems = (time: Time) => {
+    return Array.from({ length: time.dayCountOfMonth }).map((_, index) => {
+      const x = start.clone.add(index, 'day').format(format)
+      return { x, y: 0 }
+    })
+  }
+  const { start, end } = generateStartAndEnd()
+  const defaultItems = generateDefaultItems(start)
   const { data: items } = useSWR(`/api/v1/items/summary?happen_after=${start}&happen_before=${end}&kind=${kind}&group_by=happen_at`, async (path) => {
     const response = await get<{ groups: { happen_at: string; amount: number }[]; total: number }>(path)
     return response.data.groups.map(it => ({ x: it.happen_at, y: it.amount / 100 }))
