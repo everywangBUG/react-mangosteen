@@ -14,7 +14,7 @@ import { useAjax } from '../lib/ajax'
 
 export const Statistics: React.FC = () => {
   const [timeRange, setTimeRange] = useState<TimeRange>('thisMonth')
-  const [type, setType] = useState<ExpendIncome>('expenses')
+  const [kind, setKind] = useState<ExpendIncome>('expenses')
   const { get } = useAjax({ showLoading: false, handleError: true })
 
   const generateStartAndEnd = () => {
@@ -27,7 +27,7 @@ export const Statistics: React.FC = () => {
     }
   }
   const { start, end } = generateStartAndEnd()
-  const { data: items1 } = useSWR(`/api/v1/items/summary?happen_after=${start}&happen_before=${end}&kind=${type}&group_by=happen_at`, async (path) => {
+  const { data: items1 } = useSWR(`/api/v1/items/summary?happen_after=${start}&happen_before=${end}&kind=${kind}&group_by=happen_at`, async (path) => {
     const response = await get<{ groups: { happen_at: string; amount: number }[]; total: number }>(path)
     return response.data.groups.map(it => ({ x: it.happen_at, y: it.amount / 100 }))
   })

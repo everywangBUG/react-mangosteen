@@ -47,4 +47,12 @@ export const itemsMock: MockMethod[] = [{
   response: ({ query }: ResponseParams): IResources<IItems> => {
     return createResponse({ count: 40, perPage: 10, page: parseInt(query.page) || 1 })
   }
+},
+{
+  url: '/api/v1/items',
+  method: 'post',
+  timeout: 300,
+  response: () => {
+    return { response: '操作成功' }
+  }
 }]
