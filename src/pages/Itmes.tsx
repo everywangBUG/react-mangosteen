@@ -11,7 +11,7 @@ import { CountItems } from './items/CountItems'
 import { CountDetailList } from './items/CountDetailList'
 
 export const Items: React.FC = () => {
-  const [timeRange, setTimeTange] = useState<TimeRange>('thisMonth')
+  const [timeRange, setTimeRange] = useState<TimeRange>('thisMonth')
   const { visible, setVisible } = useMenuVisible()
 
   return (
@@ -19,7 +19,7 @@ export const Items: React.FC = () => {
       <Gradient>
         <TopNav title='橙子记账' icon={<Icon name='menu' className="w-24px h-24px" onClick={() => { setVisible(!visible) }}/>}/>
       </Gradient>
-      <TopTimeBar selected={timeRange} onSelect={setTimeTange}/>
+      <TopTimeBar selected={timeRange} onSelect={setTimeRange}/>
       <CountItems />
       <CountDetailList />
       <AddButton />

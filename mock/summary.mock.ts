@@ -8,9 +8,9 @@ export const summaryMock: MockMethod[] = [{
     if (query.group_by === 'happen_at') {
       return {
         groups: [
-          { happen_at: '2023-03-18', amount: 30000 },
-          { happen_at: '2023-03-19', amount: 60000 },
-          { happen_at: '2023-03-20', amount: 20000 }
+          { happen_at: '2024-03-18', amount: 30000 },
+          { happen_at: '2024-03-19', amount: 60000 },
+          { happen_at: '2024-03-20', amount: 20000 }
         ],
         total: 900
       }

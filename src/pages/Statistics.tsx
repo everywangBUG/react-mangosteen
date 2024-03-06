@@ -16,21 +16,33 @@ export const Statistics: React.FC = () => {
   const [timeRange, setTimeRange] = useState<TimeRange>('thisMonth')
   const [kind, setKind] = useState<ExpendIncome>('expenses')
   const { get } = useAjax({ showLoading: false, handleError: true })
+  const format = 'yyyy-MM-dd'
 
   const generateStartAndEnd = () => {
     if (timeRange === 'thisMonth') {
-      const start = time().firstDayOfMonth.format('yyyy-MM-dd')
-      const end = time().lastDayOfMonth.add(1, 'day').format('yyyy-MM-dd')
-      return { start, end }
+      const defaultItems = []
+      const startTime = time().firstDayOfMonth
+      const start = startTime.format(format)
+      const endTime = time().lastDayOfMonth.add(1, 'day')
+      for (let i = 0; i < startTime.dayCountOfMonth; i++) {
+        const x = startTime.clone.add(i, 'day').format(format)
+        defaultItems.push({ x, y: 0 })
+      }
+      const end = endTime.format(format)
+      return { start, end, defaultItems }
     } else {
       return { start: '', end: '' }
     }
   }
-  const { start, end } = generateStartAndEnd()
-  const { data: items1 } = useSWR(`/api/v1/items/summary?happen_after=${start}&happen_before=${end}&kind=${kind}&group_by=happen_at`, async (path) => {
+  const { start, end, defaultItems } = generateStartAndEnd()
+  const { data: items } = useSWR(`/api/v1/items/summary?happen_after=${start}&happen_before=${end}&kind=${kind}&group_by=happen_at`, async (path) => {
     const response = await get<{ groups: { happen_at: string; amount: number }[]; total: number }>(path)
     return response.data.groups.map(it => ({ x: it.happen_at, y: it.amount / 100 }))
   })
+
+  const normalizedItems = defaultItems?.map((defaultItem) =>
+    items?.find(item => item.x === defaultItem.x) ?? defaultItem
+  )
 
   const items2 = [
     { tag: '餐饮', value: 10000 },
@@ -66,7 +78,7 @@ export const Statistics: React.FC = () => {
           <Input type='select' options={[{ value: '19', text: '红色' }, { value: '支出', text: '白色' }]} value='expenses' disableError={true} />
         </div>
       </div>
-      <LineChart className="h-120px mt-10" items={items1} />
+      <LineChart className="h-120px mt-10" items={normalizedItems} />
       <PieChart className="h-400px mt-10" items={items2} />
       <RankChart className="h-100px mt-10" items={items3} />
     </div>
