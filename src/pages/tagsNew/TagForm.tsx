@@ -91,7 +91,7 @@ export const TagForm: React.FC<Props> = (props) => {
         value={data.sign}
         onChange={sign => setData({ sign })}
       />
-      <p text-center mb-16px>记账的时候长按即可，可以编辑</p>
+      <p text-center mb-16px>记账的时候长按即可以编辑</p>
       <div text-center>
         <button type="submit" w="90%" j-btn>确定</button>
       </div>

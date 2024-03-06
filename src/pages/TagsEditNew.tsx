@@ -3,16 +3,10 @@ import { Gradient } from '../components/Gradient'
 import { TopNav } from '../components/TopNav'
 import { BackIcon } from '../components/BackIcon'
 import { useAjax } from '../lib/ajax'
+import { onDeleteComfirm } from '../lib/windowConfirm'
 import { TagForm } from './tagsNew/TagForm'
 
 export const TagsEditNew: React.FC = () => {
-  const onDeleteComfirm = (fn: () => void) => () => {
-    const res = window.confirm('是否确定删除？')
-    if (res) {
-      fn()
-    }
-  }
-
   const nav = useNavigate()
   const { destroy } = useAjax({ showLoading: true, handleError: true })
   const { id } = useParams()
