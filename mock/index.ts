@@ -3,10 +3,12 @@ import { itemsMock } from './items.mock'
 import { meMock } from './me.mock'
 import { sessionMock } from './session.mock'
 import { tagsMock } from './tag.mock'
+import { summaryMock } from './summary.mock'
 
 export default [
   ...itemsMock,
   ...meMock,
   ...sessionMock,
-  ...tagsMock
+  ...tagsMock,
+  ...summaryMock
 ] as MockMethod[]

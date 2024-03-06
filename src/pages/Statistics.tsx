@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import useSWR from 'swr'
 import { TopNav } from '../components/TopNav'
 import { TopTimeBar } from '../components/TopTimeBar'
 import { Gradient } from '../components/Gradient'
@@ -7,20 +8,29 @@ import { LineChart } from '../components/LineChart'
 import { PieChart } from '../components/PieChart'
 import { RankChart } from '../components/RankChart'
 import { Input } from '../components/Input'
+import { time } from '../lib/time'
 import { BackIcon } from '../components/BackIcon'
+import { useAjax } from '../lib/ajax'
 
 export const Statistics: React.FC = () => {
   const [timeRange, setTimeRange] = useState<TimeRange>('thisMonth')
-  const items1 = [
-    { date: '2022-01-01', value: 10000 },
-    { date: '2022-01-02', value: 20000 },
-    { date: '2022-01-03', value: 15000 },
-    { date: '2022-01-04', value: 30000 },
-    { date: '2022-01-05', value: 25000 },
-    { date: '2022-01-06', value: 18000 },
-    { date: '2022-01-07', value: 22000 },
-    { date: '2022-01-29', value: 18000 },
-  ].map(it => ({ x: it.date, y: it.value / 100 }))
+  const [type, setType] = useState<ExpendIncome>('expenses')
+  const { get } = useAjax({ showLoading: false, handleError: true })
+
+  const generateStartAndEnd = () => {
+    if (timeRange === 'thisMonth') {
+      const start = time().firstDayOfMonth.format('yyyy-MM-dd')
+      const end = time().lastDayOfMonth.add(1, 'day').format('yyyy-MM-dd')
+      return { start, end }
+    } else {
+      return { start: '', end: '' }
+    }
+  }
+  const { start, end } = generateStartAndEnd()
+  const { data: items1 } = useSWR(`/api/v1/items/summary?happen_after=${start}&happen_before=${end}&kind=${type}&group_by=happen_at`, async (path) => {
+    const response = await get<{ groups: { happen_at: string; amount: number }[]; total: number }>(path)
+    return response.data.groups.map(it => ({ x: it.happen_at, y: it.amount / 100 }))
+  })
 
   const items2 = [
     { tag: '餐饮', value: 10000 },
@@ -37,7 +47,7 @@ export const Statistics: React.FC = () => {
     { tag: { name: '旅行', sign: '🚂' }, amount: 25000 },
   ].map(it => ({ name: it.tag.name, value: it.amount / 100, icon: it.tag.sign }))
 
-  const timeRanges = [
+  const timeRanges: { key: TimeRange; value: string }[] = [
     { key: 'thisMonth', value: '本月' },
     { key: 'lastMonth', value: '上月' },
     { key: 'twoMonthsAgo', value: '两月前' },
