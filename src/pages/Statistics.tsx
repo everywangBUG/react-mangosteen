@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import { Icon } from '../components/Icon'
 import { TopNav } from '../components/TopNav'
 import { TopTimeBar } from '../components/TopTimeBar'
 import { Gradient } from '../components/Gradient'
@@ -8,9 +7,10 @@ import { LineChart } from '../components/LineChart'
 import { PieChart } from '../components/PieChart'
 import { RankChart } from '../components/RankChart'
 import { Input } from '../components/Input'
+import { BackIcon } from '../components/BackIcon'
 
 export const Statistics: React.FC = () => {
-  const [timeRange, setTimeTange] = useState<TimeRange>('thisMonth')
+  const [timeRange, setTimeRange] = useState<TimeRange>('thisMonth')
   const items1 = [
     { date: '2022-01-01', value: 10000 },
     { date: '2022-01-02', value: 20000 },
@@ -40,9 +40,9 @@ export const Statistics: React.FC = () => {
   return (
     <div>
       <Gradient>
-        <TopNav title='账目列表' icon={<Icon name='back' />} />
+        <TopNav title='账目列表' icon={<BackIcon />} />
       </Gradient>
-      <TopTimeBar selected={timeRange} onSelect={setTimeTange} />
+      <TopTimeBar selected={timeRange} onSelect={setTimeRange} />
       <div flex items-center px-16px gap-x-16px p-16px>
         <span grow-0 shrink-0>类型</span>
         <div grow-1 shrink-1>

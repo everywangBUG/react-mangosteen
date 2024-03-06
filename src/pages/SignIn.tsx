@@ -9,15 +9,11 @@ import { useSetLoginData } from '../stores/useSetLoginData'
 import { hasError, validate } from '../lib/validate'
 import { useAjax } from '../lib/ajax'
 import type { FormError } from '../lib/validate'
+import { BackIcon } from '../components/BackIcon'
 
 export const SignIn: React.FC = () => {
   const navigator = useNavigate()
   const { data, error, setLoginData, setLoginError } = useSetLoginData()
-
-  const onHandleBack = () => {
-    // 返回上一页
-    navigator('/items')
-  }
 
   const onSubmitError = (err: AxiosError<FormError<typeof data>>) => {
     err.response?.data && setLoginError(err.response.data.errors)
@@ -63,7 +59,7 @@ export const SignIn: React.FC = () => {
   return (
     <>
       <Gradient>
-        <TopNav title='登录' icon={<Icon name="back" className="w-24px h-24px" onClick={onHandleBack} />} />
+        <TopNav title='登录' icon={<BackIcon />} />
       </Gradient>
       <div text-center pt-40px pb-16px>
         <Icon name="logo" className='w-64px h-68px' />

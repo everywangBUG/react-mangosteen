@@ -51,7 +51,10 @@ export const useAjax = (options?: Options) => {
 
   const ajax = {
     get: <T>(path: string, config?: AxiosRequestConfig<any>) => {
-      return axios.get<T>(path, config).catch(onError)
+      if (showLoading) { show() }
+      return axios.get<T>(path, config).catch(onError).finally(() => {
+        if (showLoading) { hide() }
+      })
     },
     post: <T>(path: string, data: JSONValue) => {
       if (showLoading) { show() }

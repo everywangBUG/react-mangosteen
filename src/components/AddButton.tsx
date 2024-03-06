@@ -5,7 +5,7 @@ export const AddButton: React.FC = () => {
   return (
     <NavLink to='/items/new'>
       <div fixed right='16px' bottom='16px'>
-        <button bg='#5926b9' rounded='50%' p-8px text-white w-56px h-56px
+        <button bg='#ff8c09' rounded='50%' p-8px text-white w-56px h-56px
           flex justify-center items-center
         >
           <Icon name='add' className="w-48px h-48px" />

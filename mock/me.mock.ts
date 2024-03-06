@@ -4,7 +4,7 @@ export const meMock: MockMethod[] = [{
   url: '/api/v1/me',
   method: 'get',
   timeout: 300,
-  // statusCode: 401,
+  statusCode: 200,
   response: (): IResource<IUser> => {
     return {
       resource: {
@@ -15,7 +15,4 @@ export const meMock: MockMethod[] = [{
       }
     }
   },
-  // response: () => {
-  //   return ''
-  // }
 }]

@@ -1,11 +1,11 @@
 import type { ReactNode } from 'react'
 import { Gradient } from '../components/Gradient'
 import { TopNav } from '../components/TopNav'
-import { Icon } from '../components/Icon'
 import { Tabs } from '../components/Tabs'
 import { useCreateItems } from '../stores/useCreateItems'
 import { hasError, validate } from '../lib/validate'
 import { useAjax } from '../lib/ajax'
+import { BackIcon } from '../components/BackIcon'
 import { ItemDate } from './itemsNew/ItemDate'
 import s from './ItemsNew.module.scss'
 import { Tags } from './itemsNew/Tags'
@@ -35,10 +35,11 @@ export const ItemsNew: React.FC = () => {
       consoel.log(response.data.resources)
     }
   }
+
   return (
     <form className={s.wrapper} h-screen flex flex-col onSubmit={onSubmit}>
       <Gradient className="grow-0 shrink-0">
-        <TopNav title='记一笔' icon={<Icon name="back" className="w-24px h-24px" />} />
+        <TopNav title='记一笔' icon={<BackIcon />} />
       </Gradient>
       <Tabs
         tabItems={itemsNewArr}
