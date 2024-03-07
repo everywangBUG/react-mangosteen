@@ -12,6 +12,21 @@ import { time } from '../lib/time'
 import { BackIcon } from '../components/BackIcon'
 import { useAjax } from '../lib/ajax'
 
+interface GroupHappenAt {
+  groups: { happen_at: string; amount: number }[]
+  total: number
+}
+
+interface GroupTag {
+  amount: number
+  tag: Tag
+  tag_id: number
+}
+
+interface GroupTagId {
+  groups: GroupTag[]
+}
+
 export const Statistics: React.FC = () => {
   const [timeRange, setTimeRange] = useState<TimeRange>('thisMonth')
   const [kind, setKind] = useState<ExpendIncome>('expenses')
@@ -35,29 +50,23 @@ export const Statistics: React.FC = () => {
   }
   const { start, end } = generateStartAndEnd()
   const defaultItems = generateDefaultItems(start)
-  const { data: items } = useSWR(`/api/v1/items/summary?happen_after=${start}&happen_before=${end}&kind=${kind}&group_by=happen_at`, async (path) => {
-    const response = await get<{ groups: { happen_at: string; amount: number }[]; total: number }>(path)
+  const { data: items } = useSWR(`/api/v1/items/summary?happen_after=${start.format(format)}&happen_before=${end.format(format)}&kind=${kind}&group_by=happen_at`, async (path) => {
+    const response = await get<GroupHappenAt>(path)
     return response.data.groups.map(it => ({ x: it.happen_at, y: it.amount / 100 }))
   })
 
-  const normalizedItems = defaultItems?.map((defaultItem) =>
+  const lineItems = defaultItems?.map((defaultItem) =>
     items?.find(item => item.x === defaultItem.x) ?? defaultItem
   )
 
-  const items2 = [
-    { tag: '餐饮', value: 10000 },
-    { tag: '交通', value: 15000 },
-    { tag: '购物', value: 20000 },
-    { tag: '旅行', value: 25000 },
-    { tag: '娱乐', value: 30000 },
-  ].map(it => ({ x: it.tag, y: it.value / 100 }))
+  const { data: tagItems } = useSWR(`/api/v1/items/summary?happen_after=${start.format(format)}&happen_before=${end.format(format)}&kind=${kind}&group_by=tag_id`, async (path) => {
+    const response = await get<GroupTagId>(path)
+    return response.data.groups
+  })
 
-  const items3 = [
-    { tag: { name: '餐饮', sign: '🍈' }, amount: 10000 },
-    { tag: { name: '交通', sign: '🚗' }, amount: 15000 },
-    { tag: { name: '购物', sign: '🛍' }, amount: 20000 },
-    { tag: { name: '旅行', sign: '🚂' }, amount: 25000 },
-  ].map(it => ({ name: it.tag.name, value: it.amount / 100, icon: it.tag.sign }))
+  const pieItems = tagItems?.map(it => ({ x: it.tag.name, y: it.amount })) ?? []
+
+  const rankItems = tagItems?.map(it => ({ name: it.tag.name, value: it.amount / 100, icon: it.tag.sign }))
 
   const timeRanges: { key: TimeRange; value: string }[] = [
     { key: 'thisMonth', value: '本月' },
@@ -78,9 +87,9 @@ export const Statistics: React.FC = () => {
           <Input type='select' options={[{ value: '19', text: '红色' }, { value: '支出', text: '白色' }]} value='expenses' disableError={true} />
         </div>
       </div>
-      <LineChart className="h-120px mt-10" items={normalizedItems} />
-      <PieChart className="h-400px mt-10" items={items2} />
-      <RankChart className="h-100px mt-10" items={items3} />
+      <LineChart className="h-120px mt-10" items={lineItems} />
+      <PieChart className="h-400px mt-10" items={pieItems} />
+      <RankChart className="h-100px mt-10" items={rankItems} />
     </div>
   )
 }

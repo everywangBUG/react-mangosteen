@@ -10,10 +10,11 @@ export const PieChart: React.FC<Props> = (props) => {
   const { className, items } = props
   const div = useRef<HTMLDivElement>(null)
   const initialized = useRef(false)
+  const myChart = useRef<echarts.ECharts>()
   useEffect(() => {
     if (!div.current) { return }
     if (initialized.current) { return }
-    const myChart = echarts.init(div.current)
+    myChart.current = echarts.init(div.current)
     initialized.current = true
 
     const option = {
@@ -39,8 +40,20 @@ export const PieChart: React.FC<Props> = (props) => {
         }
       ]
     }
-    myChart.setOption(option)
+    myChart.current.setOption(option)
   }, [])
+  useEffect(() => {
+    const option = {
+      series: [
+        {
+          data: items?.map(item => ({ value: item.y, name: item.x }))
+        }
+      ]
+    }
+    if (myChart.current) {
+      myChart.current.setOption(option)
+    }
+  }, [items])
   return (
     <div className={className} ref={div}>PieChart</div>
   )
