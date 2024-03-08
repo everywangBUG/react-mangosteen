@@ -78,7 +78,6 @@ export const TagForm: React.FC<Props> = (props) => {
   return (
     <form onSubmit={onSubmit} px-16px py-32px text-16px flex flex-col gap-y-8px>
       <Input
-        type='text'
         label={'标签名'}
         error={error.name?.[0]}
         value={data.name}

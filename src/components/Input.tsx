@@ -8,12 +8,12 @@ type Props = {
   value?: string
   placeholder?: string
   onChange?: (value: string) => void
-  disableError: boolean
+  disableError?: boolean
 } & (
-  | { type: 'text' }
-  | { type: 'emoji' }
-  | { type: 'sms_code'; request?: () => Promise<unknown> }
-  | { type: 'select'; options: { value: string; text: string }[] }
+  | { type?: 'text' }
+  | { type?: 'emoji' }
+  | { type?: 'sms_code'; request?: () => Promise<unknown> }
+  | { type?: 'select'; options: { value: string; text: string }[] }
 )
 
 export const Input: React.FC<Props> = (props) => {
