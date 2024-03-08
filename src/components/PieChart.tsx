@@ -2,7 +2,7 @@ import { useEffect, useRef } from 'react'
 import * as echarts from 'echarts'
 
 type Props = {
-  items?: { x: number | string; y: number }[]
+  items?: { name: number | string; value: number }[]
   className?: string
 }
 
@@ -20,7 +20,9 @@ export const PieChart: React.FC<Props> = (props) => {
     const option = {
       tooltip: {
         trigger: 'item',
-        formatter: '{a} <br/>{b} : {c} ({d}%)'
+        formatter: ({ data: { name, value } }) => {
+          return `${name} ${value}元`
+        }
       },
       grid: {
         top: 0,
@@ -36,7 +38,7 @@ export const PieChart: React.FC<Props> = (props) => {
           itemStyle: {
             borderRadius: 5
           },
-          data: items?.map(item => ({ value: item.y, name: item.x }))
+          data: items
         }
       ]
     }
@@ -46,7 +48,7 @@ export const PieChart: React.FC<Props> = (props) => {
     const option = {
       series: [
         {
-          data: items?.map(item => ({ value: item.y, name: item.x }))
+          data: items
         }
       ]
     }

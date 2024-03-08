@@ -42,7 +42,7 @@ export const Statistics: React.FC = () => {
       return { start: '', end: '' }
     }
   }
-  const generateDefaultItems = (time: Time) => {
+  const generateDefaultItems = (time: any) => {
     return Array.from({ length: time.dayCountOfMonth }).map((_, index) => {
       const x = start.clone.add(index, 'day').format(format)
       return { x, y: 0 }
@@ -64,7 +64,7 @@ export const Statistics: React.FC = () => {
     return response.data.groups
   })
 
-  const pieItems = tagItems?.map(it => ({ x: it.tag.name, y: it.amount })) ?? []
+  const pieItems = tagItems?.map(it => ({ name: it.tag.name, value: it.amount / 100 })) ?? []
 
   const rankItems = tagItems?.map(it => ({ name: it.tag.name, value: it.amount / 100, icon: it.tag.sign }))
 
