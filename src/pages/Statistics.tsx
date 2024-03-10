@@ -8,10 +8,10 @@ import { LineChart } from '../components/LineChart'
 import { PieChart } from '../components/PieChart'
 import { RankChart } from '../components/RankChart'
 import { Input } from '../components/Input'
-import { time } from '../lib/time'
 import { BackIcon } from '../components/BackIcon'
 import { useAjax } from '../lib/ajax'
 import type { Time } from '../lib/time'
+import { generateStartAndEnd } from '../lib/generateStartAndEnd'
 
 interface GroupHappenAt {
   groups: { happen_at: string; amount: number }[]
@@ -35,30 +35,14 @@ interface Params {
   group_by: 'happen_at' | 'tag_id'
 }
 
-const timeRangeMap: { [ key in TimeRange]: number } = {
-  thisMonth: 0,
-  lastMonth: -1,
-  twoMonthsAgo: -2,
-  threeMonthsAgo: -3,
-  thisYear: 0,
-  customTime: 0
-}
-
 export const Statistics: React.FC = () => {
   const [timeRange, setTimeRange] = useState<TimeRange>('thisMonth')
-  const [kind, setKind] = useState<ExpendIncome>('expenses')
+  const [kind, _] = useState<ExpendIncome>('expenses')
   const { get } = useAjax({ showLoading: false, handleError: true })
   const format = 'yyyy-MM-dd'
 
   const getKey = ({ start, end, kind, group_by }: Params) => {
     return `/api/v1/items/summary?happen_after=${start.format(format)}&happen_before=${end.format(format)}&kind=${kind}&group_by=${group_by}`
-  }
-
-  const generateStartAndEnd = () => {
-    const selected: Time = time().add(timeRangeMap[timeRange], 'month')
-    const start: Time = selected.firstDayOfMonth
-    const end: Time = start.lastDayOfMonth.add(1, 'day')
-    return { start, end }
   }
 
   const generateDefaultItems = (time: any) => {
@@ -67,7 +51,7 @@ export const Statistics: React.FC = () => {
       return { x, y: 0 }
     })
   }
-  const { start, end } = generateStartAndEnd()
+  const { start, end } = generateStartAndEnd(timeRange)
   const defaultItems = generateDefaultItems(start)
   const { data: items } = useSWR(getKey({ start, end, kind, group_by: 'happen_at' }),
     async (path) => {

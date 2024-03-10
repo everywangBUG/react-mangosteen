@@ -7,12 +7,15 @@ import type { TimeRange } from '../components/TopTimeBar'
 import { useMenuVisible } from '../stores/useMenuVisible'
 import { Gradient } from '../components/Gradient'
 import { AddButton } from '../components/AddButton'
+import { generateStartAndEnd } from '../lib/generateStartAndEnd'
 import { CountItems } from './items/CountItems'
 import { CountDetailList } from './items/CountDetailList'
 
 export const Items: React.FC = () => {
   const [timeRange, setTimeRange] = useState<TimeRange>('thisMonth')
   const { visible, setVisible } = useMenuVisible()
+
+  const { start, end } = generateStartAndEnd(timeRange)
 
   return (
     <div>
@@ -21,7 +24,7 @@ export const Items: React.FC = () => {
       </Gradient>
       <TopTimeBar selected={timeRange} onSelect={setTimeRange}/>
       <CountItems />
-      <CountDetailList />
+      <CountDetailList start={start} end={end} />
       <AddButton />
       { <TopMenu visible={visible} onClickMask={() => { setVisible(false) }}/> }
     </div>

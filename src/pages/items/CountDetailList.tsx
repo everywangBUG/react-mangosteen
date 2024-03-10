@@ -1,20 +1,27 @@
 import useSWRInfinite from 'swr/infinite'
 import { useAjax } from '../../lib/ajax'
+import type { Time } from '../../lib/time'
 import { time } from '../../lib/time'
 
-const getKey = (pageIndex: number, pre: IResources<Tag>) => {
-  // 发送请求的所有count
-  if (pre) {
-    const sendCount = (pre.pager.page - 1) * pre.pager.per_page + pre.resources.length
-    const count = pre.pager.count
-    if (sendCount >= count) {
-      return null
-    }
-  }
-  return `/api/v1/items?page=${pageIndex + 1}`
+type Props = {
+  start: Time
+  end: Time
 }
 
-export const CountDetailList: React.FC = () => {
+export const CountDetailList: React.FC<Props> = (props) => {
+  const { start = time(), end = time() } = props
+  const getKey = (pageIndex: number, pre: IResources<Tag>) => {
+    // 发送请求的所有count
+    if (pre) {
+      const sendCount = (pre.pager.page - 1) * pre.pager.per_page + pre.resources.length
+      const count = pre.pager.count
+      if (sendCount >= count) {
+        return null
+      }
+    }
+    return `/api/v1/items?page=${pageIndex + 1}&happen_before=${start.format('yyyy-MM-dd')}&happen_after=${end.format('yyyy-MM-dd')}`
+  }
+
   const { get } = useAjax()
   const { data, error, size, setSize } = useSWRInfinite(
     getKey, async (path) => (await get<IResources<Tag>>(path)).data, { revalidateFirstPage: false }
