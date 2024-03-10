@@ -15,8 +15,8 @@ interface Props {
 const defaultTimeRanges: { key: TimeRange; value: string }[] = [
   { key: 'thisMonth', value: '本月' },
   { key: 'lastMonth', value: '上月' },
-  { key: 'twoMonthsAgo', value: '两月前' },
-  { key: 'threeMonthsAgo', value: '三个月前' }
+  { key: 'thisYear', value: '今年' },
+  { key: 'customTime', value: '自定义时间' }
 ]
 export const TopTimeBar: React.FC<Props> = (props) => {
   const { selected, onSelect, timeRanges = defaultTimeRanges } = props
