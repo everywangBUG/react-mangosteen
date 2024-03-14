@@ -8,11 +8,16 @@ import { useMenuVisible } from '../stores/useMenuVisible'
 import { Gradient } from '../components/Gradient'
 import { AddButton } from '../components/AddButton'
 import { generateStartAndEnd } from '../lib/generateStartAndEnd'
+import { time } from '../lib/time'
 import { CountItems } from './items/CountItems'
 import { CountDetailList } from './items/CountDetailList'
 
 export const Items: React.FC = () => {
-  const [timeRange, setTimeRange] = useState<TimeRange>('thisMonth')
+  const [timeRange, setTimeRange] = useState<TimeRange>({
+    name: 'thisMonth',
+    start: time().firstDayOfMonth,
+    end: time().lastDayOfMonth.add(1, 'day')
+  })
   const { visible, setVisible } = useMenuVisible()
 
   const { start, end } = generateStartAndEnd(timeRange)

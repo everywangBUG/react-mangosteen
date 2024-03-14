@@ -2,7 +2,7 @@ import type { Time } from '../lib/time'
 import { time } from '../lib/time'
 import type { TimeRange } from '../components/TopTimeBar'
 
-const timeRangeMap: { [ key in TimeRange]: number } = {
+const timeRangeMap: { [ key in TimeRange['name']]: number } = {
   thisMonth: 0,
   lastMonth: -1,
   twoMonthsAgo: -2,
@@ -13,12 +13,12 @@ const timeRangeMap: { [ key in TimeRange]: number } = {
 
 export const generateStartAndEnd = (timeRange: TimeRange) => {
   let selected: Time, start: Time, end: Time
-  switch (timeRange) {
+  switch (timeRange.name) {
     case 'thisMonth':
     case 'lastMonth':
     case 'twoMonthsAgo':
     case 'threeMonthsAgo':
-      selected = time().add(timeRangeMap[timeRange], 'month')
+      selected = time().add(timeRangeMap[timeRange.name], 'month')
       start = selected.firstDayOfMonth
       end = start.lastDayOfMonth.add(1, 'day')
       return { start, end }
