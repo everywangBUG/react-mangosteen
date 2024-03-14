@@ -25,8 +25,6 @@ const compareKey = <T extends (string | { name: string })>(key1: T, key2: T) => 
 }
 export const Tabs = <T extends string | { name: string }>(props: Props<T>) => {
   const { tabItems, selected, onChange, className, classPrefix } = props
-  console.log(tabItems, '111')
-  console.log(selected, '222')
   return (
     <div className={cs(className, classPrefix)}>
       <ol flex children-px-16px children-pb-8px text-white children-text-14px grow-0 shrink-0 bg="[rgba(255,149,0,1)]"
