@@ -6,9 +6,9 @@ import { LongPressDiv } from '../../components/LongPressDiv'
 
 // 使用IItems['kind]这种形式的引用值，可以在global.ts中改动了类型的时候能及时通知此处
 interface Props {
-  kind: Tag['kind']
-  value?: Tag['tag_ids']
-  onChange?: (ids: Tag['tag_ids']) => void
+  kind: IItems['kind']
+  value?: IItems['tag_ids']
+  onChange?: (ids: IItems['tag_ids']) => void
 }
 
 export const Tags: React.FC<Props> = (props) => {
@@ -16,7 +16,7 @@ export const Tags: React.FC<Props> = (props) => {
 
   const nav = useNavigate()
 
-  const getKey = (pageIndex: number, pre: IResources<Tag>) => {
+  const getKey = (pageIndex: number, pre: IResources<IItems>) => {
     // 发送请求的所有count
     if (pre) {
       const sendCount = (pre.pager.page - 1) * pre.pager.per_page + pre.resources.length
