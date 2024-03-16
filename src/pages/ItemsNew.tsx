@@ -13,7 +13,7 @@ import { ItemAmount } from './itemsNew/ItemAmount'
 
 export const ItemsNew: React.FC = () => {
   const { post } = useAjax({ showLoading: true, handleError: true })
-  const { data, error, setData, setError } = useCreateItems()
+  const { data, setData, setError } = useCreateItems()
   const itemsNewArr: { key: ExpendIncome; value: string; element: ReactNode }[] = [
     { key: 'expenses', value: '支出', element: <Tags kind="expenses" value={data.tag_ids} onChange={(ids) => setData({ tag_ids: ids })} /> },
     { key: 'incomes', value: '收入', element: <Tags kind="incomes" value={data.tag_ids} onChange={(ids) => setData({ tag_ids: ids })} /> }
@@ -32,6 +32,7 @@ export const ItemsNew: React.FC = () => {
       window.alert(errorMessage)
     } else {
       const response = await post<IResources<Tag>>('/api/v1/items', data)
+      console.log(response)
     }
   }
 
