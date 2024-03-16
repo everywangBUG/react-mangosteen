@@ -18,6 +18,7 @@ export const Popup: React.FC<Props> = ({ visible, onClickMask, children, positio
   })
 
   const maskStyles = useSpring({
+    visibility: (maskVisible ? 'visible' : 'hidden') as 'visible' | 'hidden',
     opacity: visible ? 1 : 0,
     onStart: ({ value }) => {
       // 打开动画 0 -> 1
