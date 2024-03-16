@@ -32,7 +32,6 @@ export const ItemsNew: React.FC = () => {
       window.alert(errorMessage)
     } else {
       const response = await post<IResources<Tag>>('/api/v1/items', data)
-      consoel.log(response.data.resources)
     }
   }
 

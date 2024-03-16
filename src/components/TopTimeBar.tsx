@@ -1,3 +1,5 @@
+import { useState } from 'react'
+import { Input } from '../components/Input'
 import { time } from '../lib/time'
 import { usePopup } from '../hooks/usePopup'
 import type { Time } from '../lib/time'
@@ -28,14 +30,32 @@ const defaultTimeRanges: { key: TimeRange; value: string }[] = [
 ]
 export const TopTimeBar: React.FC<Props> = (props) => {
   const { selected, onSelect: _onSelect, timeRanges = defaultTimeRanges } = props
+  const [start, setStart] = useState<string>('')
+  const [end, setEnd] = useState<string>('')
   const onConfirm = () => {
     _onSelect({ name: 'customTime', start: time(), end: time() })
   }
-  const { openPopup, popup } = usePopup({ children: <div onClick={onConfirm}>弹窗</div>, position: 'center' })
+  const { openPopup, popup } = usePopup({
+    children:
+    <div onClick={onConfirm}>
+      <header p-l-16px py-16px bg="[var(--color-orange)]">请选择时间</header>
+      <main p-16px>
+        <Input label={'开始时间'} type='text' disableError value={start} onChange={setStart} />
+        <div h-16px></div>
+        <Input label={'结束时间'} type='text' disableError value={end} onChange={setEnd} />
+      </main>
+      <footer text-right>
+        <button bg-transparent py-8px px-16px>取消</button>
+        <button bg-transparent py-8px px-16px>确定</button>
+      </footer>
+    </div>,
+    position: 'center'
+  })
   const onSelect = (timeRange: TimeRange) => {
     if (timeRange.name === 'customTime') {
       // 弹窗
       openPopup()
+      _onSelect(timeRange)
     } else {
       _onSelect(timeRange)
     }

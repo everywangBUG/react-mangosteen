@@ -25,7 +25,8 @@ export const Input: React.FC<Props> = (props) => {
       case 'text':
         return <input j-input-text type={type}
           placeholder={placeholder}
-          value={value} onChange={e => onChange?.(e.target.value)}
+          value={value}
+          onChange={e => onChange?.(e.target.value)}
         />
       case 'emoji':
         return <EmojiInput value={value} onChange={value => onChange?.(value)} />

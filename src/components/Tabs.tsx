@@ -8,7 +8,7 @@ interface Props<T> {
     value: string
     element?: ReactNode
   }[]
-  selected: string
+  selected: T
   onChange: (key: T) => void
   className?: string
   classPrefix?: string
@@ -33,7 +33,7 @@ export const Tabs = <T extends string | { name: string }>(props: Props<T>) => {
         {
           tabItems.map(it =>
           <li key={ typeof it.key === 'string' ? it.key : it.key.name} onClick={() => onChange(it.key)} className={
-            cs(compareKey(selected, it.key.name) ? s.selected : '',
+            cs(compareKey(selected, it.key) ? s.selected : '',
               classPrefix ? `${classPrefix}-menu-item` : ''
             )}>
             { it.value }
@@ -41,7 +41,7 @@ export const Tabs = <T extends string | { name: string }>(props: Props<T>) => {
         }
       </ol>
       <div grow-1 shrink-1 overflow-auto h="90%" className={classPrefix ? `${classPrefix}-pane` : ''}>
-        {tabItems.filter(it => compareKey(selected, it.key.name))[0]?.element}
+        {tabItems.filter(it => compareKey(selected, it.key))[0]?.element}
         { /* DOM diff算法 */}
         { /* 1. 组件名是否一致 Tags => Tags 一致不删除组件，只更新属性 */}
       </div>
