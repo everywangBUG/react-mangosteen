@@ -7,12 +7,12 @@ import type { TimeRange } from '../components/TopTimeBar'
 import { useMenuVisible } from '../stores/useMenuVisible'
 import { Gradient } from '../components/Gradient'
 import { AddButton } from '../components/AddButton'
-import { time } from '../lib/time'
+import { Time, time } from '../lib/time'
 import { CountItems } from './items/CountItems'
 import { CountDetailList } from './items/CountDetailList'
 
 export const Items: React.FC = () => {
-  const [timeRange, setTimeRange] = useState<TimeRange>({
+  const [timeRange, _setTimeRange] = useState<TimeRange>({
     name: 'thisMonth',
     start: time().firstDayOfMonth,
     end: time().lastDayOfMonth.add(1, 'day')
@@ -21,14 +21,32 @@ export const Items: React.FC = () => {
 
   const { start, end } = timeRange
 
+  const [outOfTime, setOutOfTime] = useState(false)
+
+  const setTimeRange = (t: TimeRange) => {
+    if (t.start.timestamp > t.end.timestamp) {
+      [t.start, t.end] = [t.end, t.start]
+    }
+    if (t.end.timestamp - t.start.timestamp > Time.DAY * 365) {
+      setOutOfTime(true)
+    }
+    _setTimeRange(t)
+  }
+
   return (
     <div>
       <Gradient>
         <TopNav title='橙子记账' icon={<Icon name='menu' className="w-24px h-24px" onClick={() => { setVisible(!visible) }}/>}/>
       </Gradient>
       <TopTimeBar selected={timeRange} onSelect={setTimeRange}/>
-      <CountItems />
-      <CountDetailList start={start} end={end} />
+      {
+        outOfTime
+          ? <div text-center p-32px>自定义时间跨度不能超过365天</div>
+          : <>
+          <CountItems />
+          <CountDetailList start={start} end={end} />
+        </>
+      }
       <AddButton />
       { <TopMenu visible={visible} onClickMask={() => { setVisible(false) }}/> }
     </div>

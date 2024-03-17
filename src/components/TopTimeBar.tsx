@@ -34,8 +34,9 @@ export const TopTimeBar: React.FC<Props> = (props) => {
   const [end, setEnd] = useState<string>('')
   const onConfirm = () => {
     _onSelect({ name: 'customTime', start: time(start), end: time(end).add(1, 'day') })
+    closePopup()
   }
-  const { openPopup, popup } = usePopup({
+  const { openPopup, popup, closePopup } = usePopup({
     zIndex: 'var(--z-dialog)',
     children:
     <div>
