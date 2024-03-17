@@ -27,8 +27,10 @@ export const Items: React.FC = () => {
     if (t.start.timestamp > t.end.timestamp) {
       [t.start, t.end] = [t.end, t.start]
     }
-    if (t.end.timestamp - t.start.timestamp > Time.DAY * 365) {
+    if (t.end.timestamp - t.start.timestamp > Time.DAY * 730) {
       setOutOfTime(true)
+    } else {
+      setOutOfTime(false)
     }
     _setTimeRange(t)
   }
@@ -41,7 +43,7 @@ export const Items: React.FC = () => {
       <TopTimeBar selected={timeRange} onSelect={setTimeRange}/>
       {
         outOfTime
-          ? <div text-center p-32px>自定义时间跨度不能超过365天</div>
+          ? <div text-center p-32px>自定义时间跨度不能超过两年</div>
           : <>
           <CountItems />
           <CountDetailList start={start} end={end} />
