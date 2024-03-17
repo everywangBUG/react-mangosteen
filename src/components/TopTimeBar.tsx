@@ -46,7 +46,7 @@ export const TopTimeBar: React.FC<Props> = (props) => {
         <Input className={'m-t-16px'} label={'结束时间'} type='date' disableError value={end} onChange={setEnd} />
       </main>
       <footer text-right>
-        <button bg-transparent py-8px px-16px>取消</button>
+        <button bg-transparent py-8px px-16px onClick={() => closePopup()}>取消</button>
         <button bg-transparent py-8px px-16px onClick={onConfirm}>确定</button>
       </footer>
     </div>,
