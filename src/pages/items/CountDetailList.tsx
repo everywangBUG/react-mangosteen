@@ -10,7 +10,7 @@ type Props = {
 
 export const CountDetailList: React.FC<Props> = (props) => {
   const { start = time(), end = time() } = props
-  const getKey = (pageIndex: number, pre: IResources<Tag>) => {
+  const getKey = (pageIndex: number, pre: IResources<IItems>) => {
     // 发送请求的所有count
     if (pre) {
       const sendCount = (pre.pager.page - 1) * pre.pager.per_page + pre.resources.length
@@ -24,7 +24,7 @@ export const CountDetailList: React.FC<Props> = (props) => {
 
   const { get } = useAjax()
   const { data, error, size, setSize } = useSWRInfinite(
-    getKey, async (path) => (await get<IResources<Tag>>(path)).data, { revalidateFirstPage: false }
+    getKey, async (path) => (await get<IResources<IItems>>(path)).data, { revalidateFirstPage: false }
   )
 
   // 加载更多的时候页码加一

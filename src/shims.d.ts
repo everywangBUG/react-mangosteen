@@ -13,6 +13,7 @@ declare module "react" {
     w?: string,
     rounded?: string,
     right?: string,
+    left?: string,
     bottom?: string,
     b?: string,
     'focus:shadow'?: boolean,

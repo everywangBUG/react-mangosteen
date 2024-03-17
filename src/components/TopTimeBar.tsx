@@ -36,6 +36,7 @@ export const TopTimeBar: React.FC<Props> = (props) => {
     _onSelect({ name: 'customTime', start: time(), end: time() })
   }
   const { openPopup, popup } = usePopup({
+    zIndex: 'var(--z-dialog)',
     children:
     <div onClick={onConfirm}>
       <header p-l-16px py-16px bg="[var(--color-orange)]">请选择时间</header>

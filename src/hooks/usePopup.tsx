@@ -8,14 +8,15 @@ type Options = {
   isShow?: boolean
   children: ReactNode
   position?: 'bottom' | 'center'
+  zIndex?: string
 }
 
 export const usePopup = (options: Options) => {
-  const { isShow = false, children, position = 'bottom' } = options
+  const { isShow = false, children, position = 'bottom', zIndex } = options
   const [visible, setVisible] = useState(isShow)
   // 传送门挂载到root根节点下面防止css继承链断裂
   const popup = ReactDOM.createPortal(
-  <Popup visible={visible} onClickMask={() => setVisible(false)} position={position}>
+  <Popup zIndex={zIndex} visible={visible} onClickMask={() => setVisible(false)} position={position}>
     {children}
   </Popup>, rootDiv)
   return {
