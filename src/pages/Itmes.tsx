@@ -7,7 +7,6 @@ import type { TimeRange } from '../components/TopTimeBar'
 import { useMenuVisible } from '../stores/useMenuVisible'
 import { Gradient } from '../components/Gradient'
 import { AddButton } from '../components/AddButton'
-import { generateStartAndEnd } from '../lib/generateStartAndEnd'
 import { time } from '../lib/time'
 import { CountItems } from './items/CountItems'
 import { CountDetailList } from './items/CountDetailList'
@@ -20,7 +19,7 @@ export const Items: React.FC = () => {
   })
   const { visible, setVisible } = useMenuVisible()
 
-  const { start, end } = generateStartAndEnd(timeRange)
+  const { start, end } = timeRange
 
   return (
     <div>

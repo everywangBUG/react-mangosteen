@@ -19,7 +19,9 @@ export const CountDetailList: React.FC<Props> = (props) => {
         return null
       }
     }
-    return `/api/v1/items?page=${pageIndex + 1}&happen_before=${start.format('yyyy-MM-dd')}&happen_after=${end.format('yyyy-MM-dd')}`
+    return `/api/v1/items?page=${pageIndex + 1}&`
+     + `happen_after=${start.removeTime.toISOString}&`
+     + `happen_before=${end.removeTime.toISOString}`
   }
 
   const { get } = useAjax()

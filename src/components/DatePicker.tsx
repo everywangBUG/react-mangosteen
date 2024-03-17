@@ -9,17 +9,18 @@ type Props = {
   onConfirm?: (value: Date) => void
 }
 
+const getNow = () => time().set({ hours: 0, minutes: 0, seconds: 0, ms: 0 })
 // useRef+forcedate强制更新方案
 export const DatePicker: React.FC<Props> = (props) => {
   const { start, end, value, onCancel, onConfirm } = props
-  const startTime = start ? time(start) : time().add(-10, 'years')
-  const endTime = end ? time(end) : time().add(10, 'year')
+  const startTime = start ? time(start) : getNow().add(-10, 'years')
+  const endTime = end ? time(end) : getNow().add(10, 'year')
   if (endTime.timestamp <= startTime.timestamp) {
     throw new Error('end time must be greater than start time')
   }
   // 使用useRef阻止valueTime重复申明
   const [, update] = useState({})
-  const valueTime = useRef(value ? time(value) : time())
+  const valueTime = useRef(value ? time(value) : getNow())
   const yearList = Array.from({ length: endTime.year - startTime.year + 1 })
     .map((_, index) => startTime.year + index)
   const monthList = Array.from({ length: 12 }).map((_, index) => index + 1)
@@ -93,8 +94,8 @@ export const Column: React.FC<ColumnProps> = (props) => {
         onChange(items[Math.abs(y / itemHeight)])
       }}
     >
-      <div border-b-2px border-t-2px b="#eee" absolute w-full top="50%" style={{ height: itemHeight, transform: `translateY(${-itemHeight / 2})` }} />
-      <div border-b-2px border-t-2px b="#eee" absolute w-full top="50%" style={{ height: itemHeight, transform: `translateY(${-itemHeight / 2})` }} >
+      <div border-b-1px border-t-1px b="orange" absolute w-full top="50%" style={{ height: itemHeight, transform: `translateY(${-itemHeight / 2})` }} />
+      <div border-b-1px border-t-1px b="orange" absolute w-full top="50%" style={{ height: itemHeight, transform: `translateY(${-itemHeight / 2})` }} >
         <ol flex flex-col text-center children-flex children-items-center children-justify-center
           style={{ transform: `translateY(${translateY}px)` }}
         >

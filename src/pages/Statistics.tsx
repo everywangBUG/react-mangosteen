@@ -12,7 +12,6 @@ import { BackIcon } from '../components/BackIcon'
 import { useAjax } from '../lib/ajax'
 import type { Time } from '../lib/time'
 import { time } from '../lib/time'
-import { generateStartAndEnd } from '../lib/generateStartAndEnd'
 
 interface GroupHappenAt {
   groups: { happen_at: string; amount: number }[]
@@ -56,7 +55,7 @@ export const Statistics: React.FC = () => {
       return { x, y: 0 }
     })
   }
-  const { start, end } = generateStartAndEnd(timeRange)
+  const { start, end } = timeRange
   const defaultItems = generateDefaultItems(start)
   const { data: items } = useSWR(getKey({ start, end, kind, group_by: 'happen_at' }),
     async (path) => {

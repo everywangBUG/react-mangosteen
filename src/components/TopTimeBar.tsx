@@ -33,12 +33,12 @@ export const TopTimeBar: React.FC<Props> = (props) => {
   const [start, setStart] = useState<string>('')
   const [end, setEnd] = useState<string>('')
   const onConfirm = () => {
-    _onSelect({ name: 'customTime', start: time(), end: time() })
+    _onSelect({ name: 'customTime', start: time(start), end: time(end).add(1, 'day') })
   }
   const { openPopup, popup } = usePopup({
     zIndex: 'var(--z-dialog)',
     children:
-    <div onClick={onConfirm}>
+    <div>
       <header p-l-16px py-16px bg="[var(--color-orange)]">请选择时间</header>
       <main p-16px>
         <Input label={'开始时间'} type='date' disableError value={start} onChange={setStart} />
@@ -46,7 +46,7 @@ export const TopTimeBar: React.FC<Props> = (props) => {
       </main>
       <footer text-right>
         <button bg-transparent py-8px px-16px>取消</button>
-        <button bg-transparent py-8px px-16px>确定</button>
+        <button bg-transparent py-8px px-16px onClick={onConfirm}>确定</button>
       </footer>
     </div>,
     position: 'center'
@@ -55,7 +55,6 @@ export const TopTimeBar: React.FC<Props> = (props) => {
     if (timeRange.name === 'customTime') {
       // 弹窗
       openPopup()
-      _onSelect(timeRange)
     } else {
       _onSelect(timeRange)
     }

@@ -27,6 +27,11 @@ export class Time {
     return this
   }
 
+  get removeTime() {
+    this.set({ hours: 0, minutes: 0, seconds: 0, ms: 0 })
+    return this
+  }
+
   get lastDayOfMonth() {
     return new Time(new Date(this.year, this.month - 1 + 1, 0))
   }
