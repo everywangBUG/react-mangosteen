@@ -5,7 +5,7 @@ import axios from 'axios'
 import { LoadingContext } from '../App'
 
 export const ajax = axios.create({
-  baseURL: isDev ? 'https://mangosteen2.hunger-valley.com' : 'http://121.196.236.94:8080/api/v1',
+  baseURL: isDev ? 'https://mangosteen2.hunger-valley.com' : 'https://mangosteen2.hunger-valley.com',
   headers: {
     'Content-Type': 'application/json;charset=utf-8'
   },
@@ -53,31 +53,30 @@ export const useAjax = (options?: Options) => {
     throw error
   }
 
-  const ajax = {
+  return {
     get: <T>(path: string, config?: AxiosRequestConfig<any>) => {
       if (showLoading) { show() }
-      return axiosInstance.get<T>(path, config).catch(onError).finally(() => {
+      return ajax.get<T>(path, config).catch(onError).finally(() => {
         if (showLoading) { hide() }
       })
     },
     post: <T>(path: string, data: JSONValue) => {
       if (showLoading) { show() }
-      return axiosInstance.post<T>(path, data).catch(onError).finally(() => {
+      return ajax.post<T>(path, data).catch(onError).finally(() => {
         if (showLoading) { hide() }
       })
     },
     patch: <T>(path: string, data: JSONValue) => {
       if (showLoading) { show() }
-      return axiosInstance.patch<T>(path, data).catch(onError).finally(() => {
+      return ajax.patch<T>(path, data).catch(onError).finally(() => {
         if (showLoading) { hide() }
       })
     },
     destroy: <T>(path: string) => {
       if (showLoading) { show() }
-      return axiosInstance.delete<T>(path).catch(onError).finally(() => {
+      return ajax.delete<T>(path).catch(onError).finally(() => {
         if (showLoading) { hide() }
       })
     },
   }
-  return ajax
 }

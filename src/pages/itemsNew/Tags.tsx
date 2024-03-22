@@ -30,7 +30,7 @@ export const Tags: React.FC<Props> = (props) => {
 
   const { get } = useAjax({ showLoading: true, handleError: true })
   const { data, error, size, setSize } = useSWRInfinite(
-    getKey, async (path) => (await get<IResources<Tag>>(path)).data, { revalidateFirstPage: false }
+    getKey, async (path) => (await get<IResources<Tag>>(path)).data
   )
 
   // 加载更多的时候页码加一
