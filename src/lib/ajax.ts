@@ -4,18 +4,26 @@ import { useContext } from 'react'
 import axios from 'axios'
 import { LoadingContext } from '../App'
 
-axios.defaults.baseURL = isDev ? '/' : 'http://121.196.236.94:8080/api/v1'
-axios.defaults.headers.post['content-Type'] = 'application/json'
-axios.defaults.timeout = 10000
+let hasEnter = false
 
-axios.interceptors.request.use((config: AxiosRequestConfig<any>) => {
-  const jwt = localStorage.getItem('jwt') || ''
-  config.headers = config.headers || {}
-  if (config.headers && jwt) {
-    config.headers.Authorization = `Bearer  + ${jwt}`
-  }
-  return config
-})
+export const setup = () => {
+  if (hasEnter) return
+  hasEnter = true
+  axios.defaults.baseURL = isDev ? 'https://mangosteen2.hunger-valley.com' : 'http://121.196.236.94:8080/api/v1'
+  axios.defaults.headers.post['content-Type'] = 'application/json'
+  axios.defaults.timeout = 10000
+
+  axios.interceptors.request.use((config: AxiosRequestConfig<any>) => {
+    const jwt = localStorage.getItem('jwt') || ''
+    config.headers = config.headers || {}
+    if (config.headers && jwt) {
+      config.headers.Authorization = `Bearer ${jwt}`
+    }
+    return config
+  })
+}
+
+setup()
 
 type Options = {
   showLoading?: boolean

@@ -1,4 +1,4 @@
-import { Navigate } from 'react-router-dom'
+import { Link, Navigate } from 'react-router-dom'
 import useSWR from 'swr'
 import { useAjax } from '../lib/ajax'
 import pig from '../assets/images/pig.svg'
@@ -35,7 +35,9 @@ export const Home: React.FC<IProps> = (props) => {
           <img src={pig} w='128px' h='130px' />
         </div>
         <div mt-20vh w='90%' text-center>
-          <button j-btn>开始记账</button>
+          <Link to='/items/new'>
+            <button j-btn>开始记账</button>
+          </Link>
         </div>
         <AddButton />
       </div>

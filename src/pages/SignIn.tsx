@@ -33,12 +33,13 @@ export const SignIn: React.FC = () => {
     ])
     setLoginError(errorData)
     if (!hasError(errorData)) {
-      const response = await post<{ session: string }>('/api/v1/api/session', data)
+      const response = await post<{ session: string }>('/api/v1/session', data)
         .catch(onSubmitError)
-      const jwt = response.data.session
+      const jwt = response.data.jwt
       localStorage.setItem('jwt', jwt)
       // 设置哪里跳过去的路由
       const from = search.get('from') || '/items'
+      console.log(from, 'placeholder')
       navigator(from)
     }
   }
@@ -50,7 +51,7 @@ export const SignIn: React.FC = () => {
     ])
     setLoginError(errorData)
     if (hasError(errorData)) { throw new Error('验证码发送失败') }
-    const response = await post('http://121.196.236.94:8080/api/v1/validation_codes', {
+    const response = await post('/api/v1/validation_codes', {
       email: data.email
     })
     return response

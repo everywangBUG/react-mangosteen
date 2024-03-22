@@ -11,6 +11,7 @@
     "antfu/top-level-function": "off",
     "@typescript-eslint/consistent-type-definitions": "off",
     "@typescript-eslint/no-use-before-define": "off",
-    "no-mixed-operators": "off"
+    "no-mixed-operators": "off",
+    "antfu/if-newline": "off"
   }
 }

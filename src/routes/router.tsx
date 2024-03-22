@@ -1,4 +1,3 @@
-import { preload } from 'swr'
 import { Outlet, createBrowserRouter } from 'react-router-dom'
 import type { AxiosError } from 'axios'
 import axios from 'axios'
@@ -12,7 +11,7 @@ import { TagsNew } from '../pages/TagsNew'
 import { TagsEditNew } from '../pages/TagsEditNew'
 import { Statistics } from '../pages/Statistics'
 import { ItemsErrors } from '../pages/itemsError'
-import { ErrorEmptyData, ErrorUnauthorized } from '../constants/itemErrors'
+import { ErrorUnauthorized } from '../constants/itemErrors'
 import { welcomeRoute } from './welcomeRoute'
 
 export const router = createBrowserRouter([
@@ -30,10 +29,9 @@ export const router = createBrowserRouter([
     path: '/',
     element: <Outlet />,
     errorElement: <ErrorPage />,
-    loader: () =>
-      preload('/api/v1/me', (path) =>
-        axios.get<IResource<IUser>>(path).then(r => r.data).catch(() => { throw new ErrorUnauthorized() })
-      ),
+    loader: async () => {
+      return await axios.get<IResource<IUser>>('/api/v1/me').catch(() => { throw new ErrorUnauthorized() })
+    },
     children: [
       {
         path: '/items',
@@ -45,15 +43,10 @@ export const router = createBrowserRouter([
               throw new ErrorUnauthorized()
             }
           }
-          return preload('/api/v1/items?page=1', async (path) => {
-            const response = await axios.get<IResources<Tag>>(path).catch(onError)
-            if (response.data.resources.length > 0) {
-              return response.data
-            }
-            else {
-              throw new ErrorEmptyData()
-            }
-          })
+          const response = await axios.get<IResources<IItems>>('/api/v1/items?page=1').catch(onError)
+          if (response.data.resources.length > 0) {
+            return response.data
+          }
         }
       },
       { path: '/items/new', element: <ItemsNew />, },
