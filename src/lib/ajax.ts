@@ -4,26 +4,22 @@ import { useContext } from 'react'
 import axios from 'axios'
 import { LoadingContext } from '../App'
 
-let hasEnter = false
+export const ajax = axios.create({
+  baseURL: isDev ? 'https://mangosteen2.hunger-valley.com' : 'http://121.196.236.94:8080/api/v1',
+  headers: {
+    'Content-Type': 'application/json;charset=utf-8'
+  },
+  timeout: 10000
+})
 
-export const setup = () => {
-  if (hasEnter) return
-  hasEnter = true
-  axios.defaults.baseURL = isDev ? 'https://mangosteen2.hunger-valley.com' : 'http://121.196.236.94:8080/api/v1'
-  axios.defaults.headers.post['content-Type'] = 'application/json'
-  axios.defaults.timeout = 10000
-
-  axios.interceptors.request.use((config: AxiosRequestConfig<any>) => {
-    const jwt = localStorage.getItem('jwt') || ''
-    config.headers = config.headers || {}
-    if (config.headers && jwt) {
-      config.headers.Authorization = `Bearer ${jwt}`
-    }
-    return config
-  })
-}
-
-setup()
+ajax.interceptors.request.use((config: AxiosRequestConfig<any>) => {
+  const jwt = localStorage.getItem('jwt') || ''
+  config.headers = config.headers || {}
+  if (config.headers && jwt) {
+    config.headers.Authorization = `Bearer ${jwt}`
+  }
+  return config
+})
 
 type Options = {
   showLoading?: boolean
@@ -60,25 +56,25 @@ export const useAjax = (options?: Options) => {
   const ajax = {
     get: <T>(path: string, config?: AxiosRequestConfig<any>) => {
       if (showLoading) { show() }
-      return axios.get<T>(path, config).catch(onError).finally(() => {
+      return axiosInstance.get<T>(path, config).catch(onError).finally(() => {
         if (showLoading) { hide() }
       })
     },
     post: <T>(path: string, data: JSONValue) => {
       if (showLoading) { show() }
-      return axios.post<T>(path, data).catch(onError).finally(() => {
+      return axiosInstance.post<T>(path, data).catch(onError).finally(() => {
         if (showLoading) { hide() }
       })
     },
     patch: <T>(path: string, data: JSONValue) => {
       if (showLoading) { show() }
-      return axios.patch<T>(path, data).catch(onError).finally(() => {
+      return axiosInstance.patch<T>(path, data).catch(onError).finally(() => {
         if (showLoading) { hide() }
       })
     },
     destroy: <T>(path: string) => {
       if (showLoading) { show() }
-      return axios.delete<T>(path).catch(onError).finally(() => {
+      return axiosInstance.delete<T>(path).catch(onError).finally(() => {
         if (showLoading) { hide() }
       })
     },

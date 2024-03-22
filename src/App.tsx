@@ -7,10 +7,8 @@ import { router } from './routes/router'
 import 'virtual:uno.css'
 import './global.scss'
 import 'virtual:svgsprites'
-import { setup } from './lib/ajax'
 
 vhCheck()
-setup()
 
 export const LoadingContext = createContext({
   show: () => {}, hide: () => {}

@@ -1,6 +1,5 @@
 import { Outlet, createBrowserRouter } from 'react-router-dom'
 import type { AxiosError } from 'axios'
-import axios from 'axios'
 import { ErrorPage } from '../pages/ErrorPage'
 import { Home } from '../pages/Home'
 import { Root } from '../components/Root'
@@ -12,6 +11,7 @@ import { TagsEditNew } from '../pages/TagsEditNew'
 import { Statistics } from '../pages/Statistics'
 import { ItemsErrors } from '../pages/itemsError'
 import { ErrorUnauthorized } from '../constants/itemErrors'
+import { ajax } from '../lib/ajax'
 import { welcomeRoute } from './welcomeRoute'
 
 export const router = createBrowserRouter([
@@ -30,7 +30,7 @@ export const router = createBrowserRouter([
     element: <Outlet />,
     errorElement: <ErrorPage />,
     loader: async () => {
-      return await axios.get<IResource<IUser>>('/api/v1/me').catch(() => { throw new ErrorUnauthorized() })
+      return await ajax.get<IResource<IUser>>('/api/v1/me').catch(() => { throw new ErrorUnauthorized() })
     },
     children: [
       {
@@ -43,7 +43,7 @@ export const router = createBrowserRouter([
               throw new ErrorUnauthorized()
             }
           }
-          const response = await axios.get<IResources<IItems>>('/api/v1/items?page=1').catch(onError)
+          const response = await ajax.get<IResources<IItems>>('/api/v1/items?page=1').catch(onError)
           if (response.data.resources.length > 0) {
             return response.data
           }
