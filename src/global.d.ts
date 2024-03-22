@@ -34,10 +34,10 @@ declare global {
     happen_at: string
     created_at: string
     updated_at: string
-    kind: 'expenses' | 'incomes'
+    kind: 'expenses' | 'income'
   }
 
-  type ExpendIncome = 'expenses' | 'incomes'
+  type ExpendIncome = 'expenses' | 'income'
 
   interface Tag {
     id: number
@@ -47,7 +47,7 @@ declare global {
     updated_at: string
     user_id: number
     name: string
-    kind: 'expenses' | 'incomes'
+    kind: 'expenses' | 'income'
   }
 
 }

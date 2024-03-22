@@ -24,7 +24,7 @@ export const TagForm: React.FC<Props> = (props) => {
     if (!kind) {
       throw new Error('kind is required')
     }
-    if (kind !== 'expenses' && kind !== 'incomes') {
+    if (kind !== 'expenses' && kind !== 'income') {
       throw new Error('kind must be "expenses" or "income"')
     }
     setData({ kind })

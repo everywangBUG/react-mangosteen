@@ -16,7 +16,7 @@ export const ItemsNew: React.FC = () => {
   const { data, setData, setError } = useCreateItems()
   const itemsNewArr: { key: ExpendIncome; value: string; element: ReactNode }[] = [
     { key: 'expenses', value: '支出', element: <Tags kind="expenses" value={data.tag_ids} onChange={(ids) => setData({ tag_ids: ids })} /> },
-    { key: 'incomes', value: '收入', element: <Tags kind="incomes" value={data.tag_ids} onChange={(ids) => setData({ tag_ids: ids })} /> }
+    { key: 'income', value: '收入', element: <Tags kind="income" value={data.tag_ids} onChange={(ids) => setData({ tag_ids: ids })} /> }
   ]
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
