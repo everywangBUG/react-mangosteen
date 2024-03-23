@@ -26,7 +26,7 @@ export const CountDetailList: React.FC<Props> = (props) => {
 
   const { get } = useAjax()
   const { data, error, size, setSize } = useSWRInfinite(
-    getKey, async (path) => (await get<IResources<IItems>>(path)).data, { revalidateFirstPage: false }
+    getKey, async (path) => (await get<IResources<IItems>>(path)).data, { revalidateAll: true }
   )
 
   // 加载更多的时候页码加一
@@ -63,10 +63,10 @@ export const CountDetailList: React.FC<Props> = (props) => {
               >
                 💖
               </div>
-              <div row-start-1 col-start-2 row-end-2 col-end-3 flex items-center>旅行</div>
+              <div row-start-1 col-start-2 row-end-2 col-end-3 flex items-center>{item.tags[0].name}</div>
               <div row-start-2 col-start-2 row-end-3 col-end-3 text="#999999" flex items-center>{time(item.created_at).format('yyyy-MM-dd HH:mm:  ss')}</div>
               <div row-start-1 col-start-3 row-end-3 col-end-4 flex items-center text="#53A867">
-                {`￥${item.amount}`}
+                {`￥${item.amount / 100}`}
               </div>
             </li>
           )

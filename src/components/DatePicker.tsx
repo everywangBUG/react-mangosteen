@@ -9,7 +9,7 @@ type Props = {
   onConfirm?: (value: Date) => void
 }
 
-const getNow = () => time().set({ hours: 0, minutes: 0, seconds: 0, ms: 0 })
+const getNow = () => time().set({ seconds: 0, ms: 0 })
 // useRef+forcedate强制更新方案
 export const DatePicker: React.FC<Props> = (props) => {
   const { start, end, value, onCancel, onConfirm } = props
