@@ -50,4 +50,9 @@ declare global {
     kind: 'expenses' | 'income'
   }
 
+  interface Balance {
+    balance: number
+    expenses: number
+    income: number
+  }
 }
