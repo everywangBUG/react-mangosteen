@@ -15,7 +15,7 @@ export const useCreateItems = create<CreateItem>((set) => ({
   data: {
     kind: 'expenses',
     tag_ids: [],
-    happen_at: time().format(),
+    happen_at: time().toISOString,
     amount: 0
   },
   error: {

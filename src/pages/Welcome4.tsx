@@ -17,7 +17,7 @@ export const Welcome4: React.FC = () => {
         </div>
       </div>
       <div text-center mt-10>
-        <Link text-32px color="#6035BF" font-bold to="/welcome/xxx" onClick={onStart}>开启应用</Link>
+        <Link text-32px color="#6035BF" font-bold to="/items" onClick={onStart}>开启应用</Link>
       </div>
     </div>
   )

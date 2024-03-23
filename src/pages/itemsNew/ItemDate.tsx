@@ -18,7 +18,7 @@ export const ItemDate: React.FC<Props> = (props) => {
     <>
       <span flex items-center gap-x-8px onClick={toggle}>
         <Icon className="h-24px w-24px" name="calendar" grow-0 shrink-0 />
-        <span grow-0 shrink-0 text-14px text="gray">{time(value).format()}</span>
+        <span grow-0 shrink-0 text-14px text="gray">{time(value).format('yyyy-MM-dd HH:mm')}</span>
       </span>
       {popup}
     </>
