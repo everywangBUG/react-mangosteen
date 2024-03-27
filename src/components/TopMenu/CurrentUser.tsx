@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import useSWR from 'swr'
 import { useAjax } from '../../lib/ajax'
+import { onDeleteConfirm } from '../../lib/windowConfirm'
 
 interface Props {
   className?: string
@@ -13,7 +14,10 @@ export const CurrentUser: React.FC<Props> = ({ className }) => {
     return response.data.resource
   })
   const name = data?.name ?? data?.email
-  const signOut = () => {}
+  const signOut = onDeleteConfirm('确定要登出吗', () => {
+    window.localStorage.removeItem('jwt')
+    window.location.reload()
+  })
   return (
     <>
     {

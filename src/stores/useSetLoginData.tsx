@@ -16,7 +16,7 @@ interface LoginStore {
 
 export const useSetLoginData = create<LoginStore>((set) => ({
   data: {
-    email: 'wz15979455211@163.com',
+    email: '',
     code: '',
   },
   error: {

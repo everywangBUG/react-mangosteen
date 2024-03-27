@@ -1,5 +1,5 @@
-export const onDeleteComfirm = (fn: () => void) => () => {
-  const res = window.confirm('是否确定删除？')
+export const onDeleteConfirm = (title: string, fn: () => void) => () => {
+  const res = window.confirm(title)
   if (res) {
     fn()
   }
