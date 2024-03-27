@@ -10,7 +10,7 @@ import { TagsNew } from '../pages/TagsNew'
 import { TagsEditNew } from '../pages/TagsEditNew'
 import { Statistics } from '../pages/Statistics'
 import { ItemsErrors } from '../pages/itemsError'
-import { ErrorUnauthorized } from '../constants/itemErrors'
+import { ErrorEmptyData, ErrorUnauthorized } from '../constants/itemErrors'
 import { ajax } from '../lib/ajax'
 import { welcomeRoute } from './welcomeRoute'
 
@@ -46,6 +46,8 @@ export const router = createBrowserRouter([
           const response = await ajax.get<IResources<IItems>>('/api/v1/items?page=1').catch(onError)
           if (response.data.resources.length > 0) {
             return response.data
+          } else {
+            throw new ErrorEmptyData()
           }
         }
       },

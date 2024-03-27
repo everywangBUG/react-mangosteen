@@ -10,7 +10,7 @@ interface Props {
 
 export const ItemAmount: React.FC<Props> = (props) => {
   const { value, onChange, className, itemDate } = props
-  const [output, _setOutput] = useState(() => value ? (value / 100).toString() : '0')
+  const [output, _setOutput] = useState(() => value ? (parseInt(value) / 100).toString() : '0')
   const setOutput = (str: string) => {
     if (str.length > 16) { return }
     const dotIndex = str.indexOf('.')

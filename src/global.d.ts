@@ -1,5 +1,3 @@
-import type { EmojiType } from '@faker-js/faker'
-
 declare global {
 
   var isDev: boolean
@@ -31,9 +29,9 @@ declare global {
     user_id: number
     amount: number
     tag_ids: number[]
-    happen_at: string
-    created_at: string
-    updated_at: string
+    happen_at: string | Date
+    created_at: string | Date
+    updated_at: string | Date
     kind: 'expenses' | 'income'
   }
 
@@ -41,7 +39,7 @@ declare global {
 
   interface Tag {
     id: number
-    sign: string | EmojiType[] | undefined
+    sign: string
     deleted_at: string | null
     created_at: string
     updated_at: string

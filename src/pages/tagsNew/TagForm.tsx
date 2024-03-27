@@ -33,7 +33,7 @@ export const TagForm: React.FC<Props> = (props) => {
   const id = params.id
 
   const { data: tag } = useSWR(id ? `/api/v1/tags/${id}` : null, async (path) =>
-    (await get<IResources<Tag>>(path)).data.resource
+    (await get<IResources<Tag>>(path)).data.resources
   )
 
   useEffect(() => {
@@ -66,10 +66,10 @@ export const TagForm: React.FC<Props> = (props) => {
     if (!hasError(newError)) {
       if (type === 'create') {
         const response = await post<IResources<Tag>>('/api/v1/tags', data).catch(onSubmitError)
-        setData(response.data.resource)
+        setData(response.data.resources)
       } else {
         const response = await patch<IResources<Tag>>(`/api/v1/tags/${id}`, data).catch(onSubmitError)
-        setData(response.data.resource)
+        setData(response.data.resources)
       }
       nav(`/items/new?kind=${kind}`)
     }

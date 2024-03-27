@@ -80,8 +80,8 @@ export const Statistics: React.FC = () => {
   const timeRanges: { key: TimeRange; value: string }[] = [
     { key: { name: 'thisMonth', start: time().firstDayOfMonth, end: time().lastDayOfMonth.add(1, 'day') }, value: '本月' },
     { key: { name: 'lastMonth', start: time().add(-1, 'month').firstDayOfMonth, end: time().add(-1, 'month').lastDayOfMonth.add(1, 'day') }, value: '上月' },
-    { key: { name: 'twoMonthAgo', start: time().add(-2, 'month').firstDayOfMonth, end: time().add(-2, 'month').lastDayOfMonth.add(1, 'day') }, value: '两月前' },
-    { key: { name: 'threeMonthAgo', start: time().add(-3, 'month').firstDayOfMonth, end: time().add(-3, 'month').lastDayOfMonth.add(1, 'day') }, value: '三月前' },
+    { key: { name: 'twoMonthsAgo', start: time().add(-2, 'month').firstDayOfMonth, end: time().add(-2, 'month').lastDayOfMonth.add(1, 'day') }, value: '两月前' },
+    { key: { name: 'threeMonthsAgo', start: time().add(-3, 'month').firstDayOfMonth, end: time().add(-3, 'month').lastDayOfMonth.add(1, 'day') }, value: '三月前' },
   ]
 
   return (
@@ -93,7 +93,14 @@ export const Statistics: React.FC = () => {
       <div flex items-center px-16px gap-x-16px p-16px>
         <span grow-0 shrink-0>类型</span>
         <div grow-1 shrink-1>
-          <Input type='select' options={[{ value: '19', text: '红色' }, { value: '支出', text: '白色' }]} value='expenses' disableError={true} onChange={value => setKind(value) }/>
+          <Input type='select' options={[
+            { value: '19', text: '红色' },
+            { value: '支出', text: '白色' }
+          ]}
+          value={kind}
+          disableError={true}
+          onChange={value => setKind(value) }
+        />
         </div>
       </div>
       <LineChart className="h-120px mt-10" items={lineItems} />

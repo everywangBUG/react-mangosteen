@@ -3,12 +3,12 @@ import { SmsCodeInput } from './SmsCodeInput'
 import { EmojiInput } from './Input/EmojiInput'
 import { DateInput } from './DateInput'
 
-type Props = {
+type Props<T> = {
   label?: string | ReactNode
   error?: string
-  value?: string
+  value?: T
   placeholder?: string
-  onChange?: (value: string) => void
+  onChange?: (value: T) => void
   disableError?: boolean
   className?: string
 } & (
@@ -19,14 +19,14 @@ type Props = {
   | { type?: 'date' }
 )
 
-export const Input: React.FC<Props> = (props) => {
+export const Input = <T extends string>(props: Props<T>) => {
   const { className, label, placeholder, value, onChange: _onChange, type, error, disableError } = props
 
   const onChange = (e: string | ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     if (typeof e === 'string') {
-      _onChange?.(e)
+      _onChange?.(e as T)
     } else {
-      _onChange?.(e.target.value)
+      _onChange?.(e.target.value as T)
     }
   }
 

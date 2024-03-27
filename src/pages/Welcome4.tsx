@@ -4,7 +4,7 @@ import welcome from '../assets/images/welcome4.svg'
 export const Welcome4: React.FC = () => {
   const nav = useNavigate()
   const onStart = () => {
-    nav('/welcome/xxx')
+    nav('/items')
   }
 
   return (

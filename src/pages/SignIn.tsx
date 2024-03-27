@@ -20,7 +20,7 @@ export const SignIn: React.FC = () => {
     throw error
   }
 
-  const { post } = useAjax({ showLoading: true })
+  const { post } = useAjax({ showLoading: false })
   const [search] = useSearchParams()
   const onSubmit: FormEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault()
@@ -33,13 +33,12 @@ export const SignIn: React.FC = () => {
     ])
     setLoginError(errorData)
     if (!hasError(errorData)) {
-      const response = await post<{ session: string }>('/api/v1/session', data)
+      const response = await post<{ jwt: string }>('/api/v1/session', data)
         .catch(onSubmitError)
       const jwt = response.data.jwt
       localStorage.setItem('jwt', jwt)
       // 设置哪里跳过去的路由
       const from = search.get('from') || '/items'
-      console.log(from, 'placeholder')
       navigator(from)
     }
   }

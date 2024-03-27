@@ -61,7 +61,7 @@ export const CountDetailList: React.FC<Props> = (props) => {
               <div row-start-1 col-start-1 row-end-3 col-end-2 w-48px h-48px text-24px bg="#D8D8D8" rounded="50%"
                 flex justify-center items-center
               >
-                💖
+                {item.tags[0].sign}
               </div>
               <div row-start-1 col-start-2 row-end-2 col-end-3 flex items-center>{item.tags[0].name}</div>
               <div row-start-2 col-start-2 row-end-3 col-end-3 text="#999999" flex items-center>{time(item.created_at).format('yyyy-MM-dd HH:mm:  ss')}</div>
