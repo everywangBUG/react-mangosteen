@@ -11,7 +11,7 @@ const createId = () => {
 const create = (attrs?: Partial<Tag>): Tag => {
   return {
     id: createId(),
-    sign: faker.internet.emoji,
+    sign: '123',
     deleted_at: '2024-10-10T12:00:00.000Z',
     created_at: '2024-10-10T12:00:00.000Z',
     updated_at: '2024-10-10T12:00:00.000Z',

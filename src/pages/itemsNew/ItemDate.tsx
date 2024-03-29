@@ -4,7 +4,7 @@ import { Icon } from '../../components/Icon'
 import { time } from '../../lib/time'
 
 type Props = {
-  value: string | Date
+  value: string
   onChange: (date: string) => void
 }
 

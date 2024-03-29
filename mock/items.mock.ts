@@ -8,11 +8,11 @@ const createId = () => {
   return id
 }
 
-const create = (attrs?: Partial<Tag>): Tag => {
+const create = (attrs?: Partial<IItems>): IItems => {
   return {
     id: createId(),
     user_id: 1,
-    amount: faker.datatype.number({ min: 99, max: 100_00, precision: 0.01 }),
+    amount: faker.datatype.number({ min: 99, max: 100_00, precision: 0.01 }) as number,
     tag_ids: [1, 2],
     happen_at: faker.date.past().toISOString(),
     created_at: faker.date.past().toISOString(),
@@ -22,11 +22,11 @@ const create = (attrs?: Partial<Tag>): Tag => {
   }
 }
 
-const createList = (n: number, attrs?: Partial<Tag>): Tag[] => {
+const createList = (n: number, attrs?: Partial<IItems>): IItems[] => {
   return Array.from({ length: n }).map(() => create(attrs))
 }
 
-const createResponse = ({ count = 10, perPage = 10, page = 1 }, attrs?: Partial<Tag>): IResources<Tag> => {
+const createResponse = ({ count = 10, perPage = 10, page = 1 }, attrs?: Partial<IItems>): IResources<IItems> => {
   const sendCount = (page - 1) * perPage
   const left = count - sendCount
   return {
