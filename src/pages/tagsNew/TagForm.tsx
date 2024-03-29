@@ -66,10 +66,10 @@ export const TagForm: React.FC<Props> = (props) => {
     if (!hasError(newError)) {
       if (type === 'create') {
         const response = await post<IResources<Tag>>('/api/v1/tags', data).catch(onSubmitError)
-        setData(response.data.resources)
+        setData(response.data.resource)
       } else {
         const response = await patch<IResources<Tag>>(`/api/v1/tags/${id}`, data).catch(onSubmitError)
-        setData(response.data.resources)
+        setData(response.data.resource)
       }
       nav(`/items/new?kind=${kind}`)
     }

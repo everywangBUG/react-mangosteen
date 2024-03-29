@@ -4,7 +4,7 @@ import { useState } from 'react'
 interface Props {
   className: string
   itemDate: ReactNode
-  value?: string
+  value?: number
   onChange?: (amount: number) => void
 }
 
