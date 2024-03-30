@@ -7,10 +7,10 @@ cd dist
 git init
 git add .
 git commit -m '部署'
-# 添加远程仓库，最好是ssh地址
-git remote add origin git@github.com:everywangBUG/mangosteen-preview.git
 # git 默认把分支名字叫做main，强制把分支名字叫做master
 git branch -M master
+# 添加远程仓库，最好是ssh地址
+git remote add origin git@github.com:everywangBUG/mangosteen-preview.git
 # 代码强制上传，防止第二次和第一次的代码有冲突，不能上传成功, master:master， 把本地的master上传到远程的master
 git push -f origin master:master
 # 输出部署成功
