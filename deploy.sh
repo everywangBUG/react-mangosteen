@@ -1,7 +1,28 @@
+function set_env {
+  name=$1
+  hint=$2
+  [[ ! -z "${!name}" ]] && return
+  while [ -z "${!name}" ]; do
+    [[ ! -z "$hint" ]] && echo "> 请输入 $name: $hint" || echo "> 请输入 $name:"
+    read $name
+  done
+  if [ ! -s ./.env ]; then
+    echo "export $name=\"${!name}\"" > ./.env
+  else
+    sed -i "1s/^/export $name=\"${!name}\"\n/" ./.env
+  fi
+
+  echo "${name} 已保存至 ./.env 。如果需要修改，请自行编辑 ./.env"
+}
+
+touch ./.env && source ./.env
+set_env user "GitHub 用户名"
+set_env repo "GitHub 仓库名"
+
 # 把之前的dist删除
-rm -rf dist
+# rm -rf dist
 # 在github上面的仓库预览 base必须要写，否则404, base前面还需要加--空格，原因不详
-npm run build -- --base /mangosteen-preview
+# npm run build -- --base "/mangosteen-preview"
 # 进入到dist目录
 cd dist
 git init
