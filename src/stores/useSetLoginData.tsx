@@ -2,16 +2,16 @@ import { create } from 'zustand'
 import type { FormError } from '../lib/validate'
 
 // 如果一个数据类型给自己用，不会扩展类型，使用interface
-type LoginState = {
+type Data = {
   email: string
   code: string
 }
 
 interface LoginStore {
-  data: LoginState
-  error: FormError<LoginState>
-  setLoginData: (data: Partial<LoginState>) => void
-  setLoginError: (error: Partial<FormError<LoginState>>) => void
+  data: Data
+  error: FormError<Data>
+  setLoginData: (data: Partial<Data>) => void
+  setLoginError: (error: Partial<FormError<Data>>) => void
 }
 
 export const useSetLoginData = create<LoginStore>((set) => ({
@@ -23,7 +23,7 @@ export const useSetLoginData = create<LoginStore>((set) => ({
     email: [],
     code: [],
   },
-  setLoginData: (data: Partial<LoginState>) => {
+  setLoginData: (data: Partial<Data>) => {
     set(state => (
       {
         ...state,
@@ -34,7 +34,7 @@ export const useSetLoginData = create<LoginStore>((set) => ({
       }
     ))
   },
-  setLoginError: (error: Partial<FormError<LoginState>>) => {
+  setLoginError: (error: Partial<FormError<Data>>) => {
     set(state => (
       {
         ...state,

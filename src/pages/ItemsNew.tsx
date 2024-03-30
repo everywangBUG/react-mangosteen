@@ -21,8 +21,7 @@ export const ItemsNew: React.FC = () => {
     { key: 'expenses', value: '支出', element: <Tags kind="expenses" value={data.tag_ids} onChange={(ids) => setData({ tag_ids: ids })} /> },
     { key: 'income', value: '收入', element: <Tags kind="income" value={data.tag_ids} onChange={(ids) => setData({ tag_ids: ids })} /> }
   ]
-  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
+  const onSubmit = async () => {
     const error = validate(data, [
       { key: 'kind', type: 'required', message: '请选择类型' },
       { key: 'tag_ids', type: 'required', message: '请选择一个标签' },
@@ -52,7 +51,7 @@ export const ItemsNew: React.FC = () => {
         className='text-center grow-1 shrink-1 overflow-hidden'
         classPrefix="tabs"
       />
-      <ItemAmount className="grow-0 shrink-0" value={data.amount} onChange={(amount) => setData({ amount })}
+      <ItemAmount className="grow-0 shrink-0" value={data.amount} onChange={(amount) => setData({ amount })} onSubmit={onSubmit}
         itemDate={<ItemDate value={data.happen_at} onChange={(happen_at) => setData({ happen_at })}/>}
       />
     </form>

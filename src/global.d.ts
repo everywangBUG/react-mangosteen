@@ -2,15 +2,9 @@
 
 var isDev: boolean;
 
-type JSONValue =
-  | string
-  | number
-  | boolean
-  | null
-  | { [k: string | number]: JSONValue }
-  | JSONValue[];
+type JSONValue = string | number | boolean | null | { [k: string | number]: JSONValue } | JSONValue[]
 
-interface IResources<T> {
+type IResources<T> = {
   resources: T[];
   pager: {
     page: number;
@@ -19,11 +13,11 @@ interface IResources<T> {
   };
 }
 
-interface IResource<T> {
-  resource?: T;
+type IResource<T> = {
+  resource: T;
 }
 
-interface IUser {
+type IUser = {
   id: number;
   name: string;
   email: string;
@@ -31,7 +25,7 @@ interface IUser {
   created_at: string;
 }
 
-interface IItems {
+type IItems = {
   id: number
   user_id: number
   amount: number
@@ -47,18 +41,18 @@ interface IItems {
 
 type ExpendIncome = "expenses" | "income";
 
-interface Tag {
-  id: number;
-  sign: string;
-  deleted_at: string | null;
-  created_at: string;
-  updated_at: string;
-  user_id: number;
-  name: string;
-  kind: "expenses" | "income";
+type Tag = {
+  id: number
+  kind: IItems['kind']
+  user_id: number
+  name: string
+  sign: string
+  created_at: string
+  updated_at: string
+  deleted_at: string | null
 }
 
-interface Balance {
+type Balance = {
   balance: number;
   expenses: number;
   income: number;

@@ -15,7 +15,7 @@ export const SignIn: React.FC = () => {
   const navigator = useNavigate()
   const { data, error, setLoginData, setLoginError } = useSetLoginData()
 
-  const onSubmitError = (err: AxiosError<{ err: FormError<typeof data> }>) => {
+  const onSubmitError = (err: AxiosError<{ errors: FormError<typeof data> }>) => {
     setLoginError(err.response?.data?.errors ?? {})
     throw error
   }

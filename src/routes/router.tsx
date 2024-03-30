@@ -30,7 +30,12 @@ export const router = createBrowserRouter([
     element: <Outlet />,
     errorElement: <ErrorPage />,
     loader: async () => {
-      return await ajax.get<IResource<IUser>>('/api/v1/me').catch(() => { throw new ErrorUnauthorized() })
+      return await ajax.get<IResource<IUser>>('/api/v1/me').catch((e) => {
+        if (e.response?.status === 401) {
+          throw new ErrorUnauthorized()
+        }
+        throw e
+      })
     },
     children: [
       {
@@ -38,16 +43,31 @@ export const router = createBrowserRouter([
         element: <Items />,
         errorElement: <ItemsErrors />,
         loader: async () => {
-          const onError = (error: AxiosError) => {
-            if (error.response?.status === 401) {
+          // const onError = (error: AxiosError) => {
+          //   if (error.response?.status === 401) {
+          //     throw new ErrorUnauthorized()
+          //   }
+          //   throw error
+          // }
+          // const response = await ajax.get<IResources<IItems>>('/api/v1/items?page=1').catch(onError)
+          // if (response.data.resources.length > 0) {
+          //   return response.data
+          // } else {
+          //   throw new ErrorEmptyData()
+          // }
+          try {
+            const response = await ajax.get<IResources<IItems>>('/api/v1/items?page=1')
+            if (response.data.resources.length > 0) {
+              return response.data
+            } else {
+              throw new ErrorEmptyData()
+            }
+          } catch (error) {
+            const e = error as AxiosError
+            if (e.response?.status === 401) {
               throw new ErrorUnauthorized()
             }
-          }
-          const response = await ajax.get<IResources<IItems>>('/api/v1/items?page=1').catch(onError)
-          if (response.data.resources.length > 0) {
-            return response.data
-          } else {
-            throw new ErrorEmptyData()
+            throw e
           }
         }
       },

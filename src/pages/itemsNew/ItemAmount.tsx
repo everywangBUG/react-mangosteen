@@ -6,11 +6,12 @@ interface Props {
   itemDate: ReactNode
   value?: number
   onChange?: (amount: number) => void
+  onSubmit?: () => void
 }
 
 export const ItemAmount: React.FC<Props> = (props) => {
-  const { value, onChange, className, itemDate } = props
-  const [output, _setOutput] = useState(() => value ? (parseInt(value) / 100).toString() : '0')
+  const { value, onChange, className, itemDate, onSubmit } = props
+  const [output, _setOutput] = useState(() => value ? (value / 100).toString() : '0')
   const setOutput = (str: string) => {
     if (str.length > 16) { return }
     const dotIndex = str.indexOf('.')
@@ -69,7 +70,7 @@ export const ItemAmount: React.FC<Props> = (props) => {
           <button type='button' style={{ gridArea: '4 / 1 / 5 / 3' }} onClick={() => append('0')}>0</button>
           <button type='button' style={{ gridArea: '4 / 3 / 5 / 4' }} onClick={() => append('.')}>.</button>
           <button type='button' style={{ gridArea: '1 / 4 / 3 / 5' }} onClick={clear}>清空</button>
-          <button type='submit' bg="#ff8c09" text-white style={{ gridArea: '3 / 4 / 5 / 5' }} onClick={() => { }}>提交</button>
+          <button type='submit' bg="#ff8c09" text-white style={{ gridArea: '3 / 4 / 5 / 5' }} onClick={onSubmit}>提交</button>
         </div>
       </div>
     </>

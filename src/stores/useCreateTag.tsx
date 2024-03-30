@@ -1,11 +1,13 @@
 import { create } from 'zustand'
 import type { FormError } from '../lib/validate'
 
+type Data = Tag
+
 interface CreateTag {
-  data: Partial<Tag>
-  error: FormError<Tag>
-  setData: (data: Partial<Tag>) => void
-  setError: (error: Partial<FormError<Tag>>) => void
+  data: Partial<Data>
+  error: FormError<Data>
+  setData: (data: Partial<Data>) => void
+  setError: (error: Partial<FormError<Data>>) => void
 }
 
 export const useCreateTag = create<CreateTag>((set) => ({
@@ -19,7 +21,7 @@ export const useCreateTag = create<CreateTag>((set) => ({
     sign: [],
     name: [],
   },
-  setData: (data: Partial<Tag>) => {
+  setData: (data: Partial<Data>) => {
     set(state => (
       {
         ...state,
@@ -30,7 +32,7 @@ export const useCreateTag = create<CreateTag>((set) => ({
       }
     ))
   },
-  setError: (error: Partial<FormError<Tag>>) => {
+  setError: (error: Partial<FormError<Data>>) => {
     set(state => (
       {
         ...state,

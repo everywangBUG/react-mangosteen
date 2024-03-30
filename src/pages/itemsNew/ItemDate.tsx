@@ -4,8 +4,8 @@ import { Icon } from '../../components/Icon'
 import { time } from '../../lib/time'
 
 type Props = {
-  value: string
-  onChange: (date: string) => void
+  value?: string
+  onChange?: (date: string) => void
 }
 
 export const ItemDate: React.FC<Props> = (props) => {

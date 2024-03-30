@@ -24,7 +24,7 @@ export const useCreateItems = create<CreateItem>((set) => ({
     happen_at: [],
     amount: []
   },
-  setData: (data: Partial<IItems>) => {
+  setData: (data: Partial<Data>) => {
     set(state => (
       {
         ...state,
@@ -35,7 +35,7 @@ export const useCreateItems = create<CreateItem>((set) => ({
       }
     ))
   },
-  setError: (error: Partial<FormError<IItems>>) => {
+  setError: (error: Partial<FormError<Data>>) => {
     set(state => (
       {
         ...state,
