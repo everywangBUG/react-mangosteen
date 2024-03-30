@@ -1,4 +1,4 @@
-import { Outlet, createBrowserRouter } from 'react-router-dom'
+import { Outlet, createHashRouter } from 'react-router-dom'
 import type { AxiosError } from 'axios'
 import { ErrorPage } from '../pages/ErrorPage'
 import { Home } from '../pages/Home'
@@ -14,7 +14,7 @@ import { ErrorEmptyData, ErrorUnauthorized } from '../constants/itemErrors'
 import { ajax } from '../lib/ajax'
 import { welcomeRoute } from './welcomeRoute'
 
-export const router = createBrowserRouter([
+export const router = createHashRouter([
   { path: '/', element: <Root /> },
   { path: '/home', element: <Home title='首页' /> },
   {
