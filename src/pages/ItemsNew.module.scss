@@ -1,9 +1,0 @@
-.wrapper {
-  :global { // 少用，可以去除随机数，容易影响全局属性
-    .tabs-menu-item {
-        flex: 1;
-    }
-    .tabs-pane {
-    }
-  }
-}
