@@ -1,32 +1,39 @@
-import { createBrowserRouter, Outlet } from "react-router-dom";
+import { createBrowserRouter } from "react-router-dom";
 import { ErrorPage } from "../components/ErrorPage";
+import { WelcomeLayout } from "../layout/WelconeLayout";
+import { Welcome1 } from "../layout/Welcome1";
+import { Welcome2 } from '../layout/Welcome2';
+import { Welcome3 } from "../layout/Welcome3";
+import { Welcome4 } from "../layout/Welcome4";
+import { MainLayout } from "../layout/MainLayout";
+import { RedirectToWelcome } from "../components/RedirectToWelcome";
 
 export const router = createBrowserRouter([
   {
     path: "/",
-    element: (<div>home</div>),
-    errorElement: <ErrorPage />
+    element: <MainLayout />,
+    errorElement: <RedirectToWelcome />
   },
   {
     path: "/welcome",
     errorElement: <ErrorPage />,
-    element: <div>welcome<Outlet /></div>,
+    element: <WelcomeLayout />,
     children: [
       {
         path: '1',
-        element: <div>1</div>,
+        element: <Welcome1 />,
       },
       {
         path: '2',
-        element: <div>2</div>,
+        element: <Welcome2 />,
       },
       {
         path: '3',
-        element: <div>3</div>,
+        element: <Welcome3 />,
       },
       {
         path: '4',
-        element: <div>4</div>,
+        element: <Welcome4 />,
       },
       {
       }
