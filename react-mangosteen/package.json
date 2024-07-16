@@ -16,7 +16,8 @@
     "@react-spring/web": "9.7.3",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "react-router-dom": "6.23.1"
+    "react-router-dom": "6.23.1",
+    "yarn": "1.22.22"
   },
   "devDependencies": {
     "@types/react": "18.2.66",
@@ -27,6 +28,8 @@
     "eslint": "8.57.0",
     "eslint-plugin-react-hooks": "4.6.0",
     "eslint-plugin-react-refresh": "0.4.6",
+    "svgo": "3.0.1",
+    "svgstore": "3.0.1",
     "typescript": "5.2.2",
     "unocss": "0.60.4",
     "vite": "5.2.0"
