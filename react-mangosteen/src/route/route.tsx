@@ -5,18 +5,17 @@ import { Welcome1 } from "../layout/Welcome1";
 import { Welcome2 } from '../layout/Welcome2';
 import { Welcome3 } from "../layout/Welcome3";
 import { Welcome4 } from "../layout/Welcome4";
-import { MainLayout } from "../layout/MainLayout";
 import { RedirectToWelcome } from "../components/RedirectToWelcome";
 
 export const router = createBrowserRouter([
   {
     path: "/",
-    element: <MainLayout />,
-    errorElement: <RedirectToWelcome />
+    element: <RedirectToWelcome />,
+    errorElement: <RedirectToWelcome />,
   },
   {
     path: "/welcome",
-    errorElement: <ErrorPage />,
+    errorElement: <RedirectToWelcome />,
     element: <WelcomeLayout />,
     children: [
       {
@@ -34,9 +33,12 @@ export const router = createBrowserRouter([
       {
         path: '4',
         element: <Welcome4 />,
-      },
-      {
       }
     ]
+  },
+  {
+    path: '/home',
+    errorElement: <ErrorPage />,
+    element: <div>首页</div>
   }
 ]) 

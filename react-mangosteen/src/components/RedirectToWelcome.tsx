@@ -1,6 +1,5 @@
-import { redirect } from "react-router-dom"
+import { Navigate } from "react-router-dom"
 
 export const RedirectToWelcome: React.FC = () => {
-  redirect("/welcome/1")
-  return null
+  return <Navigate to="/welcome/1" />
 }
