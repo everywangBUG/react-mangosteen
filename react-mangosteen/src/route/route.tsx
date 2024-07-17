@@ -1,6 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
 import { ErrorPage } from "../components/ErrorPage";
-import { WelcomeLayout } from "../layout/WelconeLayout";
+import { WelcomeLayout } from "../layout/WelcomeLayout";
 import { Welcome1 } from "../layout/Welcome1";
 import { Welcome2 } from '../layout/Welcome2';
 import { Welcome3 } from "../layout/Welcome3";

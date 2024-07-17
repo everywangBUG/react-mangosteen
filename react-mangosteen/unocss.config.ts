@@ -4,8 +4,7 @@ import {
   presetIcons,
   presetTypography,
   presetUno,
-  transformerDirectives,
-  transformerVariantGroup
+  transformerAttributifyJsx
 } from 'unocss'
 
 export default defineConfig({
@@ -20,7 +19,6 @@ export default defineConfig({
     presetTypography(),
   ],
   transformers: [
-    transformerDirectives(),
-    transformerVariantGroup(),
+    transformerAttributifyJsx()
   ],
 })
