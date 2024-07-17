@@ -1,5 +1,5 @@
 import { useRef, ReactNode } from "react"
-import { animated } from '@react-spring/web'
+import { animated, useTransition } from '@react-spring/web'
 import { Link, useLocation, useOutlet, Navigate  } from "react-router-dom"
 import logo from '../assets/images/logo.svg'
 
@@ -14,6 +14,15 @@ export const WelcomeLayout: React.FC = () => {
     '/welcome/3': '/welcome/4',
     '/welcome/4': 'home'
   }
+  const transitions = useTransition(location.pathname, {
+    from: { transform: location.pathname === '/welcome/1' ? 'translateX(0%)' : 'translateX(100%)' },
+    enter: { transform: 'translateX(0%)' },
+    leave: { transform: 'translateX(-100%)' },
+    config: { duration: 1000 },
+    onStart: () => {},
+    onRest: () => {}
+  })
+  console.log(transitions, 'transitions')
   console.log(linkMap, 'linkMap')
   console.log(outlet, 'outlet')
   console.log(location.pathname, 'location.pathname')
@@ -29,7 +38,13 @@ export const WelcomeLayout: React.FC = () => {
               <span text-28px mt-4 text-white font-bold>橙子记账</span>
             </header>
             <main grow-1 shrink-1>
-              {map.current[location.pathname]}
+              { 
+                transitions((style, pathname) => 
+                  <animated.div>
+                    <div style={style}>{map.current[pathname]}</div>
+                  </animated.div>
+                )
+              }
             </main>
             <footer shrink-0 h-25vh mb-20px w-100vw font-800 text-white flex items-end>
               <div grid grid-cols-3 grid-rows-1 w-screen>
