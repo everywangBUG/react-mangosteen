@@ -1,8 +1,13 @@
 import { create } from 'zustand'
 
+interface SkipWelcomeState {
+  isSkip: boolean
+  setIsSkip: (read: string) => void
+}
+
 const init = localStorage.getItem('skipWelcome') || 'no'
 
-const useSkipWelcome = create<{isSkip: boolean, setIsSkip: (read: string) => void}>(set => ({
+const useSkipWelcome = create<SkipWelcomeState>(set => ({
   isSkip: init === 'yes',
   setIsSkip: (read) => {
     const res = read ? 'yes' : 'no'
