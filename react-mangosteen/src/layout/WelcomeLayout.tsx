@@ -1,18 +1,19 @@
-import { useRef, ReactNode, useState } from "react"
+import { useRef, ReactNode, useState, useEffect } from "react"
 import { animated, useTransition } from '@react-spring/web'
 import { Link, useLocation, useOutlet, Navigate, useNavigate  } from "react-router-dom"
 import logo from '../assets/images/logo.svg'
 import useSkipWelcome from "../store/useSkipWelcome"
+import { useSwipe } from '../hooks/useSwipe'
 
 export const WelcomeLayout: React.FC = () => {
-  let x = useRef(-1)
-  let y = useRef(-1)
   const map = useRef<Record<string, ReactNode>>({})
   const location = useLocation()
   const outlet = useOutlet()
   const navigate = useNavigate()
   const { setIsSkip } = useSkipWelcome()
+  const animating = useRef(false)
   const mainRef = useRef<HTMLDivElement>(null)
+  const { direction } = useSwipe(mainRef, { onTouchStart: e => e.preventDefault()})
   map.current[location.pathname] = outlet
   const linkMap: Record<string, string> = {
     '/welcome/1': '/welcome/2',
@@ -31,51 +32,37 @@ export const WelcomeLayout: React.FC = () => {
       setExtraStyle({position: 'absolute'})
     },
     onRest: () => {
+      animating.current = false
       setExtraStyle({position: 'relative'})
+    }
+  })
+
+  useEffect(() => {
+    if (direction === 'left') {
+      if (animating.current) return
+      animating.current = true
+      navigate(linkMap[location.pathname])
     }
   })
 
   if (!outlet) {
     return <Navigate to="/welcome/1" />
   }
-
+  
   const skipWelcome = () => {
     navigate('/home')
     setIsSkip('yes')
   }
 
-
-  const onTouchMainStart = (e: TouchEvent) => {
-    mainRef.current?.addEventListener('touchstart', onTouchMainStart)
-    x = e.touches[0].clientX
-    y = e.touches[0].clientY
-    console.log(x, 'placeholder')
-    console.log(y, 'placeholder')
-  }
-
-  const onTouchMainEnd = (e: TouchEvent) => {
-    mainRef.current?.addEventListener('touchstart', onTouchMainEnd)
-  }
-
-  const onTouchMainMove = (e: TouchEvent) => {
-    mainRef.current?.addEventListener('touchmove', onTouchMainMove)
-  }
-
-  return (<div relative flex justify-center h-screen flex-col bg-orange>
+  return (<div relative flex justify-center h-screen flex-col bg-orange overflow-x-hidden>
             <header shrink-0 flex justify-center flex-col items-center h-25vh>
               <img src={logo} alt="logo" h-20/>
               <span text-28px mt-4 text-white font-bold>橙子记账</span>
             </header>
-            <main
-              grow-1
-              shrink-1
-              ref={mainRef}
-              onTouchStart={onTouchMainStart}
-              onTouchEnd={onTouchMainEnd}
-              onTouchMove={onTouchMainMove}
+            <main grow-1 shrink-1 ref={mainRef}
             >
               { 
-                transitions((style, pathname) => 
+                transitions((style, pathname) =>
                   <animated.div key={pathname} w="100%" h="100%" style={{...style, ...extraStyle}}>
                     <div flex justify-center>{map.current[pathname]}</div>
                   </animated.div>
