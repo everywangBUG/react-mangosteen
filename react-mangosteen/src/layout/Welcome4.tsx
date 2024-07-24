@@ -1,8 +1,7 @@
-import { useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import welcome4 from '../assets/images/welcome4.svg'
 
 export const Welcome4: React.FC = () => {
-  const navigator = useNavigate()
   
   return (
     <div flex flex-col>
@@ -12,11 +11,6 @@ export const Welcome4: React.FC = () => {
           <span text-28px>每日提醒</span>
           <span text-28px>不会遗漏每一笔记账</span>
         </div>
-      </div>
-      <div  h-25vh flex items-center justify-center>
-        <span font-800 text-28px text-white
-          onClick={() => {console.log(111,'placeholder'); navigator('/home')}}>开启记账
-        </span>
       </div>
     </div>
   )

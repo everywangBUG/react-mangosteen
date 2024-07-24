@@ -70,14 +70,19 @@ export const WelcomeLayout: React.FC = () => {
               }
             </main>
             {
-              !isLastPage &&
-              <footer shrink-0 h-25vh mb-20px w-100vw font-800 text-white flex items-end>
-                <div grid grid-cols-3 grid-rows-1 w-screen>
-                  <span></span>
-                  <Link text-28px text-center text-white select-none to={linkMap[location.pathname]}>下一页</Link>
-                  <span text-28px text-center onClick={skipWelcome}>跳过</span>
+              !isLastPage
+              ? <footer shrink-0 h-25vh mb-20px w-100vw font-800 text-white flex items-end>
+                  <div grid grid-cols-3 grid-rows-1 w-screen>
+                    <span></span>
+                    <Link text-28px text-center text-white select-none to={linkMap[location.pathname]}>下一页</Link>
+                    <span text-28px text-center onClick={skipWelcome}>跳过</span>
+                  </div>
+                </footer>
+              : <div  h-25vh flex items-center justify-center>
+                  <Link font-800 text-28px text-white to={'/home'}>
+                      开启记账
+                  </Link>
                 </div>
-              </footer>
             }
           </div>)
 }
