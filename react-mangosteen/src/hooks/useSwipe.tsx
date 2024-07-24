@@ -41,7 +41,6 @@ export const useSwipe = (mainRef: React.RefObject<HTMLDivElement>, config?: Conf
 
   const onTouchEnd = (e: TouchEvent) => {
     config?.onTouchEnd?.(e)
-    e.preventDefault()
     setDirection('')
   }
 

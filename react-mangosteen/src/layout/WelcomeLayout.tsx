@@ -13,7 +13,7 @@ export const WelcomeLayout: React.FC = () => {
   const { setIsSkip } = useSkipWelcome()
   const animating = useRef(false)
   const mainRef = useRef<HTMLDivElement>(null)
-  const { direction } = useSwipe(mainRef, { onTouchStart: e => e.preventDefault()})
+  const { direction } = useSwipe(mainRef, { onTouchStart: e => e.preventDefault() })
   map.current[location.pathname] = outlet
   const linkMap: Record<string, string> = {
     '/welcome/1': '/welcome/2',
@@ -43,7 +43,7 @@ export const WelcomeLayout: React.FC = () => {
       animating.current = true
       navigate(linkMap[location.pathname])
     }
-  })
+  }, [direction, linkMap[location.pathname], location.pathname])
 
   if (!outlet) {
     return <Navigate to="/welcome/1" />
@@ -55,7 +55,7 @@ export const WelcomeLayout: React.FC = () => {
   }
 
   return (<div relative flex justify-center h-screen flex-col bg-orange overflow-x-hidden>
-            <header shrink-0 flex justify-center flex-col items-center h-25vh>
+            <header shrink-0 flex justify-center flex-col items-center my-40px>
               <img src={logo} alt="logo" h-20/>
               <span text-28px mt-4 text-white font-bold>橙子记账</span>
             </header>
