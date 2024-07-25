@@ -15,5 +15,7 @@ declare module "react" {
     grow?: string,
     shrink?: string,
     top?: string
+    right?: string
+    bottom?: string
   }
 }

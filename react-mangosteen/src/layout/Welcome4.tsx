@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom'
 import welcome4 from '../assets/images/welcome4.svg'
 
 export const Welcome4: React.FC = () => {

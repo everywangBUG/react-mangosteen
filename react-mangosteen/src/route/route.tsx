@@ -6,12 +6,15 @@ import { Welcome2 } from '../layout/Welcome2';
 import { Welcome3 } from "../layout/Welcome3";
 import { Welcome4 } from "../layout/Welcome4";
 import { RedirectToWelcome } from "../components/RedirectToWelcome";
+import { Home } from "../views/Home";
+import { Items } from "../views/Items";
+import { ItemsNew } from "../views/ItemsNew";
 
 export const router = createBrowserRouter([
   {
     path: "/",
     element: <RedirectToWelcome />,
-    errorElement: <RedirectToWelcome />,
+    errorElement: <ErrorPage />,
   },
   {
     path: "/welcome",
@@ -39,6 +42,16 @@ export const router = createBrowserRouter([
   {
     path: '/home',
     errorElement: <ErrorPage />,
-    element: <div>首页</div>
+    element: <Home />
+  },
+  {
+    path: '/items',
+    errorElement: <ErrorPage />,
+    element: <Items />
+  },
+  {
+    path: '/items/new',
+    errorElement: <ErrorPage />,
+    element: <ItemsNew />,
   }
 ]) 

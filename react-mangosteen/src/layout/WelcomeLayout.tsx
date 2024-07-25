@@ -58,12 +58,11 @@ export const WelcomeLayout: React.FC = () => {
             <header shrink-0 flex justify-center flex-col items-center my-40px>
               <img src={logo} alt="logo" h-20/>
               <span text-28px mt-4 text-white font-bold>橙子记账</span>
-            </header>
-            <main grow-1 shrink-1 ref={mainRef}
-            >
+            </header> 
+            <main grow-1 shrink-1 relative ref={mainRef}>
               { 
                 transitions((style, pathname) =>
-                  <animated.div key={pathname} w="100%" h="100%" style={{...style, ...extraStyle}}>
+                  <animated.div key={pathname} w="100%" h="100%" absolute style={{...style, ...extraStyle}}>
                     <div flex justify-center>{map.current[pathname]}</div>
                   </animated.div>
                 )

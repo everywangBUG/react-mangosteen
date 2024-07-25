@@ -8,7 +8,9 @@ import {
 } from 'unocss'
 
 export default defineConfig({
-  shortcuts: [],
+  shortcuts: [
+    ['account-start-button', 'w-[90%] bg-orange rounded-[8px] h-50px text-[24px] text-white']
+  ],
   theme: {
     colors: {}
   },
