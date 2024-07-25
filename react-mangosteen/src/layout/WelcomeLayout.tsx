@@ -54,34 +54,35 @@ export const WelcomeLayout: React.FC = () => {
     setIsSkip('yes')
   }
 
-  return (<div relative flex justify-center h-screen flex-col bg-orange overflow-x-hidden>
-            <header shrink-0 flex justify-center flex-col items-center my-40px>
-              <img src={logo} alt="logo" h-20/>
-              <span text-28px mt-4 text-white font-bold>橙子记账</span>
-            </header> 
-            <main grow-1 shrink-1 relative ref={mainRef}>
-              { 
-                transitions((style, pathname) =>
-                  <animated.div key={pathname} w="100%" h="100%" absolute style={{...style, ...extraStyle}}>
-                    <div flex justify-center>{map.current[pathname]}</div>
-                  </animated.div>
-                )
-              }
-            </main>
-            {
-              !isLastPage
-              ? <footer shrink-0 h-25vh mb-20px w-100vw font-800 text-white flex items-end>
-                  <div grid grid-cols-3 grid-rows-1 w-screen>
-                    <span></span>
-                    <Link text-28px text-center text-white select-none to={linkMap[location.pathname]}>下一页</Link>
-                    <span text-28px text-center onClick={skipWelcome}>跳过</span>
-                  </div>
-                </footer>
-              : <div  h-25vh flex items-center justify-center>
-                  <Link font-800 text-28px text-white to={'/home'}>
-                      开启记账
-                  </Link>
-                </div>
-            }
-          </div>)
+  return (
+    <div relative flex justify-center h-screen flex-col bg-orange overflow-x-hidden>
+      <header shrink-0 flex justify-center flex-col items-center my-40px>
+        <img src={logo} alt="logo" h-20/>
+        <span text-28px mt-4 text-white font-bold>橙子记账</span>
+      </header> 
+      <main grow-1 shrink-1 relative ref={mainRef}>
+        { 
+          transitions((style, pathname) =>
+            <animated.div key={pathname} w="100%" h="100%" absolute style={{...style, ...extraStyle}}>
+              <div flex justify-center>{map.current[pathname]}</div>
+            </animated.div>
+          )
+        }
+      </main>
+      {
+        !isLastPage
+        ? <footer shrink-0 h-25vh mb-20px w-100vw font-800 text-white flex items-end>
+            <div grid grid-cols-3 grid-rows-1 w-screen>
+              <span></span>
+              <Link text-28px text-center text-white select-none to={linkMap[location.pathname]}>下一页</Link>
+              <span text-28px text-center onClick={skipWelcome}>跳过</span>
+            </div>
+          </footer>
+        : <div  h-25vh flex items-center justify-center>
+            <Link font-800 text-28px text-white to={'/home'}>
+                开启记账
+            </Link>
+          </div>
+      }
+    </div>)
 }
