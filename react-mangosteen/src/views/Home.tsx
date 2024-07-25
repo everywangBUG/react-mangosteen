@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import pig from '../assets/images/pig.svg'
 import { AddButton } from '../components/AddButton'
 
@@ -9,7 +10,11 @@ export const Home: React.FC = () => {
         <div mb-20>
           <img src={pig} w='128px' h='130px'/>
         </div>
-        <button account-start-button>开始记账</button>
+        <div w='90%' text-center>
+          <Link to='/items'>
+            <button account-start-button>开始记账</button>
+          </Link>
+        </div>
       </div>
       <AddButton />
     </div>)
