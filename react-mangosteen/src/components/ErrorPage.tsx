@@ -2,7 +2,6 @@ import { useRouteError } from "react-router-dom"
 
 export const ErrorPage: React.FC = () => {
   const error: any = useRouteError()
-  console.log(error, 'placeholder')
   
   return (
     <div h-screen flex flex-col justify-center items-center text-orange>

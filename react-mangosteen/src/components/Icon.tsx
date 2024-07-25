@@ -10,9 +10,7 @@ interface Props {
 
 export const Icon: React.FC<Props> = ({ className, name, onClick }) => {
   return (
-    <div>
-      <svg className={c(s.icon, className)} onClick={onClick}>
-        <use xlinkHref={`#${name}`} />
-      </svg>
-    </div>)
+    <svg className={c(s.icon, className)} onClick={onClick}>
+      <use xlinkHref={`#${name}`} />
+    </svg>)
 }
