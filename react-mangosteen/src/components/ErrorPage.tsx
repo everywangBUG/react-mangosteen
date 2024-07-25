@@ -5,9 +5,9 @@ export const ErrorPage: React.FC = () => {
   console.log(error, 'placeholder')
   
   return (
-    <div>
-      <h1>Oops!</h1>
-      <p>Sorry, an unexpected error has occurred.</p>
+    <div h-screen flex flex-col justify-center items-center text-orange>
+      <h1 mb-4 text-xl>哎哟!</h1>
+      <p mb-4 text-xl>不好意思, 一个未知的错误发生了。</p>
       <p>{error.statusText || error.message}</p>
     </div>)
 }
