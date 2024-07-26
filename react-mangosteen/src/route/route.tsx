@@ -9,6 +9,7 @@ import { RedirectToWelcome } from "../components/RedirectToWelcome";
 import { Home } from "../views/Home";
 import { Items } from "../views/Items";
 import { ItemsNew } from "../views/ItemsNew";
+import { SignIn } from "../views/SignIn";
 
 export const router = createBrowserRouter([
   {
@@ -53,5 +54,10 @@ export const router = createBrowserRouter([
     path: "/items/new",
     errorElement: <ErrorPage />,
     element: <ItemsNew />,
+  },
+  {
+    path: "/sign_in",
+    errorElement: <ErrorPage />,
+    element: <SignIn />
   }
 ]) 

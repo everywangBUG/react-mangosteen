@@ -1,9 +1,10 @@
 import { useRef, ReactNode, useState, useEffect } from "react"
 import { animated, useTransition } from "@react-spring/web"
 import { Link, useLocation, useOutlet, Navigate, useNavigate  } from "react-router-dom"
-import orange from "../assets/images/orange.svg"
+import orange from "../assets/icons/orange.svg"
 import useSkipWelcome from "../store/useSkipWelcome"
 import { useSwipe } from "../hooks/useSwipe"
+import { Icon } from "../components/Icon"
 
 export const WelcomeLayout: React.FC = () => {
   const map = useRef<Record<string, ReactNode>>({})
@@ -57,8 +58,8 @@ export const WelcomeLayout: React.FC = () => {
   return (
     <div relative flex justify-center h-screen flex-col bg-orange overflow-x-hidden>
       <header shrink-0 flex justify-center flex-col items-center my-40px>
-        <img src={orange} alt="logo" h-20/>
-        <span text-28px mt-4 text-white font-bold>橙子记账</span>
+        <Icon className="w-64px h-64px" name="orange" />
+        <h1 text-28px mt-4 text-white font-bold>橙子记账</h1>
       </header> 
       <main grow-1 shrink-1 relative ref={mainRef}>
         { 

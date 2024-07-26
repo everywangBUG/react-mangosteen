@@ -8,6 +8,6 @@ export default defineConfig({
   plugins: [
     react(),
     UnoCSS(),
-    svgsprites({ noOptimizeList: ["chart", "category", "export", "noty", "logo", "calendar", "add"] })
+    svgsprites({ noOptimizeList: ["chart", "category", "export", "noty", "logo", "calendar", "add", "orange"] })
   ],
 })
