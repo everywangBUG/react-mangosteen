@@ -1,9 +1,9 @@
 import { useRef, ReactNode, useState, useEffect } from "react"
-import { animated, useTransition } from '@react-spring/web'
+import { animated, useTransition } from "@react-spring/web"
 import { Link, useLocation, useOutlet, Navigate, useNavigate  } from "react-router-dom"
-import logo from '../assets/images/logo.svg'
+import orange from "../assets/images/orange.svg"
 import useSkipWelcome from "../store/useSkipWelcome"
-import { useSwipe } from '../hooks/useSwipe'
+import { useSwipe } from "../hooks/useSwipe"
 
 export const WelcomeLayout: React.FC = () => {
   const map = useRef<Record<string, ReactNode>>({})
@@ -16,29 +16,29 @@ export const WelcomeLayout: React.FC = () => {
   const { direction } = useSwipe(mainRef, { onTouchStart: e => e.preventDefault() })
   map.current[location.pathname] = outlet
   const linkMap: Record<string, string> = {
-    '/welcome/1': '/welcome/2',
-    '/welcome/2': '/welcome/3',
-    '/welcome/3': '/welcome/4',
-    '/welcome/4': '/home'
+    "/welcome/1": "/welcome/2",
+    "/welcome/2": "/welcome/3",
+    "/welcome/3": "/welcome/4",
+    "/welcome/4": "/home"
   }
-  const isLastPage = location.pathname === '/welcome/4'
-  const [extraStyle, setExtraStyle] = useState<{position: 'relative' | 'absolute'}>({position: 'relative'})
+  const isLastPage = location.pathname === "/welcome/4"
+  const [extraStyle, setExtraStyle] = useState<{position: "relative" | "absolute"}>({position: "relative"})
   const transitions = useTransition(location.pathname, {
-    from: { transform: location.pathname === '/welcome/1' ? 'translateX(0%)' : 'translateX(100%)' },
-    enter: { transform: 'translateX(0%)' },
-    leave: { transform: 'translateX(-100%)' },
+    from: { transform: location.pathname === "/welcome/1" ? "translateX(0%)" : "translateX(100%)" },
+    enter: { transform: "translateX(0%)" },
+    leave: { transform: "translateX(-100%)" },
     config: { duration: 1000 },
     onStart: () => {
-      setExtraStyle({position: 'absolute'})
+      setExtraStyle({position: "absolute"})
     },
     onRest: () => {
       animating.current = false
-      setExtraStyle({position: 'relative'})
+      setExtraStyle({position: "relative"})
     }
   })
 
   useEffect(() => {
-    if (direction === 'left') {
+    if (direction === "left") {
       if (animating.current) return
       animating.current = true
       navigate(linkMap[location.pathname])
@@ -50,14 +50,14 @@ export const WelcomeLayout: React.FC = () => {
   }
   
   const skipWelcome = () => {
-    navigate('/home')
-    setIsSkip('yes')
+    navigate("/home")
+    setIsSkip("yes")
   }
 
   return (
     <div relative flex justify-center h-screen flex-col bg-orange overflow-x-hidden>
       <header shrink-0 flex justify-center flex-col items-center my-40px>
-        <img src={logo} alt="logo" h-20/>
+        <img src={orange} alt="logo" h-20/>
         <span text-28px mt-4 text-white font-bold>橙子记账</span>
       </header> 
       <main grow-1 shrink-1 relative ref={mainRef}>
@@ -79,7 +79,7 @@ export const WelcomeLayout: React.FC = () => {
             </div>
           </footer>
         : <div  h-25vh flex items-center justify-center>
-            <Link font-800 text-28px text-white to={'/home'}>
+            <Link font-800 text-28px text-white to={"/home"}>
                 开启记账
             </Link>
           </div>

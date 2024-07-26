@@ -1,6 +1,6 @@
-import s from './icon.module.scss'
-import c from 'classnames'
-import React from 'react';
+import s from "./icon.module.scss"
+import c from "classnames"
+import React from "react";
 
 interface Props {
   className?: string

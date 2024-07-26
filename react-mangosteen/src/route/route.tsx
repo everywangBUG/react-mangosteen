@@ -2,7 +2,7 @@ import { createBrowserRouter } from "react-router-dom";
 import { ErrorPage } from "../components/ErrorPage";
 import { WelcomeLayout } from "../layout/WelcomeLayout";
 import { Welcome1 } from "../layout/Welcome1";
-import { Welcome2 } from '../layout/Welcome2';
+import { Welcome2 } from "../layout/Welcome2";
 import { Welcome3 } from "../layout/Welcome3";
 import { Welcome4 } from "../layout/Welcome4";
 import { RedirectToWelcome } from "../components/RedirectToWelcome";
@@ -22,35 +22,35 @@ export const router = createBrowserRouter([
     element: <WelcomeLayout />,
     children: [
       {
-        path: '1',
+        path: "1",
         element: <Welcome1 />,
       },
       {
-        path: '2',
+        path: "2",
         element: <Welcome2 />,
       },
       {
-        path: '3',
+        path: "3",
         element: <Welcome3 />,
       },
       {
-        path: '4',
+        path: "4",
         element: <Welcome4 />,
       }
     ]
   },
   {
-    path: '/home',
+    path: "/home",
     errorElement: <ErrorPage />,
     element: <Home />
   },
   {
-    path: '/items',
+    path: "/items",
     errorElement: <ErrorPage />,
     element: <Items />
   },
   {
-    path: '/items/new',
+    path: "/items/new",
     errorElement: <ErrorPage />,
     element: <ItemsNew />,
   }

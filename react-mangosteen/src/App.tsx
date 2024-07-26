@@ -1,5 +1,5 @@
-import { router } from  './route/route'
-import { RouterProvider } from 'react-router-dom'
+import { router } from  "./route/route"
+import { RouterProvider } from "react-router-dom"
 
 const App: React.FC = () => {
   return (

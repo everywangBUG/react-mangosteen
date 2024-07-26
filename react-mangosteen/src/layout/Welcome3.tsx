@@ -1,4 +1,4 @@
-import welcome3 from '../assets/images/welcome3.svg'
+import welcome3 from "../assets/images/welcome3.svg"
 
 export const Welcome3: React.FC = () => {
   return (
