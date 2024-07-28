@@ -8,7 +8,6 @@ type Props = {
 )
   
 export const Input: React.FC<Props> = (props) => {
-
   const renderInput = () => {
     switch (props.type) {
       case "email": 
