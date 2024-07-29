@@ -5,7 +5,7 @@ import { GradientTopNav } from "../components/Gradient"
 import { TopTimeSelectBar } from "../components/TopTimeSelectBar"
 import { ItemSummary } from "./items/itemsSummary"
 import { ItemsList } from "./items/ItemsList"
-import { AddFloatButton } from "../components/AddFloatButton"
+import { AddButton } from "../components/AddButton"
 
 type TimeRange = "thisMonth" | "lastMonth" | "thisYear" | "custom"
 
@@ -47,6 +47,6 @@ export const Items: React.FC = () => {
       <TopTimeSelectBar onSelect={setTimeRange} selected={timeRange} />
       <ItemSummary />
       <ItemsList items={items}/>
-      <AddFloatButton />
+      <AddButton />
     </div>) 
 }

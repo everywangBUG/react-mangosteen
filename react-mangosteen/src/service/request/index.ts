@@ -1,13 +1,16 @@
 import axios from "axios"
 import type { AxiosInstance } from "axios"
 import type { RequestConfig } from "./type"
+import { Interceptors } from "./type";
 
 export class Request {
   instance: AxiosInstance;
+  Interceptors?: Interceptors
 
   constructor(config: RequestConfig) {
     this.instance = axios.create(config)
 
+    // 设置默认的请求和响应拦截器
     this.instance.interceptors.request.use(
       (config) => {
         return config
@@ -26,15 +29,18 @@ export class Request {
       }
     )
 
-    this.instance.interceptors.response.use(
-      config.interceptors?.responseSuccessFn,
-      config.interceptors?.responseFailureFn
-    )
-
-    this.instance.interceptors.request.use(
-      config.interceptors?.requestSuccessFn,
-      config.interceptors?.requestFailureFn
-    )
+    // 如果配置中提供了自定义拦截器，则覆盖默认的拦截器
+    if (config.interceptors) {
+      this.instance.interceptors.response.use(
+        config.interceptors?.responseSuccessFn,
+        config.interceptors?.responseFailureFn
+      )
+      
+      this.instance.interceptors.request.use(
+        config.interceptors?.requestSuccessFn,
+        config.interceptors?.requestFailureFn
+      )
+    }
   }
 
   request<T = any>(config: RequestConfig<T>): Promise<T> {
