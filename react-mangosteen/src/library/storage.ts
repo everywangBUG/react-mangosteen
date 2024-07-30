@@ -7,7 +7,7 @@ enum StorageType {
 /**
  * @description: 存储缓存
  * @params: type local | session
- * @return: localStorageCache & sessionStorageCache
+ * @return: localStorageCache缓存对象 & sessionStorageCache缓存对象
  */
 class StorageCache {
   storage: Storage
@@ -24,7 +24,7 @@ class StorageCache {
   getStorage(key: string) {
     const value = this.storage.getItem(key)
     if (value) {
-      return JSON.parse(value)
+      return value
     }
   }
 

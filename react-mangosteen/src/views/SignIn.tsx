@@ -1,4 +1,4 @@
-import { ChangeEvent, FormEvent, useState } from "react"
+import { FormEvent, useEffect, useState } from "react"
 import { TopNav } from "../components/TopNav"
 import { GradientTopNav } from "../components/Gradient"
 import { BackIcon } from "../components/BackIcon"
@@ -6,23 +6,15 @@ import { Icon } from "../components/Icon"
 import { Input } from "../components/Input"
 import { postV1Session } from "../service/views/signIn/SginIn"
 import { localStorageCache } from "../library/storage"
+import { useSetLoginData } from "../store/useSetLoginData"
 
 
 export const SignIn: React.FC = () => {
-  const [emailValue, setEmailValue] = useState("")
-  const [codeValue, setCodeValue] = useState("")
-  
-  const handleEmailValue = (event: ChangeEvent<HTMLInputElement>) => {
-    setEmailValue(event.target.value)
-  }
-
-  const handleCodeValue = (event: ChangeEvent<HTMLInputElement>) => {
-    setCodeValue(event.target.value)
-  }
+  const { data, error, setData, setError } = useSetLoginData()
   
   const onSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
-    const { jwt } = await postV1Session({email: emailValue, code: codeValue})
+    const { jwt } = await postV1Session({email: data.email, code: data.code})
     localStorageCache.setStorage("jwt", jwt)
   }
   
@@ -37,8 +29,20 @@ export const SignIn: React.FC = () => {
           <h1 text-28px mt-4 font-bold text-orange>橙子记账</h1>  
         </div>
         <form w-form onSubmit={onSubmit}>
-          <Input type="email" value={emailValue} onInput={handleEmailValue} label="邮箱地址" />
-          <Input type="sms_code" value={codeValue} onInput={handleCodeValue} label="验证码" /> 
+          <Input
+            type="email"
+            value={data.email}
+            onChange={email => setData({ email })}
+            label="邮箱地址"
+            disabledError={error.email?.[0]} 
+          />
+          <Input
+            type="sms_code"
+            value={data.code}
+            onChange={code => setData({ code })}
+            label="验证码"
+            disabledError={error.code?.[0]} 
+          /> 
           <div mt-100px>
             <button w-btn type="submit">登录</button>
           </div>
