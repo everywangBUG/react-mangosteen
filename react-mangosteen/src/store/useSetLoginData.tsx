@@ -1,4 +1,5 @@
 import { create } from "zustand"
+import { FormError } from "../library/validate"
 
 type Data = {
   email: string
@@ -9,7 +10,7 @@ interface LoginStore {
   data: Data
   error: { [key in keyof Data]: any[] }
   setData: (data: Partial<Data>) => void
-  setError: (error: any[]) => void
+  setError: (error: FormError<Data>) => void
 }
 
 export const useSetLoginData = create<LoginStore>((set) => ({
