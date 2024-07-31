@@ -5,7 +5,7 @@ type Props = {
   value: string
   onChange: (value: string) => void
   className?: string
-  disabledError?: boolean
+  disabledError?: string
 } & (
   | { type?: "sms_code" }
   | { type?: "email" }
@@ -35,7 +35,7 @@ export const Input: React.FC<Props> = (props) => {
       <div flex gap-x-16px gap-y-8px justify-between>
         {label ? <span w-form-label>{label}</span> : null}
         {renderInput()}
-        {disabledError ? <span text-red>文案</span> : null}
+        {disabledError && <span text-red h-16px>{disabledError}</span>}
       </div>
     </>)
 }

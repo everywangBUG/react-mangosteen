@@ -54,10 +54,10 @@ export const SignIn: React.FC = () => {
             value={code}
             onChange={code => setData({ code })}
             label="验证码"
-            disabledError={error.code?.[0]} 
+            disabledError={error.code?.[0]}
           /> 
           <div mt-100px>
-            <button w-btn type="submit">登录</button>
+            <button w-btn type="submit" py-13px>登录</button>
           </div>
         </form>
       </div>

@@ -15,7 +15,7 @@ interface LoginStore {
 
 export const useSetLoginData = create<LoginStore>((set) => ({
   data: {
-    email: "111",
+    email: "",
     code: ""
   },
   error: {
@@ -23,9 +23,9 @@ export const useSetLoginData = create<LoginStore>((set) => ({
     code: []
   },
   setData: (data) => {
-    set((state) => ({ data: { ...state.data, ...data } }))
+    set((state) => ({ ...state, data: { ...state.data, ...data } }))
   },
   setError: (error) => {
-    set((state) => ({ error: { ...state.error, ...error } }))
+    set((state) => ({ ...state, error: { ...state.error, ...error } }))
   }
 }))

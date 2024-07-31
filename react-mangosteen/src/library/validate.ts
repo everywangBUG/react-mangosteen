@@ -29,13 +29,13 @@ export function isEmpty(value: undefined | JSONValue | Data) {
 }
 
 export const validate = <T extends Data>(formData: T, rules: Rules<T>): FormError<T> => {
-  const error: FormError<T> = { email: ["错误1", "错误2"], code: ["错误3"]}
+  const error: FormError<T> = {}
   rules.forEach(rule => {
     const { key, message, type } = rule
     const value = formData[key]
     switch(type) {
       case "required":
-        if (!isEmpty(value)) {
+        if (isEmpty(value)) {
           error[key] = error[key] ?? []
           error[key].push(message)
         }
