@@ -13,3 +13,12 @@ export function postV1Session(data: Session) {
     }
   })
 }
+
+export function postSendCode(email: string) {
+  return request.post({
+    url: "/api/v1/validation_codes",
+    data: {
+      email
+    }
+  })
+}
