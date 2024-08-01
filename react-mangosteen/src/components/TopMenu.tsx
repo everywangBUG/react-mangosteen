@@ -1,5 +1,7 @@
 import { useState } from "react"
 import { animated, useSpring } from "@react-spring/web"
+import { CurrentUser } from "./TopMenu/CurrentUser"
+import { MenuList } from "./TopMenu/MenuList"
 
 interface Props {
   visible?: boolean
@@ -38,7 +40,9 @@ export const TopMenu: React.FC<Props> = (props) => {
     <>
        <animated.div fixed w="100%" h="100%" absolute top-0 left-0 className="bg-black:75" z="[calc(var(--z-menu)-1)]"
         style={styles} onClick={onClose}></animated.div>
-          <animated.div absolute top-0 left-0 w="50%" bg-white h-screen style={menuStyles} z="[var(--z-menu)]">
+        <animated.div absolute top-0 left-0 w="50%" flex flex-col bg-white h-screen style={menuStyles} z="[var(--z-menu)]">
+          <CurrentUser className={"shrink-0 grow-0 h-100px bg-orange"} />
+          <MenuList className={"shrink-1 grow-1"}/>
         </animated.div>
     </>)
 }

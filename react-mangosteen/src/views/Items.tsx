@@ -44,7 +44,7 @@ export const Items: React.FC = () => {
   return (
     <div relative>
       <GradientTopNav>
-        <TopNav icon={<Icon name="menu" className="w-24px h-24px" onClick={() => {setVisible(!visible)}} />} title="橙子记账" />
+        <TopNav icon={<Icon name="menu" className="w-24px h-24px" onClick={() => {setVisible(true)}} />} title="橙子记账" />
       </GradientTopNav>
       <TopTimeSelectBar onSelect={setTimeRange} selected={timeRange} />
       <ItemSummary />

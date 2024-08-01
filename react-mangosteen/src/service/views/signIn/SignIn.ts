@@ -22,3 +22,9 @@ export function postSendCode(email: string) {
     }
   })
 }
+
+export function getCurrentUser() {
+  return request.get({
+    url: "/api/v1/me"
+  })
+}

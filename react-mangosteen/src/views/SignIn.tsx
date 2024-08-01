@@ -5,7 +5,7 @@ import { GradientTopNav } from "../components/Gradient"
 import { BackIcon } from "../components/BackIcon"
 import { Icon } from "../components/Icon"
 import { Input } from "../components/Input"
-import { postSendCode, postV1Session } from "../service/views/signIn/SginIn"
+import { postSendCode, postV1Session } from "../service/views/signIn/SignIn"
 import { localStorageCache } from "../library/storage"
 import { useSetLoginData } from "../store/useSetLoginData"
 import { validate, hasError, FormError } from "../library/validate";

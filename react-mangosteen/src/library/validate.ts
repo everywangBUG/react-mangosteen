@@ -1,6 +1,3 @@
-import { JSONValue } from "../global"
-
-
 interface Data {
   [k: string | number]: JSONValue
 }

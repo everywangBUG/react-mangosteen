@@ -24,7 +24,11 @@ class StorageCache {
   getStorage(key: string) {
     const value = this.storage.getItem(key)
     if (value) {
-      return value
+      try {
+        return JSON.parse(value)
+      } catch(e) {
+        return value
+      }
     }
   }
 
