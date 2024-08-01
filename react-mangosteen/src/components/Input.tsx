@@ -21,8 +21,13 @@ export const Input: React.FC<Props> = (props) => {
 
   const onClick = async () => {
     if (!request) return
-    // await request()
+    await request()
     setStartTime(new Date())
+  }
+
+  const clearTimer = () => {
+    clearInterval(timer.current)
+    timer.current = undefined
   }
 
   useEffect(() => {
@@ -35,12 +40,10 @@ export const Input: React.FC<Props> = (props) => {
         setCount(maxCount - seconds)
       }, 1000)
     } else {
-      clearInterval(timer.current)
-      timer.current = undefined
+      clearTimer()
     }
     return () => {
-      clearInterval(timer.current)
-      timer.current = undefined
+      clearTimer()
      }
     }, [startTime, count])
   
