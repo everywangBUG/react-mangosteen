@@ -1,5 +1,5 @@
 import axios from "axios"
-import type { AxiosError, AxiosInstance, AxiosResponse } from "axios"
+import type { AxiosError, AxiosInstance, AxiosResponse, InternalAxiosRequestConfig } from "axios"
 import type { RequestConfig } from "./type"
 import { Interceptors } from "./type";
 import { ErrorUnauthorized } from "../../constants/Error";
@@ -46,7 +46,7 @@ export class Request {
 
   request<T = any>(config: RequestConfig<T>): Promise<T> {
     if (config.interceptors?.requestSuccessFn) {
-      config = config.interceptors.requestSuccessFn(config)
+      config = config.interceptors.requestSuccessFn(config as InternalAxiosRequestConfig)
     }
 
     return new Promise<T>((resolve, reject) => {
