@@ -11,7 +11,6 @@ import { useSetLoginData } from "../store/useSetLoginData"
 import { validate, hasError, FormError } from "../library/validate";
 import { AxiosError } from "axios"
 
-
 export const SignIn: React.FC = () => {
   const { data, error, setData, setError } = useSetLoginData()
   const navigate = useNavigate()
