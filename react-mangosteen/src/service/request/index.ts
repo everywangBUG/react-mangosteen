@@ -67,27 +67,27 @@ export class Request {
     })
   }
 
-  get<T = any>(config: RequestConfig<T>): Promise<T> {
+  public get<T = any>(config: RequestConfig<T>): Promise<T> {
     return this.request({ ...config, method: "GET" })
   }
 
-  post<T = any>(config: RequestConfig<T>): Promise<T> {
+  public post<T = any>(config: RequestConfig<T>): Promise<T> {
     return this.request({ ...config, method: "POST" })
   }
 
-  delete<T = any>(config: RequestConfig<T>): Promise<T> {
+  public delete<T = any>(config: RequestConfig<T>): Promise<T> {
     return this.request({ ...config, method: "DELETE" })
   }
 
-  patch<T = any>(config: RequestConfig<T>): Promise<T> {
+  public patch<T = any>(config: RequestConfig<T>): Promise<T> {
     return this.request({ ...config, method: "PATCH" })
   }
 
-  put<T = any>(config: RequestConfig<T>): Promise<T> {
+  public put<T = any>(config: RequestConfig<T>): Promise<T> {
     return this.request({ ...config, method: "PUT" })
   }
 
-  head<T = any>(config: RequestConfig<T>): Promise<T> {
+  public head<T = any>(config: RequestConfig<T>): Promise<T> {
     return this.request({ ...config, method: "HEAD" })
   }
   

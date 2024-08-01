@@ -1,4 +1,4 @@
-import { createBrowserRouter } from "react-router-dom";
+import { createBrowserRouter, Outlet } from "react-router-dom";
 import { ErrorPage } from "../components/ErrorPage";
 import { WelcomeLayout } from "../layout/WelcomeLayout";
 import { Welcome1 } from "../layout/Welcome1";
@@ -11,7 +11,6 @@ import { Items } from "../views/Items";
 import { ItemsNew } from "../views/ItemsNew";
 import { SignIn } from "../views/SignIn";
 import { postItems } from "../service/views/items/Items";
-import { AxiosError } from "axios";
 import { getCurrentUser } from "../service/views/signIn/SignIn";
 
 export const router = createBrowserRouter([
@@ -52,14 +51,15 @@ export const router = createBrowserRouter([
     path: "/",
     errorElement: <ErrorPage />,
     loader: async () => {
-      await getCurrentUser()
+      return await getCurrentUser()
     },
+    element: <Outlet />,
     children: [
       {
         path: "/items",
         errorElement: <ErrorPage />,
         loader: async () => {
-          await postItems({ page: 1 })
+          return await postItems({ page: 1 })
         },
         element: <Items />
       },

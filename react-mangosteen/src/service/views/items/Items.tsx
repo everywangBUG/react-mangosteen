@@ -6,11 +6,9 @@ interface Item {
   happen_before?: string
 }
 
-export function postItems(data: Item) {
+export function postItems(params: Item) {
   return request.get({
     url: "/api/v1/items",
-    data: {
-      ...data
-    }
+    params
   })
 }
