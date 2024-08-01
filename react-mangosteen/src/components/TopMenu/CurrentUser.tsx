@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import { getCurrentUser } from "../../service/views/signIn/SignIn"
 import { Link } from "react-router-dom"
+import { GradientCurrentUser } from "../Gradient"
 
 interface Props {
   className?: string
@@ -30,8 +31,10 @@ export const CurrentUser: React.FC<Props> = ({ className }) => {
   }
 
   return (
-    <div className={className} flex flex-col justify-center px-16px gap-y-8px children-text-20px children-text-white>
-      <h2 overflow-hidden text-ellipsis>{user}</h2>
-      <div>{user ? "点击退出登录" : clickSignIn()}</div>
-    </div>)
+    <GradientCurrentUser>
+      <div className={className} flex flex-col justify-center px-16px gap-y-8px children-text-20px children-text-white>
+        <h2 overflow-hidden text-ellipsis>{user}</h2>
+        <div>{user ? "点击退出登录" : clickSignIn()}</div>
+      </div>
+    </GradientCurrentUser>)
 }
