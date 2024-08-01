@@ -1,4 +1,4 @@
-import { ReactNode, useState, useEffect } from "react"
+import { ReactNode, useState, useEffect, useRef } from "react"
 
 type Props = {
   label?: string | ReactNode
@@ -12,26 +12,37 @@ type Props = {
   | { type?: "email" }
 )
 
-
+const maxCount = 60
 export const Input: React.FC<Props> = (props) => {
   const [startTime, setStartTime] = useState<Date>()
-  const [count, setCount] = useState(0)
+  const [count, setCount] = useState(maxCount)
   const { label, value, onChange, disabledError = true, request } = props
+  const timer = useRef<number>()
 
   const onClick = async () => {
     if (!request) return
-    await request()
-    setCount(60)
+    // await request()
+    setStartTime(new Date())
   }
 
   useEffect(() => {
-      if (count > 0) {
-        const interval = setInterval(() => {
-          setCount(count - 1)
-        }, 1000)
-        return () => clearInterval(interval)
-      }
-    }, [count])
+    if (startTime) {
+      timer.current = setInterval(() => {
+        const seconds = Math.round((new Date().getTime() - startTime.getTime()) / 1000)
+        if (maxCount - seconds <= 0) {
+          setStartTime(undefined)
+        }
+        setCount(maxCount - seconds)
+      }, 1000)
+    } else {
+      clearInterval(timer.current)
+      timer.current = undefined
+    }
+    return () => {
+      clearInterval(timer.current)
+      timer.current = undefined
+     }
+    }, [startTime, count])
   
   const renderInput = () => {
     switch (props.type) {
@@ -44,7 +55,7 @@ export const Input: React.FC<Props> = (props) => {
                   <div flex justify-between gap-x-16px>
                     <input account-input-text max-w="[calc(40%-8px)]" placeholder="六位数字" value={value} onChange={e => onChange(e.target.value)} />
                     {
-                      count > 0
+                      startTime
                       ? <button type="button" w-btn max-w="[calc(60%-8px)]">{count}秒后重发</button>
                       : <button type="button" w-btn max-w="[calc(60%-8px)]" onClick={onClick}>发送验证码</button>
                     }
