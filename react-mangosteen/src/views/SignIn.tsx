@@ -8,7 +8,8 @@ import { Input } from "../components/Input"
 import { postSendCode, postV1Session } from "../service/views/signIn/SginIn"
 import { localStorageCache } from "../library/storage"
 import { useSetLoginData } from "../store/useSetLoginData"
-import { validate, hasError } from "../library/validate";
+import { validate, hasError, FormError } from "../library/validate";
+import { AxiosError } from "axios"
 
 
 export const SignIn: React.FC = () => {
@@ -26,9 +27,13 @@ export const SignIn: React.FC = () => {
     ])
     setError(errors)
     if (hasError(errors)) return
-    const { jwt } = await postV1Session({email, code})
+    const { jwt } = await postV1Session({email, code}).catch(onSubmitError)
     localStorageCache.setStorage("jwt", jwt)
     navigate("/items")
+  }
+
+  const onSubmitError = (err: AxiosError<{errors: FormError<typeof data>}>) => {
+    setError(err.response?.data?.errors ?? {})
   }
 
   const onHandleRequest = async () => {
