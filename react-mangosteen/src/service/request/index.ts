@@ -1,7 +1,8 @@
 import axios from "axios"
-import type { AxiosInstance } from "axios"
+import type { AxiosError, AxiosInstance, AxiosResponse } from "axios"
 import type { RequestConfig } from "./type"
 import { Interceptors } from "./type";
+import { ErrorUnauthorized } from "../../constants/Error";
 
 export class Request {
   instance: AxiosInstance;
@@ -49,8 +50,14 @@ export class Request {
     }
 
     return new Promise<T>((resolve, reject) => {
-      this.instance.request<any, T>(config).then(res => {
-        if (config.interceptors?.responseSuccessFn) {
+      this.instance.request<any, T>(config).then((res) => {
+        if ((res as AxiosError)?.response?.status === 401) {
+          throw new ErrorUnauthorized()
+        }
+        if ((res as AxiosError)?.response?.status === 403) {
+          throw new ErrorUnauthorized()
+        }
+        if (config.interceptors?.responseSuccessFn && (res as AxiosResponse).status === 200) {
           res = config.interceptors.responseSuccessFn(res)
         }
         resolve(res)

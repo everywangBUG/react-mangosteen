@@ -2,13 +2,13 @@ import { request } from "../../index";
 
 interface Item {
   page: number
-  happen_after: string
-  happen_before: string
+  happen_after?: string
+  happen_before?: string
 }
 
 export function postItems(data: Item) {
-  return request.post({
-    url: "/items",
+  return request.get({
+    url: "/api/v1/items",
     data: {
       ...data
     }

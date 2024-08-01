@@ -10,6 +10,9 @@ import { Home } from "../views/Home";
 import { Items } from "../views/Items";
 import { ItemsNew } from "../views/ItemsNew";
 import { SignIn } from "../views/SignIn";
+import { postItems } from "../service/views/items/Items";
+import { AxiosError } from "axios";
+import { getCurrentUser } from "../service/views/signIn/SignIn";
 
 export const router = createBrowserRouter([
   {
@@ -46,14 +49,26 @@ export const router = createBrowserRouter([
     element: <Home />
   },
   {
-    path: "/items",
+    path: "/",
     errorElement: <ErrorPage />,
-    element: <Items />
-  },
-  {
-    path: "/items/new",
-    errorElement: <ErrorPage />,
-    element: <ItemsNew />,
+    loader: async () => {
+      await getCurrentUser()
+    },
+    children: [
+      {
+        path: "/items",
+        errorElement: <ErrorPage />,
+        loader: async () => {
+          await postItems({ page: 1 })
+        },
+        element: <Items />
+      },
+      {
+        path: "/items/new",
+        errorElement: <ErrorPage />,
+        element: <ItemsNew />,
+      },
+    ]
   },
   {
     path: "/sign_in",

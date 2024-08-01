@@ -17,8 +17,7 @@ export const CurrentUser: React.FC<Props> = ({ className }) => {
   useEffect(() => {
     const res: Promise<Resource<User>> = getUserInfo()
     res.then((res) => {
-      const { name, email} = res.resource
-      setUser(name || email)
+      setUser(res?.resource?.name || res?.resource?.email)
     })
   }, [])
 
