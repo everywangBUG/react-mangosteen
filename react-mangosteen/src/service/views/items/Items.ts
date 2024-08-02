@@ -6,7 +6,7 @@ interface Item {
   happen_before?: string
 }
 
-export function postItems(params: Item) {
+export function getItems(params: Item): Promise<Resources> {
   return request.get({
     url: "/api/v1/items",
     params

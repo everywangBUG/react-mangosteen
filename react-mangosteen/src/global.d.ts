@@ -12,8 +12,17 @@ type User = {
   name: string | null
 }
 
-type Resources<T> = {
-  resources: T[]
+type Resources<T = any> = {
+  resources?: T[]
+  pager: {
+    count: number
+    page: string
+    per_page: number
+  }
+}
+
+type ItemsResources = {
+  resources: Item[]
   pager: {
     count: number
     page: string
@@ -31,7 +40,7 @@ type Item = {
   kind: "expense" | "income"
   note: string | null
   tag_ids: number[]
-  tags: Tag[]
+  tags: Tags[]
   user_id: number
 }
 
@@ -39,10 +48,11 @@ type Tags = {
   amount: number
   created_at: string
   deleted_at: string
-  happen_at: string
-  happened_at: string
+  updated_at: string
   id: number
+  name: string
+  sign: string
+  user_id: number
   kind: "expense" | "income"
-  note: string | null
 }
 

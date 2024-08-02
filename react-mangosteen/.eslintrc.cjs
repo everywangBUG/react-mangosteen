@@ -24,5 +24,7 @@ module.exports = {
     'no-alert': 'error',
     // 标签中使用双引号
     'jsx-quotes': ['error', 'prefer-double'],
+    // 不监听react深层依赖
+    'react-hooks/exhaustive-deps': 'off'
   },
 }

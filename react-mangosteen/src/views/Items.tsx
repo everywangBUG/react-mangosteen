@@ -2,42 +2,31 @@ import { useState } from "react"
 import { Icon } from "../components/Icon"
 import { TopNav } from "../components/TopNav"
 import { GradientTopNav } from "../components/Gradient"
-import { TopTimeSelectBar } from "../components/TopTimeSelectBar"
+import { TimeRange, TopTimeSelectBar } from "../components/TopTimeSelectBar"
 import { ItemSummary } from "./items/itemsSummary"
 import { ItemsList } from "./items/ItemsList"
 import { AddButton } from "../components/AddButton"
 import { TopMenu } from "../components/TopMenu"
-
-type TimeRange = "thisMonth" | "lastMonth" | "thisYear" | "custom"
+import { time, Time } from "../library/Time"
 
 export const Items: React.FC = () => {
   const [outOfTime, setOutOfTime] = useState(false)
   const [visible, setVisible] = useState(false)
-  const [timeRange, _setTimeRange] = useState<TimeRange>("thisMonth")
-  const [items] = useState([
-    {
-      "id": 756,
-      "user_id": 285,
-      "name": "Lab.",
-      "sign": "😡",
-      "deleted_at": null,
-      "created_at": "2023-09-13T16:50:04.675+08:00",
-      "updated_at": "2023-09-13T16:50:04.675+08:00",
-      "kind": "expenses"
-    },
-    {
-      "id": 755,
-      "user_id": 285,
-      "name": "Bla.",
-      "sign": "😡",
-      "deleted_at": null,
-      "created_at": "2023-09-13T16:50:04.672+08:00",
-      "updated_at": "2023-09-13T16:50:04.672+08:00",
-      "kind": "expenses"
-    },
-  ])
-  
+  const [timeRange, _setTimeRange] = useState<TimeRange>({
+    start: time().firstDayOfMonth,
+    end: time().lastDayOfMonth,
+    name: "thisMonth",
+  })
+
+  const { start, end } = timeRange
+
   const setTimeRange = (t: TimeRange) => {
+    if (t.start.timestamp > t.end.timestamp) {
+      [t.start, t.end] = [t.end, t.start]
+    }
+    if (t.end.timestamp - t.start.timestamp > Time.DAY * 730) {
+      setOutOfTime(true)
+    }
     _setTimeRange(t)
   }
 
@@ -47,8 +36,14 @@ export const Items: React.FC = () => {
         <TopNav icon={<Icon name="menu" className="w-24px h-24px" onClick={() => {setVisible(true)}} />} title="橙子记账" />
       </GradientTopNav>
       <TopTimeSelectBar onSelect={setTimeRange} selected={timeRange} />
-      <ItemSummary />
-      <ItemsList items={items}/>
+      {
+        outOfTime
+        ? <div className="text-center text-18px text-red-500">时间范围不能超过两年</div>
+        : <>
+            <ItemSummary />
+            <ItemsList start={start} end={end} />
+          </>
+      }
       <AddButton />
       <TopMenu visible={visible} onClose={() => {setVisible(false)}}/>
     </div>) 
