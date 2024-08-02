@@ -16,7 +16,7 @@ type Resources<T = any> = {
   resources?: T[]
   pager: {
     count: number
-    page: string
+    page: number
     per_page: number
   }
 }

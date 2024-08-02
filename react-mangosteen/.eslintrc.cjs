@@ -29,6 +29,8 @@ module.exports = {
     // map方法必须有返回值
     'local-rules/require-return-in-map': 'error',
     'array-callback-return': ['error', { allowImplicit: false }],
+    // tab缩为2个空格
+    'indent': ['error', 4]
   },
   settings: {
     'import/resolver': {
