@@ -8,7 +8,7 @@ module.exports = {
   ],
   ignorePatterns: ['dist', '.eslintrc.cjs'],
   parser: '@typescript-eslint/parser',
-  plugins: ['react-refresh'],
+  plugins: ['react-refresh', 'local-rules'],
   rules: {
     '@typescript-eslint/no-explicit-any': 'off',
     '@typescript-eslint/no-unused-vars': 'off',
@@ -25,6 +25,24 @@ module.exports = {
     // 标签中使用双引号
     'jsx-quotes': ['error', 'prefer-double'],
     // 不监听react深层依赖
-    'react-hooks/exhaustive-deps': 'off'
+    'react-hooks/exhaustive-deps': 'off',
+    // map方法必须有返回值
+    'local-rules/require-return-in-map': 'error',
+    'array-callback-return': ['error', { allowImplicit: false }],
   },
+  settings: {
+    'import/resolver': {
+      node: {
+        paths: ['eslint-rules']
+      }
+    }
+  },
+  overrides: [
+    {
+      files: ['*.js', '*.jsx', '*.ts', '*.tsx'],
+      rules: {
+        'require-return-in-map': 'error',
+      },
+    }
+  ]
 }
