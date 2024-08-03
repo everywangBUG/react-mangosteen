@@ -19,10 +19,10 @@ export const ItemsList: React.FC<Props> = (props) => {
   })
 
   useEffect(() => {
-    itemsRes().then(res => {
-      setResources(res)
-      setItems(prevItems => [...prevItems, ...res.resources])
-    })
+    // itemsRes().then(res => {
+    //   setResources(res)
+    //   setItems(prevItems => [...prevItems, ...res.resources])
+    // })
   }, [start, end, page])
 
   const isLoadMore = () => {

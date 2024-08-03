@@ -10,6 +10,7 @@ type Props = {
 } & (
   | { type?: "sms_code", request: () => Promise<unknown> }
   | { type?: "email" }
+  | { type?: "data" }
 )
 
 const maxCount = 60
@@ -64,12 +65,16 @@ export const Input: React.FC<Props> = (props) => {
                     }
                   </div>
                </>)
+      case "data":
+        return (<>
+                  <input account-input-text placeholder="请输入数据" value={value} onChange={e => onChange(e.target.value)} />
+                </>)
     }
   }
 
   return (
     <>
-      <div flex gap-x-16px gap-y-8px justify-between>
+      <div flex flex-col gap-x-16px gap-y-8px justify-between>
         {label ? <span w-form-label>{label}</span> : null}
         {renderInput()}
         {disabledError && <span text-red h-16px>{disabledError}</span>}

@@ -5,7 +5,8 @@ import "virtual:svgsprites"
 import "./global.scss"
 import "virtual:uno.css"
 
-ReactDOM.createRoot(document.getElementById("root")!).render(
+export const rootDiv = document.getElementById("root")!
+ReactDOM.createRoot(rootDiv).render(
   <React.StrictMode>
     <App />
   </React.StrictMode>,

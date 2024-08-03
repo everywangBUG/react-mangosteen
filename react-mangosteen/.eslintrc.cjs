@@ -27,24 +27,24 @@ module.exports = {
     // 不监听react深层依赖
     'react-hooks/exhaustive-deps': 'off',
     // map方法必须有返回值
-    'local-rules/require-return-in-map': 'error',
+    // 'local-rules/require-return-in-map': 'error',
     'array-callback-return': ['error', { allowImplicit: false }],
     // tab缩为2个空格
     'indent': ['error', 4]
   },
-  settings: {
-    'import/resolver': {
-      node: {
-        paths: ['eslint-rules']
-      }
-    }
-  },
-  overrides: [
-    {
-      files: ['*.js', '*.jsx', '*.ts', '*.tsx'],
-      rules: {
-        'require-return-in-map': 'error',
-      },
-    }
-  ]
+  // settings: {
+  //   'import/resolver': {
+  //     node: {
+  //       paths: ['eslint-rules']
+  //     }
+  //   }
+  // },
+  // overrides: [
+  //   {
+  //     files: ['*.js', '*.jsx', '*.ts', '*.tsx'],
+  //     rules: {
+  //       'require-return-in-map': 'error',
+  //     },
+  //   }
+  // ]
 }
