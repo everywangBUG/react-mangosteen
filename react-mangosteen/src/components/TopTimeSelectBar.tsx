@@ -33,7 +33,6 @@ export const TopTimeSelectBar: React.FC<Props> = (props) => {
   const [start, setStart] = useState<string>("")
   const [end, setEnd] = useState<string>("")
   const onConfirm = () => {
-    console.log("confirm")
     closePopup()
   }
 
@@ -57,7 +56,6 @@ export const TopTimeSelectBar: React.FC<Props> = (props) => {
 
   const onSelect = (t: TimeRange) => {
     if (t.name === "custom") {
-      console.log("自定义时间", 'placeholder')
       openPopup()
     } else {
       _onSelect(t)
@@ -67,15 +65,15 @@ export const TopTimeSelectBar: React.FC<Props> = (props) => {
   return (
     <>
       <GradientTimeSelect>
-      <ol flex children-py-8px children-px-16px text-white>
-        {
-          defaultTimeRange.map(item => {
-            return(<li key={item.value} className={item.key.name === selected.name ? s.active : " "} onClick={() => { onSelect(item.key)}}>{item.value}</li>)
-          })
-        }
-      </ol>
-    </GradientTimeSelect>
-    {popup}
-  </>
+        <ol flex children-py-8px children-px-16px text-white>
+          {
+            defaultTimeRange.map(item => {
+              return(<li key={item.value} className={item.key.name === selected.name ? s.active : " "} onClick={() => { onSelect(item.key)}}>{item.value}</li>)
+            })
+          }
+        </ol>
+      </GradientTimeSelect>
+      {popup}
+    </>
   )
 }

@@ -45,30 +45,30 @@ export const Input: React.FC<Props> = (props) => {
     }
     return () => {
       clearTimer()
-     }
-    }, [startTime, count])
+    }
+  }, [startTime, count])
   
   const renderInput = () => {
     switch (props.type) {
-      case "email": 
-        return (<>
-                  <input account-input-text placeholder="请输入邮箱地址，点击发送验证码" value={value} onChange={e => onChange?.(e.target.value)}/>
-               </>)
-      case "sms_code":
-        return (<>
-                  <div flex justify-between gap-x-16px>
-                    <input account-input-text max-w="[calc(40%-8px)]" placeholder="六位数字" value={value} onChange={e => onChange(e.target.value)} />
-                    {
-                      startTime
-                      ? <button type="button" w-btn max-w="[calc(60%-8px)]">{count}秒后重发</button>
-                      : <button type="button" w-btn max-w="[calc(60%-8px)]" onClick={onClick}>发送验证码</button>
-                    }
-                  </div>
-               </>)
-      case "data":
-        return (<>
-                  <input account-input-text placeholder="请输入数据" value={value} onChange={e => onChange(e.target.value)} />
-                </>)
+    case "email": 
+      return (<>
+        <input account-input-text placeholder="请输入邮箱地址，点击发送验证码" value={value} onChange={e => onChange?.(e.target.value)}/>
+      </>)
+    case "sms_code":
+      return (<>
+        <div flex justify-between gap-x-16px>
+          <input account-input-text max-w="[calc(40%-8px)]" placeholder="六位数字" value={value} onChange={e => onChange(e.target.value)} />
+          {
+            startTime
+              ? <button type="button" w-btn max-w="[calc(60%-8px)]">{count}秒后重发</button>
+              : <button type="button" w-btn max-w="[calc(60%-8px)]" onClick={onClick}>发送验证码</button>
+          }
+        </div>
+      </>)
+    case "data":
+      return (<>
+        <input account-input-text placeholder="请输入数据" value={value} onChange={e => onChange(e.target.value)} />
+      </>)
     }
   }
 

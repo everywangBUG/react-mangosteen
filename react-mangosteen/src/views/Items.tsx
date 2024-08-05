@@ -38,8 +38,8 @@ export const Items: React.FC = () => {
       <TopTimeSelectBar onSelect={setTimeRange} selected={timeRange} />
       {
         outOfTime
-        ? <div className="text-center text-18px text-red-500">时间范围不能超过两年</div>
-        : <>
+          ? <div className="text-center text-18px text-red-500">时间范围不能超过两年</div>
+          : <>
             <ItemSummary />
             <ItemsList start={start} end={end} />
           </>

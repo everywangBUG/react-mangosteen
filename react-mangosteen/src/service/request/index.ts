@@ -3,7 +3,7 @@ import type { AxiosError, AxiosInstance, AxiosResponse, InternalAxiosRequestConf
 import type { RequestConfig } from "./type"
 import { Interceptors } from "./type";
 import { ErrorUnauthorized } from "../../constants/Error";
-import { showToast } from '../../library/Toast';
+import { showToast } from "../../library/Toast";
 
 export class Request {
   instance: AxiosInstance;

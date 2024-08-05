@@ -31,41 +31,41 @@ export const validate = <T extends Data>(formData: T, rules: Rules<T>): FormErro
     const { key, message, type } = rule
     const value = formData[key]
     switch(type) {
-      case "required":
-        if (isEmpty(value)) {
+    case "required":
+      if (isEmpty(value)) {
+        error[key] = error[key] ?? []
+        error[key].push(message)
+      }
+      break
+    case "pattern":
+      if (!isEmpty(value) && !rule.regex.test(value!.toString())) {
+        error[key] = error[key] ?? []
+        error[key].push(message)
+      }
+      break
+    case "length":
+      if (!isEmpty(value)) {
+        if (rule.min && value!.toString().length < rule.min) {
           error[key] = error[key] ?? []
           error[key].push(message)
         }
-        break
-      case "pattern":
-        if (!isEmpty(value) && !rule.regex.test(value!.toString())) {
+        if (rule.max && value!.toString().length > rule.max) {
           error[key] = error[key] ?? []
           error[key].push(message)
         }
-        break
-      case "length":
-        if (!isEmpty(value)) {
-          if (rule.min && value!.toString().length < rule.min) {
-            error[key] = error[key] ?? []
-            error[key].push(message)
-          }
-          if (rule.max && value!.toString().length > rule.max) {
-            error[key] = error[key] ?? []
-            error[key].push(message)
-          }
-        }
-        break
-      case "chinese":
-        if (!isEmpty(value) && !/^[\u4e00-\u9fa5]+$/.test(value!.toString())) {
-          error[key] = error[key] ?? []
-          error[key].push(message)
-        }
-        break
-      case "notEqual":
-        if (!isEmpty(value) && value === rule.value) {
-          error[key] = error[key] ?? []
-          error[key].push(message)
-        }
+      }
+      break
+    case "chinese":
+      if (!isEmpty(value) && !/^[\u4e00-\u9fa5]+$/.test(value!.toString())) {
+        error[key] = error[key] ?? []
+        error[key].push(message)
+      }
+      break
+    case "notEqual":
+      if (!isEmpty(value) && value === rule.value) {
+        error[key] = error[key] ?? []
+        error[key].push(message)
+      }
     }
   })
   return error

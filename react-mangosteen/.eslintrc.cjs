@@ -8,7 +8,7 @@ module.exports = {
   ],
   ignorePatterns: ['dist', '.eslintrc.cjs'],
   parser: '@typescript-eslint/parser',
-  plugins: ['react-refresh', 'local-rules'],
+  plugins: ['react-refresh'],
   rules: {
     '@typescript-eslint/no-explicit-any': 'off',
     '@typescript-eslint/no-unused-vars': 'off',
@@ -30,21 +30,6 @@ module.exports = {
     // 'local-rules/require-return-in-map': 'error',
     'array-callback-return': ['error', { allowImplicit: false }],
     // tab缩为2个空格
-    'indent': ['error', 4]
+    'indent': ['error', 2]
   },
-  settings: {
-    'import/resolver': {
-      node: {
-        paths: ['eslint-rules']
-      }
-    }
-  },
-  overrides: [
-    {
-      files: ['*.js', '*.jsx', '*.ts', '*.tsx'],
-      rules: {
-        'require-return-in-map': 'error',
-      },
-    }
-  ]
 }
