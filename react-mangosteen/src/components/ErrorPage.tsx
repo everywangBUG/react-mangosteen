@@ -1,4 +1,4 @@
-import { Navigate, useLocation, useRouteError } from "react-router-dom"
+import { Navigate, useRouteError } from "react-router-dom"
 import { ErrorUnauthorized } from "../constants/Error"
 
 export const ErrorPage: React.FC = () => {

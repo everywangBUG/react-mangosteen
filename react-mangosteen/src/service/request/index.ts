@@ -3,6 +3,7 @@ import type { AxiosError, AxiosInstance, AxiosResponse, InternalAxiosRequestConf
 import type { RequestConfig } from "./type"
 import { Interceptors } from "./type";
 import { ErrorUnauthorized } from "../../constants/Error";
+import { showToast } from '../../library/Toast';
 
 export class Request {
   instance: AxiosInstance;
@@ -56,6 +57,14 @@ export class Request {
         }
         if ((res as AxiosError)?.response?.status === 403) {
           throw new ErrorUnauthorized()
+        }
+        if ((res as AxiosError)?.response?.status === 404) {
+          console.log(res, 'res999')
+          showToast({
+            message: "网络有点问题哦~",
+            position: "middle",
+            duration: 1000
+          })
         }
         if (config.interceptors?.responseSuccessFn && (res as AxiosResponse).status === 200) {
           res = config.interceptors.responseSuccessFn(res)

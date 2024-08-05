@@ -19,10 +19,11 @@ export const ItemsList: React.FC<Props> = (props) => {
   })
 
   useEffect(() => {
-    // itemsRes().then(res => {
-    //   setResources(res)
-    //   setItems(prevItems => [...prevItems, ...res.resources])
-    // })
+    itemsRes().then(res => {
+      setResources(res)
+    if (res.resources) {
+      setItems(prevItems => [...prevItems, ...res.resources])
+    }})
   }, [start, end, page])
 
   const isLoadMore = () => {
@@ -69,12 +70,13 @@ export const ItemsList: React.FC<Props> = (props) => {
         )}
       </ol>
       {
-        isLoadMore() &&
-        (
+        isLoadMore()
+        ?
           <div p-16px text-center>
             <button w-btn py-13px onClick={loadRemainingData}>加载更多</button>
           </div>
-        )
+        :
+          <div py-8px text-center text="#999999" text-12px>没有更多了</div>
       }
     </>)
 }
