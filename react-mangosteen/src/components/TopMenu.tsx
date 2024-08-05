@@ -28,6 +28,9 @@ export const TopMenu: React.FC<Props> = (props) => {
       if (value.opacity < 0.1) {
         setMaskVisible(false)
       }
+    },
+    config: {
+      duration: 200
     }
   })
 

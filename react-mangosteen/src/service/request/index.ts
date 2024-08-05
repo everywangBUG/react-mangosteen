@@ -59,7 +59,6 @@ export class Request {
           throw new ErrorUnauthorized()
         }
         if ((res as AxiosError)?.response?.status === 404) {
-          console.log(res, 'res999')
           showToast({
             message: "网络有点问题哦~",
             position: "middle",

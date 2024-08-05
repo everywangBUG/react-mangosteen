@@ -14,7 +14,7 @@ export const usePopup = (options: Options) => {
   const [visible, setVisible] = useState(isShow)
 
   const popup = ReactDOM.createPortal(
-    <Popup visible={visible}>
+    <Popup visible={visible} onClickMask={() => setVisible(false)}>
       {children}
     </Popup>,
     body
