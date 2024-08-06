@@ -36,6 +36,10 @@ export const ItemsList: React.FC<Props> = (props) => {
     return false
   }
 
+  const isLoading = () => {
+    return resources?.resources === undefined
+  }
+
   const loadRemainingData = async () => {
     if (isLoadMore()) {
       const totalPages = Math.ceil(resources!.pager.count / resources!.pager.per_page);
@@ -70,13 +74,20 @@ export const ItemsList: React.FC<Props> = (props) => {
         )}
       </ol>
       {
-        isLoadMore()
+        !isLoadMore()
           ?
+          (isLoading()
+            ?
+            <div p-16px text-center>
+              <span py-13px>加载中...</span>
+            </div>
+            :
+            <div py-8px text-center text="#999999" text-12px>没有更多了</div>
+          )
+          :
           <div p-16px text-center>
             <button w-btn py-13px onClick={loadRemainingData}>加载更多</button>
           </div>
-          :
-          <div py-8px text-center text="#999999" text-12px>没有更多了</div>
       }
     </>)
 }

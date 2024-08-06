@@ -4,13 +4,14 @@ import { TopNav } from "../components/TopNav"
 import { Tabs } from "../components/Tabs"
 import { useState } from "react"
 import s from "./ItemsNew.module.scss"
+import { Tags } from "./itemsNew/Tags"
 
 type TabNewItem = { key: string, value: string, element: React.ReactNode }
 export const ItemsNew: React.FC = () => {
   const [value, setValue] = useState("expenses")
   const tabItems: TabNewItem[] = [
-    { key: "income", value: "收入", element: <div>收入</div> },
-    { key: "expenses", value: "支出", element: <div>支出</div> }
+    { key: "income", value: "收入", element: <Tags kind="income" /> },
+    { key: "expenses", value: "支出", element: <Tags kind="expenses" /> }
   ]
 
   return (
