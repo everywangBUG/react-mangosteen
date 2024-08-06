@@ -8,10 +8,11 @@ import { ItemsList } from "./items/ItemsList"
 import { AddButton } from "../components/AddButton"
 import { TopMenu } from "../components/TopMenu"
 import { time, Time } from "../library/Time"
+import { useVisible } from "../store/useVisible"
 
 export const Items: React.FC = () => {
   const [outOfTime, setOutOfTime] = useState(false)
-  const [visible, setVisible] = useState(false)
+  const {visible, setVisible} = useVisible()
   const [timeRange, _setTimeRange] = useState<TimeRange>({
     start: time().firstDayOfMonth,
     end: time().lastDayOfMonth,
@@ -45,6 +46,6 @@ export const Items: React.FC = () => {
           </>
       }
       <AddButton />
-      <TopMenu visible={visible} onClose={() => {setVisible(false)}}/>
+      <TopMenu visible={visible} onClose={() => {setVisible()}}/>
     </div>) 
 }
