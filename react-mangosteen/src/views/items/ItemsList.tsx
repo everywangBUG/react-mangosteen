@@ -48,10 +48,10 @@ export const ItemsList: React.FC<Props> = (props) => {
 
   return (
     <>
-      <ol >
-        {items.map((item: Item) => {
+      <ol>
+        {items.map((item: Item, index) => {
           return (
-            <li key={item.id} grid grid-cols="[auto_1fr_auto]" grid-rows-2 px-16px py-8px gap-x-12px border-b-1>
+            <li key={index} grid grid-cols="[auto_1fr_auto]" grid-rows-2 px-16px py-8px gap-x-12px border-b-1>
               <div row-start-1 col-start-1 row-end-3 col-end-2 text-24px w-48px h-48px
                 bg="#D8D8D8" rounded="50%" flex justify-center items-center>
                 {item.tags && item.tags[0].sign}

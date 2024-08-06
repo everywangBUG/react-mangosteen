@@ -4,9 +4,10 @@ import { time, Time } from "../library/Time"
 import { usePopup } from "../library/usePopup"
 import { Input } from "./Input"
 import s from "./TopTimeSelectBar.module.scss"
+import { Tabs } from "./Tabs"
 
 interface Props {
-  onSelect: (t: any) => void
+  onSelected: (t: any) => void
   selected: TimeRange
 }
 
@@ -29,7 +30,7 @@ const defaultTimeRange: { key: TimeRange, value: string }[] = [
 ]
 
 export const TopTimeSelectBar: React.FC<Props> = (props) => {
-  const { onSelect: _onSelect, selected } = props
+  const { onSelected: _onSelected, selected } = props
   const [start, setStart] = useState<string>("")
   const [end, setEnd] = useState<string>("")
   const onConfirm = () => {
@@ -54,24 +55,18 @@ export const TopTimeSelectBar: React.FC<Props> = (props) => {
   })
 
 
-  const onSelect = (t: TimeRange) => {
+  const onSelected = (t: TimeRange) => {
     if (t.name === "custom") {
       openPopup()
     } else {
-      _onSelect(t)
+      _onSelected(t)
     }
   }
   
   return (
     <>
       <GradientTimeSelect>
-        <ol flex children-py-8px children-px-16px text-white>
-          {
-            defaultTimeRange.map(item => {
-              return(<li key={item.value} className={item.key.name === selected.name ? s.active : " "} onClick={() => { onSelect(item.key)}}>{item.value}</li>)
-            })
-          }
-        </ol>
+        <Tabs tabItems={defaultTimeRange} value={selected} onChange={onSelected} />
       </GradientTimeSelect>
       {popup}
     </>

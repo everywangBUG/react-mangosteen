@@ -9,9 +9,10 @@ interface Props {
 
 export const Popup: React.FC<Props> = (props) => {
   const { visible = false, children, onClickMask } = props
-  const { maskVisible, setMaskVisible } = useState(false)
+  const [maskVisible, setMaskVisible] = useState(visible)
   
   const maskStyle = useSpring({
+    visibility: (maskVisible ? "visible" : "hidden") as "visible" | "hidden",
     opacity: visible ? 1 : 0,
     onStart: ({value}) => {
       if (value.opacity < 0.1) {

@@ -36,7 +36,7 @@ export const Items: React.FC = () => {
       <GradientTopNav>
         <TopNav icon={<Icon name="menu" className="w-24px h-24px" onClick={() => {setVisible(true)}} />} title="橙子记账" />
       </GradientTopNav>
-      <TopTimeSelectBar onSelect={setTimeRange} selected={timeRange} />
+      <TopTimeSelectBar onSelected={setTimeRange} selected={timeRange} />
       {
         outOfTime
           ? <div className="text-center text-18px text-red-500">时间范围不能超过两年</div>
