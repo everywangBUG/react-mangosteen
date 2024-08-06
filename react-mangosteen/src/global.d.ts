@@ -56,3 +56,5 @@ type Tags = {
   kind: "expense" | "income"
 }
 
+type ItemNewKind = "expenses" | "income"
+

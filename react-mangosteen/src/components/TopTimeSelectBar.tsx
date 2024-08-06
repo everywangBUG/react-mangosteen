@@ -3,7 +3,6 @@ import { GradientTimeSelect } from "../components/Gradient"
 import { time, Time } from "../library/Time"
 import { usePopup } from "../library/usePopup"
 import { Input } from "./Input"
-import s from "./TopTimeSelectBar.module.scss"
 import { Tabs } from "./Tabs"
 
 interface Props {
