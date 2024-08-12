@@ -16,6 +16,7 @@ declare module "react" {
     shrink?: string,
     top?: string
     right?: string
+    left?: string
     bottom?: string
   }
   interface SVGProps<T> extends SVGAttributes<T>, ClassAttributes<T> {

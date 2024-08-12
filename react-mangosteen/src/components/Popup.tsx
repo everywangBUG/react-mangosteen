@@ -38,8 +38,10 @@ export const Popup: React.FC<Props> = (props) => {
         style={{...maskStyle}}
         onClick={() => onClickMask?.()}
       >
-        {children}
       </animated.div>
+      <div>
+        {children}
+      </div>
     </div>
   )
 }

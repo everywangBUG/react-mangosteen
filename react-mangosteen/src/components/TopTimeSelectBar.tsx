@@ -38,7 +38,7 @@ export const TopTimeSelectBar: React.FC<Props> = (props) => {
 
   const { popup, openPopup, closePopup } = usePopup({
     children:
-    <div w-320px h-350px rounded-16px flex flex-col bg-white>
+    <div w-320px h-350px rounded-16px fixed top="[50%]" left="[50%]" translate-x="[-50%]" translate-y="[-50%]" bg-white>
       <header bg-orange py-4 shrink-0 w="100%" rounded-t-16px>
         <span ml-8px>请选择时间</span>
       </header>
