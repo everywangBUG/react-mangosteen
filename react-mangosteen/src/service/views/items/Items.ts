@@ -10,5 +10,5 @@ export function getItems(params: Item): Promise<Resources> {
   return request.get({
     url: "/api/v1/items",
     params
-  })
+  }, { showLoading: true })
 }

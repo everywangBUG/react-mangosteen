@@ -1,9 +1,10 @@
 import axios from "axios"
 import type { AxiosError, AxiosInstance, AxiosResponse, InternalAxiosRequestConfig } from "axios"
-import type { RequestConfig } from "./type"
+import type { interceptorOptions, RequestConfig } from "./type"
 import { Interceptors } from "./type";
 import { ErrorUnauthorized } from "../../constants/Error";
 import { showToast } from "../../library/Toast";
+import { showLoading } from "../../library/Loading";
 
 export class Request {
   instance: AxiosInstance;
@@ -45,9 +46,13 @@ export class Request {
     }
   }
 
-  request<T = any>(config: RequestConfig<T>): Promise<T> {
+  request<T = any>(config: RequestConfig<T>, options: interceptorOptions): Promise<T> {
     if (config.interceptors?.requestSuccessFn) {
       config = config.interceptors.requestSuccessFn(config as InternalAxiosRequestConfig)
+    }
+    const cleanup = showLoading()
+    if (options?.showLoading) {
+      showLoading()
     }
 
     return new Promise<T>((resolve, reject) => {
@@ -72,12 +77,14 @@ export class Request {
         resolve(res)
       }).catch(err => {
         reject(err)
+      }).finally(() => {
+        cleanup?.()
       })
     })
   }
 
-  public get<T = any>(config: RequestConfig<T>): Promise<T> {
-    return this.request({ ...config, method: "GET" })
+  public get<T = any>(config: RequestConfig<T>, options: interceptorOptions): Promise<T> {
+    return this.request({ ...config, method: "GET" }, options)
   }
 
   public post<T = any>(config: RequestConfig<T>): Promise<T> {

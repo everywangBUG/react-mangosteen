@@ -11,3 +11,8 @@ export interface Interceptors<T = AxiosResponse> {
 export interface RequestConfig<T = AxiosResponse> extends AxiosRequestConfig {
   interceptors?: Interceptors<T>
 }
+
+export interface interceptorOptions {
+  showLoading?: boolean
+  showError?: boolean
+}

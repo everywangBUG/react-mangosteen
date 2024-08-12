@@ -8,7 +8,7 @@ import { Tags } from "./itemsNew/Tags"
 
 type TabNewItem = { key: string, value: string, element: React.ReactNode }
 export const ItemsNew: React.FC = () => {
-  const [value, setValue] = useState("expenses")
+  const [value, setValue] = useState("income")
   const tabItems: TabNewItem[] = [
     { key: "income", value: "收入", element: <Tags kind="income" /> },
     { key: "expenses", value: "支出", element: <Tags kind="expenses" /> }

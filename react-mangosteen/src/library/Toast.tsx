@@ -1,7 +1,6 @@
 import { createRoot } from "react-dom/client";
 import { useEffect, useState } from "react";
 import ReactDOM from "react-dom";
-import { body } from "../main";
 import { ShowToast } from "../components/ShowToast";
 
 interface Props {
@@ -12,6 +11,7 @@ interface Props {
 }
 
 let hasToast = false
+let container: HTMLDivElement | null = null;
 
 export const Toast: React.FC<Props> = (props) => {
   const { message, position, duration = 200, type = "info" } = props
@@ -27,7 +27,7 @@ export const Toast: React.FC<Props> = (props) => {
 
   const toast = ReactDOM.createPortal(
     <ShowToast visible={visible} position={position} type={type}>{message}</ShowToast>,
-    body
+    document.body
   )
 
   return toast
@@ -43,21 +43,22 @@ export const showToast = (props: Props) => {
     return
   }
 
-  const container = document.createElement("div")
+  if (!container) {
+    container = document.createElement("div")
+  }
 
   const root = createRoot(container)
   root.render(element)
   hasToast = true
   
-  setTimeout(() => {
-    root.unmount()
-    container.remove()
-    hasToast = false
-  }, duration)
 
-  return () => {
-    root.unmount()
-    container.remove()
-    hasToast = false
-  }
+  const cleanup = () => {
+    root.unmount();
+    container?.remove();
+    hasToast = false;
+  };
+
+  setTimeout(cleanup , duration)
+
+  return cleanup
 }
