@@ -91,19 +91,19 @@ export class Request {
     return this.request({ ...config, method: "POST" }, options = { showLoading: false })
   }
 
-  public delete<T = any>(config: RequestConfig<T>, options: interceptorOptions): Promise<T> {
+  public delete<T = any>(config: RequestConfig<T>, options?: interceptorOptions): Promise<T> {
     return this.request({ ...config, method: "DELETE" }, options = { showLoading: false })
   }
 
-  public patch<T = any>(config: RequestConfig<T>, options: interceptorOptions): Promise<T> {
+  public patch<T = any>(config: RequestConfig<T>, options?: interceptorOptions): Promise<T> {
     return this.request({ ...config, method: "PATCH" }, options = { showLoading: false })
   }
 
-  public put<T = any>(config: RequestConfig<T>, options: interceptorOptions): Promise<T> {
+  public put<T = any>(config: RequestConfig<T>, options?: interceptorOptions): Promise<T> {
     return this.request({ ...config, method: "PUT" }, options = { showLoading: false })
   }
 
-  public head<T = any>(config: RequestConfig<T>, options: interceptorOptions): Promise<T> {
+  public head<T = any>(config: RequestConfig<T>, options?: interceptorOptions): Promise<T> {
     return this.request({ ...config, method: "HEAD" }, options = { showLoading: false })
   }
   
