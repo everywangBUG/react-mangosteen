@@ -87,24 +87,24 @@ export class Request {
     return this.request({ ...config, method: "GET" }, options)
   }
 
-  public post<T = any>(config: RequestConfig<T>): Promise<T> {
-    return this.request({ ...config, method: "POST" })
+  public post<T = any>(config: RequestConfig<T>, options: interceptorOptions): Promise<T> {
+    return this.request({ ...config, method: "POST" }, options)
   }
 
-  public delete<T = any>(config: RequestConfig<T>): Promise<T> {
-    return this.request({ ...config, method: "DELETE" })
+  public delete<T = any>(config: RequestConfig<T>, options: interceptorOptions): Promise<T> {
+    return this.request({ ...config, method: "DELETE" }, options)
   }
 
-  public patch<T = any>(config: RequestConfig<T>): Promise<T> {
-    return this.request({ ...config, method: "PATCH" })
+  public patch<T = any>(config: RequestConfig<T>, options: interceptorOptions): Promise<T> {
+    return this.request({ ...config, method: "PATCH" }, options)
   }
 
-  public put<T = any>(config: RequestConfig<T>): Promise<T> {
-    return this.request({ ...config, method: "PUT" })
+  public put<T = any>(config: RequestConfig<T>, options: interceptorOptions): Promise<T> {
+    return this.request({ ...config, method: "PUT" }, options)
   }
 
-  public head<T = any>(config: RequestConfig<T>): Promise<T> {
-    return this.request({ ...config, method: "HEAD" })
+  public head<T = any>(config: RequestConfig<T>, options: interceptorOptions): Promise<T> {
+    return this.request({ ...config, method: "HEAD" }, options)
   }
   
 }
