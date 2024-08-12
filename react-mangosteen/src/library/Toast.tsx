@@ -35,9 +35,6 @@ export const Toast: React.FC<Props> = (props) => {
 
 export const showToast = (props: Props) => {
   const { message, position, duration, type } = props
-  const element = (
-    <Toast message={message} position={position} duration={duration} type={type}/>
-  )
 
   if (hasToast) {
     return
@@ -48,7 +45,7 @@ export const showToast = (props: Props) => {
   }
 
   const root = createRoot(container)
-  root.render(element)
+  root.render(<Toast message={message} position={position} duration={duration} type={type}/>)
   hasToast = true
   
 
