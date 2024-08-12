@@ -24,6 +24,7 @@ export const ItemsList: React.FC<Props> = (props) => {
       if (res.resources) {
         setItems(prevItems => [...prevItems, ...res.resources])
       }})
+      .catch(error => console.error(error, "88888"))
   }, [start, end, page])
 
   const isLoadMore = () => {
@@ -37,7 +38,7 @@ export const ItemsList: React.FC<Props> = (props) => {
   }
 
   const isLoading = () => {
-    return resources?.resources === undefined
+    return resources?.resources === undefined && resources === undefined
   }
 
   const loadRemainingData = async () => {
@@ -79,10 +80,10 @@ export const ItemsList: React.FC<Props> = (props) => {
           (isLoading()
             ?
             <div p-16px text-center>
-              <span py-13px>加载中...</span>
+              <span py-13px text="#999999">加载中...</span>
             </div>
             :
-            <div py-8px text-center text="#999999" text-12px>没有更多了</div>
+            <div py-8px text-center text="#999999">没有更多了</div>
           )
           :
           <div p-16px text-center>

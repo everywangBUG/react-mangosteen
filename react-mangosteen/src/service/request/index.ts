@@ -61,8 +61,9 @@ export class Request {
         if ((res as AxiosError)?.response?.status === 404) {
           showToast({
             message: "网络有点问题哦~",
-            position: "middle",
-            duration: 1000
+            position: "center",
+            type: "error",
+            duration: 500
           })
         }
         if (config.interceptors?.responseSuccessFn && (res as AxiosResponse).status === 200) {

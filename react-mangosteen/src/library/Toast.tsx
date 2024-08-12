@@ -6,7 +6,7 @@ import { ShowToast } from "../components/ShowToast";
 
 interface Props {
   message: string
-  position: "top" | "middle" | "bottom"
+  position: "top" | "center" | "bottom"
   duration?: number
   type?: "success" | "error" | "info" | "warning"
 }
@@ -26,7 +26,7 @@ export const Toast: React.FC<Props> = (props) => {
   }, [duration])
 
   const toast = ReactDOM.createPortal(
-    <ShowToast visible={visible}>{message}</ShowToast>,
+    <ShowToast visible={visible} position={position} type={type}>{message}</ShowToast>,
     body
   )
 
@@ -34,9 +34,9 @@ export const Toast: React.FC<Props> = (props) => {
 }
 
 export const showToast = (props: Props) => {
-  const { message, position, duration } = props
+  const { message, position, duration, type } = props
   const element = (
-    <Toast message={message} position={position} duration={duration} />
+    <Toast message={message} position={position} duration={duration} type={type}/>
   )
 
   if (hasToast) {
@@ -44,19 +44,20 @@ export const showToast = (props: Props) => {
   }
 
   const container = document.createElement("div")
-  document.body.appendChild(container)
-  
+
   const root = createRoot(container)
   root.render(element)
   hasToast = true
-
+  
   setTimeout(() => {
     root.unmount()
     container.remove()
+    hasToast = false
   }, duration)
 
   return () => {
     root.unmount()
     container.remove()
+    hasToast = false
   }
 }
