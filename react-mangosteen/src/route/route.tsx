@@ -12,6 +12,7 @@ import { ItemsNew } from "../views/ItemsNew";
 import { SignIn } from "../views/SignIn";
 import { getItems } from "../service/views/items/Items";
 import { getCurrentUser } from "../service/views/signIn/SignIn";
+import { TagsNew } from "../views/TagsNew";
 
 export const router = createBrowserRouter([
   {
@@ -64,6 +65,11 @@ export const router = createBrowserRouter([
         element: <ItemsNew />,
       },
     ]
+  },
+  {
+    path: "tags/new",
+    errorElement: <ErrorPage />,
+    element: <TagsNew />
   },
   {
     path: "/home",

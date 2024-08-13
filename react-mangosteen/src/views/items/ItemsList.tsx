@@ -24,7 +24,6 @@ export const ItemsList: React.FC<Props> = (props) => {
       if (res.resources) {
         setItems(prevItems => [...prevItems, ...res.resources])
       }})
-      .catch(error => console.error(error, "88888"))
   }, [start, end, page])
 
   const isLoadMore = () => {
