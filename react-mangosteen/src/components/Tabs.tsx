@@ -17,7 +17,7 @@ interface Props<T> {
 export const Tabs = <T extends string | { name: string }>(props: Props<T>) => {
   const { tabItems, value, onChange, className, classPrefix } = props
   return (
-    <>
+    <div grow-1 shrink-1 h-screen>
       <ol flex children-py-8px children-px-16px text-white mt="-1px" bg="[rgba(255,149,0,1)]" className={className}>
         {
           tabItems.map(item => {
@@ -36,6 +36,6 @@ export const Tabs = <T extends string | { name: string }>(props: Props<T>) => {
       <div className={classPrefix ? `${classPrefix}-pane` : ""} >
         {tabItems.find(item => item.key === value)?.element}
       </div>
-    </>
+    </div>
   )
 }

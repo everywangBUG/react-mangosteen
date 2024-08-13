@@ -15,7 +15,7 @@ export const ItemsNew: React.FC = () => {
   ]
 
   return (
-    <form className={s.wrapper}>
+    <form className={s.wrapper} flex flex-col>
       <GradientTopNav>
         <TopNav title="记一笔" icon={<BackIcon name="back" className="w-24px h-24px" />}/>
       </GradientTopNav>
