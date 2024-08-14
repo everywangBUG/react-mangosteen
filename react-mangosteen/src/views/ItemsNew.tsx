@@ -5,6 +5,7 @@ import { Tabs } from "../components/Tabs"
 import { useState } from "react"
 import s from "./ItemsNew.module.scss"
 import { Tags } from "./itemsNew/Tags"
+import { TagsAmount } from "./itemsNew/TagsAmount"
 
 type TabNewItem = { key: string, value: string, element: React.ReactNode }
 export const ItemsNew: React.FC = () => {
@@ -15,7 +16,7 @@ export const ItemsNew: React.FC = () => {
   ]
 
   return (
-    <form className={s.wrapper} flex flex-col>
+    <form className={s.wrapper} flex flex-col h-screen>
       <GradientTopNav>
         <TopNav title="记一笔" icon={<BackIcon name="back" className="w-24px h-24px" />}/>
       </GradientTopNav>
@@ -26,6 +27,7 @@ export const ItemsNew: React.FC = () => {
         className={"flex justify-evenly"}
         classPrefix="tabs"
       />
+      <TagsAmount className={"grow-0 shrink-0"}/>
     </form>
   )
 }

@@ -2,7 +2,6 @@ import { Link } from "react-router-dom"
 import { Icon } from "../../components/Icon"
 import { useEffect, useState } from "react"
 import { getTags } from "../../service/views/items/Items"
-import { TagsAmount } from "./TagsAmount"
 
 interface Props {
   kind: ItemNewKind
@@ -86,7 +85,6 @@ export const Tags: React.FC<Props> = ({ kind }) => {
             <button w-btn py-13px onClick={loadRemainingData}>加载更多</button>
           </div>
       }
-      <TagsAmount className={"grow-0 shrink-0"}/>
     </div>
   )
 }
