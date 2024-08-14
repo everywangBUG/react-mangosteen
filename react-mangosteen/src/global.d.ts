@@ -33,14 +33,14 @@ type ItemsResources = {
 type Item = {
   amount: number
   created_at: string
-  deleted_at: string
+  deleted_at?: string
   happen_at: string
   happened_at: string
   id: number
-  kind: "expense" | "income"
+  kind: "expenses" | "income"
   note: string | null
   tag_ids: number[]
-  tags: Tags[]
+  tags?: Tags[]
   user_id: number
 }
 
@@ -53,7 +53,7 @@ type Tags = {
   name: string
   sign: string
   user_id: number
-  kind: "expense" | "income"
+  kind: "expenses" | "income"
 }
 
 type ItemNewKind = "expenses" | "income"

@@ -8,14 +8,14 @@ interface Props<T> {
     value: string
     element?: React.ReactNode
   }[]
-  value: T
+  selected?: T
   onChange: (key: T) => void
   className?: string
   classPrefix?: string
 }
   
-export const Tabs = <T extends string | { name: string }>(props: Props<T>) => {
-  const { tabItems, value, onChange, className, classPrefix } = props
+export const Tabs = <T extends (string | { name: string })>(props: Props<T>) => {
+  const { tabItems, selected, onChange, className, classPrefix } = props
   return (
     <div grow-1 shrink-1>
       <ol flex children-py-8px children-px-16px text-white mt="-1px" bg="[rgba(255,149,0,1)]" className={className}>
@@ -24,7 +24,7 @@ export const Tabs = <T extends string | { name: string }>(props: Props<T>) => {
             return(
               <li
                 key={item.value}
-                className={cs(item.key === value ? s.active : "", classPrefix ? `${classPrefix}-menu-item` : "")}
+                className={cs(item.key === selected ? s.active : "", classPrefix ? `${classPrefix}-menu-item` : "")}
                 onClick={() => { onChange(item.key) }}
               >
                 {item.value}
@@ -34,7 +34,7 @@ export const Tabs = <T extends string | { name: string }>(props: Props<T>) => {
         }
       </ol>
       <div className={classPrefix ? `${classPrefix}-pane` : ""} >
-        {tabItems.find(item => item.key === value)?.element}
+        {tabItems.find(item => item.key === selected)?.element}
       </div>
     </div>
   )

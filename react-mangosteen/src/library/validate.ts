@@ -15,7 +15,7 @@ type Rule<T> = {
 
 type Rules<T> = Rule<T>[]
 
-type FormError<T> = {
+export type FormError<T> = {
   [k in keyof T]?: string[]
 }
 

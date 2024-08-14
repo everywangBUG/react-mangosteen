@@ -67,7 +67,7 @@ export const router = createBrowserRouter([
     ]
   },
   {
-    path: "tags/new",
+    path: "tags/new?:kind=:itemKind",
     errorElement: <ErrorPage />,
     element: <TagsNew />
   },
