@@ -25,7 +25,7 @@ export const Tabs = <T extends (string | { name: string })>(props: Props<T>) => 
               <li
                 key={item.value}
                 className={cs(item.key === selected ? s.active : "", classPrefix ? `${classPrefix}-menu-item` : "")}
-                onClick={() => { onChange(item.key) }}
+                onClick={() => onChange(item.key)}
               >
                 {item.value}
               </li>
