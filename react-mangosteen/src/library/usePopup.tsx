@@ -6,15 +6,17 @@ import { Popup } from "../components/Popup"
 
 type Options = {
   isShow?: boolean
-  children?: React.ReactNode | null
+  children: React.ReactNode
+  position?: "center" | "bottom"
+  zIndex?: string
 }
 
 export const usePopup = (options: Options) => {
-  const { isShow = false, children = null } = options
+  const { isShow = false, children = null, position = "center", zIndex } = options
   const [visible, setVisible] = useState(isShow)
 
   const popup = ReactDOM.createPortal(
-    <Popup visible={visible} onClickMask={() => setVisible(false)}>
+    <Popup visible={visible} onClickMask={() =>setVisible(false) } position={position} zIndex={zIndex}>
       {children}
     </Popup>,
     body

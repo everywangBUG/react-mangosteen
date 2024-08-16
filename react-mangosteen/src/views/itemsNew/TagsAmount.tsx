@@ -43,7 +43,7 @@ export const TagsAmount: React.FC<Props> = (props) => {
         <span text-orange>{output}</span>
       </div>
       <div grid grid-cols="[repeat(4,1fr)]" grid-rows="[repeat(4,48px)]" children-text-20px children-text-center
-        b="#fff" shrink-0 grow-0 children-bg-white py="0.5px" gap-1px bg="#ddd" className={className}
+        b="#fff" shrink-0 grow-0 py="0.5px" gap-2px bg="#ddd" className={className}
       >
         <button type="button" style={{gridArea: "1/1/2/2"}} onClick={() => append("1")}>1</button>
         <button type="button" style={{gridArea: "1/2/2/3"}} onClick={() => append("2")}>2</button>
