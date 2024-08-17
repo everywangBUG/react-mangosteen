@@ -16,14 +16,31 @@ export const DatePicker: React.FC = () => {
         (e) => {
           if (isTouching) {
             const y = e.touches[0].clientY
-            const dy = y - lastY
-            setTranslateY(translateY + dy)
+            const currentY = y - lastY
+            // currentY % 36 < 18
+            //   ? setTranslateY(currentY - currentY % 36)
+            //   : setTranslateY(currentY + (36 - currentY % 36))
+            setTranslateY(translateY + currentY)
             setLastY(y)
           }
         }
       }
       onTouchEnd={
         () => {
+          const yuShu = translateY % 36
+          if (yuShu > 0) {
+            if (yuShu < 18) {
+              setTranslateY(translateY - yuShu)
+            } else {
+              setTranslateY(translateY + (36 - yuShu))
+            }
+          } else {
+            if (yuShu < -18) {
+              setTranslateY(translateY - (36 + yuShu))
+            } else {
+              setTranslateY(translateY - yuShu)
+            }
+          }
           setIsTouching(false)
         }
       }
