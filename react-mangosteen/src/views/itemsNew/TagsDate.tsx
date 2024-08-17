@@ -1,7 +1,7 @@
 import { DatePicker } from "../../components/DatePicker"
 import { Icon } from "../../components/Icon"
 import { time } from "../../library/Time"
-import { usePopup } from "../../library/usePopup"
+import { usePopup } from "../../hooks/usePopup"
 
 interface Props {
   className?: string
@@ -10,7 +10,7 @@ interface Props {
 export const TagsDate: React.FC<Props> = (props) => {
   const { className } = props 
   const { popup, openPopup, closePopup} = usePopup({
-    isShow: false,
+    isShow: true,
     children: <DatePicker />,
     position: "bottom"
   })

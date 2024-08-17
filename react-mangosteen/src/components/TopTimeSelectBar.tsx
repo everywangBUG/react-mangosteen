@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { GradientTimeSelect } from "../components/Gradient"
 import { time, Time } from "../library/Time"
-import { usePopup } from "../library/usePopup"
+import { usePopup } from "../hooks/usePopup"
 import { Input } from "./Input"
 import { Tabs } from "./Tabs"
 
@@ -67,7 +67,7 @@ export const TopTimeSelectBar: React.FC<Props> = (props) => {
   return (
     <>
       <GradientTimeSelect>
-        <Tabs tabItems={defaultTimeRange} value={selected} onChange={onSelected} />
+        <Tabs tabItems={defaultTimeRange} selected={selected} onChange={onSelected} />
       </GradientTimeSelect>
       {popup}
     </>

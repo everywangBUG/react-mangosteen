@@ -13,6 +13,14 @@ export const Popup: React.FC<Props> = (props) => {
   const { visible = false, children, onClickMask, position = "center", zIndex } = props
   const [maskVisible, setMaskVisible] = useState(visible)
   
+  const wrapperStyle = useSpring({
+    opacity: visible ? 1 : 0,
+    transform: position === "bottom" ? (visible ? "translateY(0)" : "translateY(100%)" ) : "",
+    config: {
+      duration: 200
+    }
+  })
+  
   const maskStyle = useSpring({
     visibility: (maskVisible ? "visible" : "hidden") as "visible" | "hidden",
     opacity: visible ? 1 : 0,
@@ -47,7 +55,7 @@ export const Popup: React.FC<Props> = (props) => {
           (
             <animated.div
               fixed items-center top="[50%]" left="[50%]" translate-x="[-50%]" translate-y="[-50%]" overflow-hidden
-              style={{zIndex}}
+              style={{ ...wrapperStyle, zIndex }}
             >
               {children}
             </animated.div>
@@ -56,7 +64,7 @@ export const Popup: React.FC<Props> = (props) => {
           (
             <animated.div
               fixed bottom-0 left-0 flex flex-col items-center justify-center overflow-hidden w-full
-              style={{zIndex}}
+              style={{ ...wrapperStyle, zIndex }}
             >
               {children}
             </animated.div>
