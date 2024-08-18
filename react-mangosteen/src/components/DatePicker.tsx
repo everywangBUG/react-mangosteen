@@ -1,34 +1,43 @@
-import { useState } from "react"
+import { useRef, useState } from "react"
 import { time } from "../library/Time"
-import c from "classnames";
 
-export const DatePicker = () => {
+interface Props {
+  start?: Date
+  end?: Date
+  value?: Date
+}
+
+export const DatePicker: React.FC<Props> = (props) => {
+  const { start, end, value, } = props
+  const startTime = start ? time(start) : time().add(-10, "year")
+  const valueTime = useRef(value ? time(value) : time())
+  const endTime = end ? time(end) : time().add(10, "year")
+  const yearList = Array.from({length: endTime.year - startTime.year + 1}).map((_, index) => startTime.year + index)
+  const monthList = Array.from({length: 12}).map((_, index) => index + 1)
+  const dayList = Array.from({length: valueTime.current.lastDayOfMonth.day}).map((_, index) => index + 1)
   return (
     <div w-full h-full flex bg-white>
-      <Column className="grow-1"/>
-      <Column className="grow-1"/>
-      <Column className="grow-1"/>
+      <Column className="grow-1" items={yearList} value={valueTime.current.year} />
+      <Column className="grow-1" items={monthList} value={valueTime.current.month} />
+      <Column className="grow-1" items={dayList} value={valueTime.current.day} />
     </div>
   )
 }
 
-interface Props {
+interface ColumnProps {
   className?: string
-  start?: Date
-  end?: Date
-  value?: Date
   height?: number
+  items: number[]
+  value: number
 }
 
-export const Column: React.FC<Props> = (props) => {
+export const Column: React.FC<ColumnProps> = (props) => {
   const [isTouching, setIsTouching] = useState(false)
-  const { start, end, value, height = 40, className } = props
+  const { height = 40, className, items, value } = props
 
   const [lastY, setLastY] = useState(-1)
-  const startTime = start ? time(start) : time().add(-10, "year")
-  const endTime = end ? time(end) : time().add(10, "year")
-  const yearList = Array.from({length: endTime.year - startTime.year + 1}).map((_, index) => startTime.year + index)
-  const defaultYearIndex = yearList.indexOf(value ? time(value).year : time().year)
+
+  const defaultYearIndex = items.indexOf(value)
   const [translateY, _setTranslateY] = useState(-defaultYearIndex * height)
   const setTranslateY = (y: number) => {
     // if (y > 0) {
@@ -38,7 +47,7 @@ export const Column: React.FC<Props> = (props) => {
     // if (y < (yearList.length - 1) * -height) {
     //   y = -(yearList.length - 1) * -height
     // }
-    y = Math.max(y, (yearList.length - 1) * -height)
+    y = Math.max(y, (items.length - 1) * -height)
     _setTranslateY(y)
   }
 
@@ -87,9 +96,9 @@ export const Column: React.FC<Props> = (props) => {
       <div w-full text-center absolute top="50%" style={{transform: `translateY(${-height}px)`}}>
         <ol style={{transform: `translateY(${translateY}px)`}}>
           {
-            yearList.map((year) => (
-              <li key={year} style={{height, lineHeight: `${height}px`}}>
-                {year}
+            items.map((item) => (
+              <li key={item} style={{height, lineHeight: `${height}px`}}>
+                {item}
               </li>
             ))
           }
