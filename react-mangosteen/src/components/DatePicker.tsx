@@ -1,16 +1,28 @@
 import { useState } from "react"
 import { time } from "../library/Time"
+import c from "classnames";
+
+export const DatePicker = () => {
+  return (
+    <div w-full h-full flex bg-white>
+      <Column className="grow-1"/>
+      <Column className="grow-1"/>
+      <Column className="grow-1"/>
+    </div>
+  )
+}
 
 interface Props {
+  className?: string
   start?: Date
   end?: Date
   value?: Date
   height?: number
 }
 
-export const DatePicker: React.FC<Props> = (props) => {
+export const Column: React.FC<Props> = (props) => {
   const [isTouching, setIsTouching] = useState(false)
-  const { start, end, value, height = 40 } = props
+  const { start, end, value, height = 40, className } = props
 
   const [lastY, setLastY] = useState(-1)
   const startTime = start ? time(start) : time().add(-10, "year")
@@ -32,10 +44,9 @@ export const DatePicker: React.FC<Props> = (props) => {
 
   return (
     <div
-      w-full
+      className={className}
       relative
       h-50vh
-      bg-white
       onTouchStart={
         (e) => {
           setIsTouching(true)
