@@ -1,11 +1,41 @@
 import { useState } from "react"
+import { time } from "../library/Time"
 
-export const DatePicker: React.FC = () => {
+interface Props {
+  start?: Date
+  end?: Date
+  value?: Date
+  height?: number
+}
+
+export const DatePicker: React.FC<Props> = (props) => {
   const [isTouching, setIsTouching] = useState(false)
+  const { start, end, value, height = 40 } = props
+
   const [lastY, setLastY] = useState(-1)
-  const [translateY, setTranslateY] = useState(0)
+  const startTime = start ? time(start) : time().add(-10, "year")
+  const endTime = end ? time(end) : time().add(10, "year")
+  const yearList = Array.from({length: endTime.year - startTime.year + 1}).map((_, index) => startTime.year + index)
+  const defaultYearIndex = yearList.indexOf(value ? time(value).year : time().year)
+  const [translateY, _setTranslateY] = useState(-defaultYearIndex * height)
+  const setTranslateY = (y: number) => {
+    // if (y > 0) {
+    //   y = 0
+    // }
+    y = Math.min(y, 0)
+    // if (y < (yearList.length - 1) * -height) {
+    //   y = -(yearList.length - 1) * -height
+    // }
+    y = Math.max(y, (yearList.length - 1) * -height)
+    _setTranslateY(y)
+  }
+
   return (
-    <div w-full
+    <div
+      w-full
+      relative
+      h-50vh
+      bg-white
       onTouchStart={
         (e) => {
           setIsTouching(true)
@@ -17,9 +47,6 @@ export const DatePicker: React.FC = () => {
           if (isTouching) {
             const y = e.touches[0].clientY
             const currentY = y - lastY
-            // currentY % 36 < 18
-            //   ? setTranslateY(currentY - currentY % 36)
-            //   : setTranslateY(currentY + (36 - currentY % 36))
             setTranslateY(translateY + currentY)
             setLastY(y)
           }
@@ -27,54 +54,34 @@ export const DatePicker: React.FC = () => {
       }
       onTouchEnd={
         () => {
-          const yuShu = translateY % 36
-          if (yuShu > 0) {
-            if (yuShu < 18) {
-              setTranslateY(translateY - yuShu)
+          const reminder = translateY % height
+          if (reminder > 0) {
+            if (reminder < height / 2) {
+              setTranslateY(translateY - reminder)
             } else {
-              setTranslateY(translateY + (36 - yuShu))
+              setTranslateY(translateY + height - reminder)
             }
           } else {
-            if (yuShu < -18) {
-              setTranslateY(translateY - (36 + yuShu))
+            if (reminder < -height /2) {
+              setTranslateY(translateY - height - reminder)
             } else {
-              setTranslateY(translateY - yuShu)
+              setTranslateY(translateY - reminder)
             }
           }
           setIsTouching(false)
         }
       }
     >
-      <div w-full b-1px b-red b-solid h="36px" absolute top="[calc(50%-18px)]"></div>
-      <div w-full bg-white text-center>
-        <ol h-50vh children-h-36px children-leading-36px style={{transform: `translateY(${translateY}px)`}}>
-          <li>2000</li>
-          <li>2001</li>
-          <li>2002</li>
-          <li>2003</li>
-          <li>2004</li>
-          <li>2005</li>
-          <li>2006</li>
-          <li>2007</li>
-          <li>2008</li>
-          <li>2009</li>
-          <li>2010</li>
-          <li>2011</li>
-          <li>2012</li>
-          <li>2013</li>
-          <li>2014</li>
-          <li>2015</li>
-          <li>2016</li>
-          <li>2017</li>
-          <li>2018</li>
-          <li>2019</li>
-          <li>2020</li>
-          <li>2021</li>
-          <li>2022</li>
-          <li>2023</li>
-          <li>2024</li>
-          <li>2025</li>
-          <li>2026</li>
+      <div w-full b-t-1px b-b-1px b-orange b-solid absolute top="50%" style={{height, transform: `translateY(${-height}px)`}}></div>
+      <div w-full text-center absolute top="50%" style={{transform: `translateY(${-height}px)`}}>
+        <ol style={{transform: `translateY(${translateY}px)`}}>
+          {
+            yearList.map((year) => (
+              <li key={year} style={{height, lineHeight: `${height}px`}}>
+                {year}
+              </li>
+            ))
+          }
         </ol>
       </div>
     </div>
