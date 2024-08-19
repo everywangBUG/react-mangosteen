@@ -37,7 +37,7 @@ export const TagsAmount: React.FC<Props> = (props) => {
   }
   
   return (
-    <>
+    <div grow-0 shrink-0>
       <div p-16px b="#ddd" b-solid b-y-1px flex justify-between>
         {tagsDate}
         <span text-orange>{output}</span>
@@ -59,6 +59,6 @@ export const TagsAmount: React.FC<Props> = (props) => {
         <button type="button" style={{gridArea: "1/4/3/5"}} onClick={() => setOutput("0")}>清空</button>
         <button type="submit" style={{gridArea: "3/4/5/5"}} bg-orange onClick={onSubmit}>提交</button>
       </div>
-    </>
+    </div>
   )
 }
