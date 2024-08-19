@@ -5,13 +5,14 @@ import { usePopup } from "../../hooks/usePopup"
 
 interface Props {
   className?: string
+  onConfirm?: (date: Date) => void
 }
 
 export const TagsDate: React.FC<Props> = (props) => {
-  const { className } = props 
+  const { className, onConfirm } = props 
   const { popup, openPopup, closePopup} = usePopup({
-    isShow: true,
-    children: <DatePicker />,
+    isShow: false,
+    children: <DatePicker onCancel={() => closePopup()} onConfirm={() => { onConfirm; closePopup() }}/>,
     position: "bottom"
   })
 
