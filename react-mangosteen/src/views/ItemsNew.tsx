@@ -4,9 +4,9 @@ import { TopNav } from "../components/TopNav"
 import { Tabs } from "../components/Tabs"
 import s from "./ItemsNew.module.scss"
 import { Tags } from "./itemsNew/Tags"
-import { TagsAmount } from "./itemsNew/TagsAmount"
+import { ItemsNewAmount } from "./itemsNew/ItemsNewAmount"
 import { useCreateItem } from "../store/useCreateItem"
-import { TagsDate } from "./itemsNew/TagsDate"
+import { ItemsNewDate } from "./itemsNew/ItemsNewDate"
 
 type TabNewItem = { key: string, value: string, element: React.ReactNode }
 export const ItemsNew: React.FC = () => {
@@ -32,7 +32,8 @@ export const ItemsNew: React.FC = () => {
         className={"flex justify-evenly"}
         classPrefix="tabs"
       />
-      <TagsAmount className={"grow-0 shrink-0"} value={data.amount} onSubmit={onSubmit} tagsDate={<TagsDate />}/>
+      <ItemsNewAmount className={"grow-0 shrink-0"} value={data.amount} onSubmit={onSubmit}
+        tagsDate={<ItemsNewDate value={data.happen_at} onChange={(happen_at) => {setData({happen_at})}} />}/>
     </form>
   )
 }

@@ -9,10 +9,12 @@ interface Props {
   onConfirm?: (value: Date) => void
 }
 
+const getNow = () => time().set({ seconds: 0, ms: 0 })
 export const DatePicker: React.FC<Props> = (props) => {
   const { start, end, value, onConfirm, onCancel } = props
+  const [_, update] = useState({})
   const startTime = start ? time(start) : time().add(-10, "year")
-  const valueTime = useRef(value ? time(value) : time())
+  const valueTime = useRef(value ? time(value) : getNow())
   const endTime = end ? time(end) : time().add(10, "year")
   const yearList = Array.from({length: endTime.year - startTime.year + 1}).map((_, index) => startTime.year + index)
   const monthList = Array.from({length: 12}).map((_, index) => index + 1)
@@ -22,9 +24,9 @@ export const DatePicker: React.FC<Props> = (props) => {
   return (
     <div w-full h-full flex bg-white flex-col rounded-t-16px>
       <div flex justify-between p-16px>
-        <span onClick={() => onConfirm?.(valueTime.current.date)}>确定</span>
-        <span>时间选择</span>
         <span onClick={onCancel}>取消</span>
+        <span>时间选择</span>
+        <span onClick={() => onConfirm?.(valueTime.current.date)}>确定</span>
       </div>
       <div flex children-grow-1 justify-evenly p-8px children-text-center>
         <span>年</span>
@@ -34,11 +36,11 @@ export const DatePicker: React.FC<Props> = (props) => {
         <span>分</span>
       </div>
       <div flex grow-1 p-8px overflow-hidden>
-        <Column className="grow-1" items={yearList} value={valueTime.current.year} />
-        <Column className="grow-1" items={monthList} value={valueTime.current.month} />
-        <Column className="grow-1" items={dayList} value={valueTime.current.day} />
-        <Column className="grow-1" items={hourList} value={valueTime.current.hours} />
-        <Column className="grow-1" items={minuteList} value={valueTime.current.minutes} />
+        <Column className="grow-1" items={yearList} value={valueTime.current.year} onChange={year => {valueTime.current.year = year; update({})}} />
+        <Column className="grow-1" items={monthList} value={valueTime.current.month} onChange={month => {valueTime.current.month = month; update({})}} />
+        <Column className="grow-1" items={dayList} value={valueTime.current.day} onChange={day => {valueTime.current.day = day; update({})}} />
+        <Column className="grow-1" items={hourList} value={valueTime.current.hours} onChange={hours => {valueTime.current.hours = hours; update({})}} />
+        <Column className="grow-1" items={minuteList} value={valueTime.current.minutes} onChange={minutes => {valueTime.current.minutes = minutes; update({})}} />
       </div>
     </div>
   )
@@ -49,11 +51,12 @@ interface ColumnProps {
   height?: number
   items: number[]
   value: number
+  onChange: (value: number) => void
 }
 
 export const Column: React.FC<ColumnProps> = (props) => {
   const [isTouching, setIsTouching] = useState(false)
-  const { height = 40, className, items, value } = props
+  const { height = 40, className, items, value, onChange } = props
 
   const [lastY, setLastY] = useState(-1)
 
@@ -102,13 +105,14 @@ export const Column: React.FC<ColumnProps> = (props) => {
               setTranslateY(translateY + height - reminder)
             }
           } else {
-            if (reminder < -height /2) {
+            if (reminder < -height / 2) {
               setTranslateY(translateY - height - reminder)
             } else {
               setTranslateY(translateY - reminder)
             }
           }
           setIsTouching(false)
+          onChange(items[Math.abs((translateY - reminder) / height)])
         }
       }
     >

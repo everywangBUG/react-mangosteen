@@ -31,7 +31,8 @@ export const useCreateItem = create<CreateItem>((set) => ({
         ...state.data,
         ...data
       }
-    }))
+    }
+    ))
   },
   setError: (error: Partial<FormError<Data>>) => {
     set((state) => ({
