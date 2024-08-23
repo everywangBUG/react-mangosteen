@@ -1,11 +1,17 @@
 import { request } from "../../index";
 
+interface GetItem {
+  page: number
+  happen_after: string
+  happen_before: string
+}
+
 interface Tags {
   page: number
   kind: ItemNewKind
 }
 
-export function getItems(params: Partial<Item>): Promise<Resources> {
+export function getItems(params: GetItem): Promise<Resources> {
   return request.get({
     url: "/api/v1/items",
     params
