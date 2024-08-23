@@ -9,7 +9,7 @@ interface Props<T> {
     element?: React.ReactNode
   }[]
   selected?: T
-  onChange: (key: ItemNewKind) => void
+  onChange: (key: T) => void
   className?: string
   classPrefix?: string
 }

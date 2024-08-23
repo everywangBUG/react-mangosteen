@@ -1,9 +1,9 @@
 import { request } from "../../index";
 
 interface GetItem {
-  page: number
-  happen_after: string
-  happen_before: string
+  page?: number
+  happen_after?: string
+  happen_before?: string
 }
 
 interface Tags {
