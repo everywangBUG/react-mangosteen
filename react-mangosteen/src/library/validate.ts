@@ -22,7 +22,7 @@ export type FormError<T> = {
 export type { Data, Rule, Rules, FormError }
 
 export function isEmpty(value: undefined | JSONValue | Data) {
-  return value === null || value === undefined || value === "" || (Array.isArray(value) && value.length === 0)
+  return value === null || value === undefined || value === "" || value === 0 || (Array.isArray(value) && value.length === 0)
 }
 
 export const validate = <T extends Data>(formData: T, rules: Rules<T>): FormError<T> => {

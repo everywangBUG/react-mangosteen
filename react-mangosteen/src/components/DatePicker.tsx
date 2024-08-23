@@ -4,7 +4,7 @@ import { time } from "../library/Time"
 interface Props {
   start?: Date
   end?: Date
-  value?: Date
+  value?: Date | string
   onCancel?: () => void
   onConfirm?: (value: Date) => void
 }
@@ -14,13 +14,17 @@ export const DatePicker: React.FC<Props> = (props) => {
   const { start, end, value, onConfirm, onCancel } = props
   const [_, update] = useState({})
   const startTime = start ? time(start) : time().add(-10, "year")
-  const valueTime = useRef(value ? time(value) : getNow())
   const endTime = end ? time(end) : time().add(10, "year")
+  const valueTime = useRef(value ? time(value) : getNow())
+  if (startTime.year > endTime.year) {
+    throw new Error("startTime must be less than endTime")
+  }
   const yearList = Array.from({length: endTime.year - startTime.year + 1}).map((_, index) => startTime.year + index)
   const monthList = Array.from({length: 12}).map((_, index) => index + 1)
   const dayList = Array.from({length: valueTime.current.lastDayOfMonth.day}).map((_, index) => index + 1)
-  const hourList = Array.from({length: 24}).map((_, index) => index)
-  const minuteList = Array.from({length: 60}).map((_, index) => index)
+  const pad = (num: number) => (num < 10 ? `0${num}` : num)
+  const hourList = Array.from({length: 24}).map((_, index) => Number(pad(index)))
+  const minuteList = Array.from({length: 60}).map((_, index) => Number(pad(index)))
   return (
     <div w-full h-full flex bg-white flex-col rounded-t-16px>
       <div flex justify-between p-16px>
@@ -28,14 +32,14 @@ export const DatePicker: React.FC<Props> = (props) => {
         <span>时间选择</span>
         <span onClick={() => onConfirm?.(valueTime.current.date)}>确定</span>
       </div>
-      <div flex children-grow-1 justify-evenly p-8px children-text-center>
+      <div flex children-grow-1 justify-evenly p-16px children-text-center>
         <span>年</span>
         <span>月</span>
         <span>日</span>
         <span>时</span>
         <span>分</span>
       </div>
-      <div flex grow-1 p-8px overflow-hidden>
+      <div flex grow-1 p-16px overflow-hidden>
         <Column className="grow-1" items={yearList} value={valueTime.current.year} onChange={year => {valueTime.current.year = year; update({})}} />
         <Column className="grow-1" items={monthList} value={valueTime.current.month} onChange={month => {valueTime.current.month = month; update({})}} />
         <Column className="grow-1" items={dayList} value={valueTime.current.day} onChange={day => {valueTime.current.day = day; update({})}} />

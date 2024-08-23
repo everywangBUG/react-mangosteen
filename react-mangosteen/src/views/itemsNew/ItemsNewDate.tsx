@@ -5,7 +5,7 @@ import { usePopup } from "../../hooks/usePopup"
 
 interface Props {
   className?: string
-  value?: string
+  value?: Date | string
   onChange?: (date: string) => void
 }
 
@@ -13,7 +13,7 @@ export const ItemsNewDate: React.FC<Props> = (props) => {
   const { className, onChange, value } = props
   const { popup, openPopup, closePopup} = usePopup({
     isShow: false,
-    children: <DatePicker onCancel={() => closePopup()} onConfirm={d => { onChange?.(time(d).toISOString); closePopup() }}/>,
+    children: <DatePicker onCancel={() => closePopup()} onConfirm={d => { onChange?.(time(d).toISOString); closePopup() }} value={value}/>,
     position: "bottom"
   })
 

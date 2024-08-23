@@ -4,10 +4,12 @@ import { useEffect, useState } from "react"
 import { getTags } from "../../service/views/items/Items"
 
 interface Props {
-  kind: ItemNewKind
+  kind: Item["kind"]
+  onChange?: (ids: Item["tag_ids"]) => void
+  value?: Item["tag_ids"]
 }
 
-export const Tags: React.FC<Props> = ({ kind }) => {
+export const Tags: React.FC<Props> = ({ kind, onChange, value }) => {
   const [page, setPage] = useState(1)
   const [resources, setResources] = useState<Resources>()
   const [tags, setTags] = useState<Tags[]>([])
@@ -60,11 +62,17 @@ export const Tags: React.FC<Props> = ({ kind }) => {
         </li>
         {
           tags.map((tag, index) => (
-            <li key={index}>
-              <span w-48px h-48px flex justify-center items-center block bg="#EFEFEFEF" rounded="50%"
-              >
-                {tag.sign}
-              </span>
+            <li key={index} onClick={() => onChange?.([tag.id])}>
+              <div flex flex-col justify-center items-center>
+                {
+                  value?.includes(tag.id)
+                    ?
+                    <span w-48px h-48px flex justify-center items-center block bg="#EFEFEFEF" b-orange b-1 b-solid rounded="50%">{tag.sign}</span>
+                    :
+                    <span w-48px h-48px flex justify-center items-center block bg="#EFEFEFEF" b-transparent b-1 b-solid rounded="50%">{tag.sign}</span>
+                }
+                <span text-12px>{tag.name}</span>
+              </div>
             </li>
           ))
         }
