@@ -1,10 +1,11 @@
 import { ReactNode, useState } from "react"
+import { FormEvent } from "react"
 
 interface Props {
   value?: number
   className?: string
   onChange?: (amount: number) => void
-  onSubmit?: () => void
+  onSubmit?: (e: FormEvent<HTMLFormElement>) => void
   tagsDate: ReactNode
 }
 

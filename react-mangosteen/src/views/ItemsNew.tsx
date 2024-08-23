@@ -22,7 +22,7 @@ export const ItemsNew: React.FC = () => {
     { key: "expenses", value: "支出", element: <Tags kind="expenses" onChange={(tag_ids) => {setData({tag_ids})}} value={data.tag_ids} /> }
   ]
 
-  const onSubmit = async (e: FormEvent<FormEvent>) => {
+  const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     const errors = validate(data, [
       { key: "amount", type: "required", message: "请输入金额" },

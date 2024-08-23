@@ -1,30 +1,18 @@
 import { request } from "../../index";
 
-interface Item {
-  page: number
-  happen_after?: string
-  happen_before?: string
-}
-
-interface PostItem {
-  kind: "income" | "expenses"
-  amount: number
-  happen_at: string
-}
-
 interface Tags {
   page: number
   kind: ItemNewKind
 }
 
-export function getItems(params: Item): Promise<Resources> {
+export function getItems(params: Partial<Item>): Promise<Resources> {
   return request.get({
     url: "/api/v1/items",
     params
   }, { showLoading: true })
 }
 
-export function postItems(data: PostItem) {
+export function postItems(data: Partial<Item>) {
   return request.post({
     url: "/api/v1/items",
     data

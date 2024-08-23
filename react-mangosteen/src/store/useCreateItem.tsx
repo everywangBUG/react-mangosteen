@@ -25,7 +25,6 @@ export const useCreateItem = create<CreateItem>((set) => ({
     amount: []
   },
   setData: (data: Partial<Data>) => {
-    console.log(data, "placeholder")
     set((state) => ({
       ...state,
       data: {
