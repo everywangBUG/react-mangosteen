@@ -37,7 +37,7 @@ type Item = {
   happen_at: string
   happened_at: string
   id: number
-  kind: "expenses" | "income"
+  kind: "expenses" | "income" | string
   note: string | null
   tag_ids: number[]
   tags?: Tags[]
@@ -56,5 +56,5 @@ type Tags = {
   kind: "expenses" | "income"
 }
 
-type ItemNewKind = "expenses" | "income"
+type ItemNewKind = "expenses" | "income" | string
 

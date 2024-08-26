@@ -22,7 +22,7 @@ export const ItemsList: React.FC<Props> = (props) => {
     itemsRes().then(res => {
       setResources(res)
       if (res.resources) {
-        setItems(prevItems => [...prevItems, ...res.resources])
+        setItems(prevItems => [...prevItems, ...res.resources as []])
       }})
   }, [start, end, page])
 

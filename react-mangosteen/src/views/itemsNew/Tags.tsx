@@ -17,15 +17,23 @@ export const Tags: React.FC<Props> = ({ kind, onChange, value }) => {
   const tagsRes = async () => await getTags({ kind, page})
 
   useEffect(() => {
-    setTags([])
+    setPage(1)
     tagsRes().then(res => {
       setResources(res)
       if (res.resources) {
-        setTags(prevTags => [...prevTags, ...res.resources])
+        setTags(res.resources as [])
       }
     })
-  }, [page, kind])
+  }, [kind])
 
+  useEffect(() => {
+    tagsRes().then(res => {
+      setResources(res)
+      if (res.resources) {
+        setTags(prevTags => [...prevTags, ...res.resources as []])
+      }
+    })
+  }, [page])
   const isLoadMore = () => {
     if (resources?.pager) {
       const currentPage = resources.pager.page
@@ -90,7 +98,7 @@ export const Tags: React.FC<Props> = ({ kind, onChange, value }) => {
           )
           :
           <div p-16px text-center>
-            <button w-btn py-13px onClick={loadRemainingData}>加载更多</button>
+            <button w-btn py-13px onClick={loadRemainingData} type="button">加载更多</button>
           </div>
       }
     </div>
