@@ -17,7 +17,7 @@ interface Props<T> {
 export const Tabs = <T extends (string | { name: string })>(props: Props<T>) => {
   const { tabItems, selected, onChange, className, classPrefix } = props
   return (
-    <div grow-1 shrink-1>
+    <div grow-1 shrink-1 overflow-scroll>
       <ol flex children-py-8px children-px-16px text-white mt="-1px" bg="[rgba(255,149,0,1)]" className={className}>
         {
           tabItems.map(item => {
