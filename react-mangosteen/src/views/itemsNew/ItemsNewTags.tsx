@@ -1,7 +1,8 @@
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { Icon } from "../../components/Icon"
 import { useEffect, useState } from "react"
 import { getTags } from "../../service/views/items/Items"
+import { LongPressDiv } from "../../components/LongPressDiv"
 
 interface Props {
   kind: Item["kind"]
@@ -9,11 +10,11 @@ interface Props {
   value?: Item["tag_ids"]
 }
 
-export const Tags: React.FC<Props> = ({ kind, onChange, value }) => {
+export const ItemsNewTags: React.FC<Props> = ({ kind, onChange, value }) => {
   const [page, setPage] = useState(1)
   const [resources, setResources] = useState<Resources>()
   const [tags, setTags] = useState<Tags[]>([])
-
+  const navigator = useNavigate()
   const tagsRes = async () => await getTags({ kind, page})
 
   useEffect(() => {
@@ -71,7 +72,7 @@ export const Tags: React.FC<Props> = ({ kind, onChange, value }) => {
         {
           tags.map((tag, index) => (
             <li key={index} onClick={() => onChange?.([tag.id])}>
-              <div flex flex-col justify-center items-center>
+              <LongPressDiv className={"flex flex-col justify-center items-center"} onEnd={() => navigator(`/tags/${tag.id}`)}>
                 {
                   value?.includes(tag.id)
                     ?
@@ -80,7 +81,7 @@ export const Tags: React.FC<Props> = ({ kind, onChange, value }) => {
                     <span w-48px h-48px flex justify-center items-center block bg="#EFEFEFEF" b-transparent b-1 b-solid rounded="50%">{tag.sign}</span>
                 }
                 <span text-12px>{tag.name}</span>
-              </div>
+              </LongPressDiv>
             </li>
           ))
         }

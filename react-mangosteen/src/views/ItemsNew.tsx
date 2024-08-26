@@ -3,7 +3,7 @@ import { BackIcon } from "../components/BackIcon"
 import { TopNav } from "../components/TopNav"
 import { Tabs } from "../components/Tabs"
 import s from "./ItemsNew.module.scss"
-import { Tags } from "./itemsNew/Tags"
+import { ItemsNewTags } from "./itemsNew/ItemsNewTags"
 import { ItemsNewAmount } from "./itemsNew/ItemsNewAmount"
 import { useCreateItem } from "../store/useCreateItem"
 import { ItemsNewDate } from "./itemsNew/ItemsNewDate"
@@ -18,8 +18,8 @@ export const ItemsNew: React.FC = () => {
   const { data, setData, setError} = useCreateItem()
   const navigator = useNavigate()
   const tabItems: TabNewItem[] = [
-    { key: "income", value: "收入", element: <Tags kind="income" onChange={(tag_ids) => {setData({tag_ids})}} value={data.tag_ids} />},
-    { key: "expenses", value: "支出", element: <Tags kind="expenses" onChange={(tag_ids) => {setData({tag_ids})}} value={data.tag_ids} /> }
+    { key: "income", value: "收入", element: <ItemsNewTags kind="income" onChange={(tag_ids) => {setData({tag_ids})}} value={data.tag_ids} />},
+    { key: "expenses", value: "支出", element: <ItemsNewTags kind="expenses" onChange={(tag_ids) => {setData({tag_ids})}} value={data.tag_ids} /> }
   ]
 
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {

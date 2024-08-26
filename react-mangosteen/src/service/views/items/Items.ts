@@ -26,7 +26,6 @@ export function postItems(data: Partial<Item>) {
 }
 
 export function getTags(params: Tags): Promise<Resources> {
-  console.log(params, "9999")
   return request.get({
     url: "/api/v1/tags",
     params
