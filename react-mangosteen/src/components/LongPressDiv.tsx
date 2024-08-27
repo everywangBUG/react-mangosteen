@@ -12,9 +12,9 @@ export const LongPressDiv: React.FC<Props> = (props) => {
   const touchTimer = useRef<number>()
 
   const onTouchStart: TouchEventHandler<HTMLDivElement> = (e) => {
-    setTimeout(() => {
-      onEnd && onEnd()
-    }, 500)
+    touchTimer.current = setTimeout(() => {
+      onEnd?.()
+    }, 1000)
     const { clientX: x, clientY: y } = e.touches[0]
     touchPosition.current = {x, y}
   }
@@ -31,7 +31,7 @@ export const LongPressDiv: React.FC<Props> = (props) => {
   }
 
   const onTouchEnd = () => {
-    if (touchTimer.current === undefined) {
+    if (touchTimer.current) {
       clearTimeout(touchTimer.current)
       touchTimer.current = undefined
     }

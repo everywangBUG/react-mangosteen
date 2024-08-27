@@ -63,39 +63,39 @@ export function svgsprites(options: Options = {}): Plugin {
       if (id === resolvedVirtualModuleId) {
         const code = generateCode()
         return `!function(){
-  const div = document.createElement('div')
-  div.innerHTML = \`${code}\`
-  const svg = div.getElementsByTagName('svg')[0]
-  const updateSvg = (svg) => {
-    if (!svg) { return }
-    svg.style.position = 'absolute'
-    svg.style.width = 0
-    svg.style.height = 0
-    svg.style.overflow = 'hidden'
-    svg.setAttribute("aria-hidden", "true")
-  }
-  const insert = () => {
-    if (document.body.firstChild) {
-      document.body.insertBefore(div, document.body.firstChild)
-    } else {
-      document.body.appendChild(div)
-    }
-  }
-  updateSvg(svg)
-  if (document.body){
-    insert()
-  } else {
-    document.addEventListener('DOMContentLoaded', insert)
-  }
-  if (import.meta.hot) {
-    import.meta.hot.on('svgsprites:change', (data) => {
-      const code = data.code
-      div.innerHTML = code
-      const svg = div.getElementsByTagName('svg')[0]
-      updateSvg(svg)
-    })
-  }
-}()`
+          const div = document.createElement('div')
+          div.innerHTML = \`${code}\`
+          const svg = div.getElementsByTagName('svg')[0]
+          const updateSvg = (svg) => {
+            if (!svg) { return }
+            svg.style.position = 'absolute'
+            svg.style.width = 0
+            svg.style.height = 0
+            svg.style.overflow = 'hidden'
+            svg.setAttribute("aria-hidden", "true")
+          }
+          const insert = () => {
+            if (document.body.firstChild) {
+              document.body.insertBefore(div, document.body.firstChild)
+            } else {
+              document.body.appendChild(div)
+            }
+          }
+          updateSvg(svg)
+          if (document.body){
+            insert()
+          } else {
+            document.addEventListener('DOMContentLoaded', insert)
+          }
+          if (import.meta.hot) {
+            import.meta.hot.on('svgsprites:change', (data) => {
+              const code = data.code
+              div.innerHTML = code
+              const svg = div.getElementsByTagName('svg')[0]
+              updateSvg(svg)
+            })
+          }
+        }()`
       }
     },
   }
