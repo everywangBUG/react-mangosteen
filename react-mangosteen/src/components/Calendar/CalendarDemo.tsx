@@ -50,7 +50,7 @@ function useMergeState<T>(
   return [mergeValue, setState]
 }
 
-export const Calendar: React.FC<CalendarProps> = (props) => {
+export const CalendarDemo: React.FC<CalendarProps> = (props) => {
   const { value: propsValue, defaultValue, onChange } = props
   const [mergeValue, setValue] = useMergeState(new Date(), {
     value: propsValue,
@@ -82,6 +82,6 @@ export const Test: React.FC = () => {
     // 非受控模式
     // <Calendar  defaultValue={new Date()} onChange={date => console.log(date.toLocaleDateString())}/>
     // 受控模式
-    <Calendar value={value  } defaultValue={new Date()} onChange={date => {console.log(date.toLocaleDateString()); setValue(date)}}/>
+    <CalendarDemo value={value  } defaultValue={new Date()} onChange={date => {console.log(date.toLocaleDateString()); setValue(date)}}/>
   )
 }
