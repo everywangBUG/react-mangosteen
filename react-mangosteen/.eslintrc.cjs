@@ -30,6 +30,8 @@ module.exports = {
     // 'local-rules/require-return-in-map': 'error',
     'array-callback-return': ['error', { allowImplicit: false }],
     // tab缩为2个空格
-    'indent': ['error', 2]
+    'indent': ['error', 2],
+    // 禁止使用类型别名
+    '@typescript-eslint/ban-types': 'off'
   },
 }
