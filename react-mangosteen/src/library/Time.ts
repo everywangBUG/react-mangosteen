@@ -219,6 +219,10 @@ export class Time {
     return `${this.format("yyyy-MM-ddTHH:mm:ss.fff") + sign + pad}:00`
   }
 
+  get toLocaleDateString() {
+    return this.#date.toLocaleDateString()
+  }
+
   get week() {
     return this.#date.getDay()
   }

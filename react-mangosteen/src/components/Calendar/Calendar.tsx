@@ -1,9 +1,11 @@
 import React, { useImperativeHandle, useState } from "react"
 import { Time, time } from "../../library/Time"
+import {useControllableValue} from "ahooks"
 
 interface CalendarProps {
+  value?: Time | Date
   defaultValue?: Time
-  onChange?: (date: Date) => void
+  onChange?: (date: Time | Date) => void
 }
 
 export interface CalendarRef {
@@ -12,8 +14,10 @@ export interface CalendarRef {
 }
 
 export const InternalCalendar: React.ForwardRefRenderFunction<CalendarRef, CalendarProps> = (props, ref) => {
-  const { defaultValue = time(), onChange } = props
-  const [date, setDate] = useState<Time>(defaultValue)
+  const { value, defaultValue = time(), onChange } = props
+  const [date, setDate] = useControllableValue(props, {
+    defaultValue: time()
+  })
   const [selectedDate, setSelectedDate] = useState<Time | null>(defaultValue)
 
   useImperativeHandle(ref, () => {
@@ -46,7 +50,7 @@ export const InternalCalendar: React.ForwardRefRenderFunction<CalendarRef, Calen
       const curDate = date.clone.set({ day: i + 1 })
       const selected = curDate.timestamp === (selectedDate?.timestamp ?? defaultValue.timestamp)
       const handleClickDate = () => {
-        onChange?.(curDate.date)
+        onChange?.(curDate.date) // 非受控组件调用，受控组件不需要回调onChange
         setDate(curDate)
         setSelectedDate(curDate)
       }
