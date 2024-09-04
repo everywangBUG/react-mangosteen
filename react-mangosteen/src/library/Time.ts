@@ -218,4 +218,8 @@ export class Time {
     const pad = absoluteTimezone.toString().padStart(2, "0")
     return `${this.format("yyyy-MM-ddTHH:mm:ss.fff") + sign + pad}:00`
   }
+
+  get week() {
+    return this.#date.getDay()
+  }
 }

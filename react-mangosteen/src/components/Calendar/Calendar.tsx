@@ -1,8 +1,16 @@
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import { Time, time } from "../../library/Time"
 
-export const Calendar: React.FC = () => {
-  const [date, setDate] = useState<Time>(time())
+interface CalendarProps {
+  defaultValue?: Time
+  onChange?: (date: Date) => void
+}
+
+
+
+export const Calendar: React.FC<CalendarProps> = (props) => {
+  const { defaultValue = time(), onChange } = props
+  const [date, setDate] = useState<Time>(defaultValue)
 
   const handlePreMonth = () => {
     setDate(date.add(-1, "month").clone)
@@ -13,16 +21,15 @@ export const Calendar: React.FC = () => {
   }
 
   const renderDates = () => {
-    const days = []
+    const days: JSX.Element[] = []
     const dayCount = date.dayCountOfMonth
-    const firstDayOfMonth = date.firstDayOfMonth.day
-    // 渲染空白
-    for (let i = 0; i < firstDayOfMonth; i++) {
-      days.push(<div key={i} className="day" />)
-    }
-    for (let i = 0; i < dayCount; i++) {
-      days.push(<div key={i} className={`day ${i === 0 ? "first" : ""}`}>{i + 1}</div>)
-    }
+    const firstDayWeek = date.firstDayOfMonth.week
+    Array.from({length: firstDayWeek}).forEach((_, i) => {
+      days.push(<div key={i}></div>)
+    }) 
+    Array.from({length: dayCount}).forEach((_, i) => {
+      days.push(<div key={i + dayCount}>{i + 1}</div>)
+    })
     return days
   }
 
