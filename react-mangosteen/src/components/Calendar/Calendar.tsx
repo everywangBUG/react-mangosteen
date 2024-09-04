@@ -1,4 +1,4 @@
-import { useState } from "react"
+import React, { useImperativeHandle, useState } from "react"
 import { Time, time } from "../../library/Time"
 
 interface CalendarProps {
@@ -6,10 +6,26 @@ interface CalendarProps {
   onChange?: (date: Date) => void
 }
 
-export const Calendar: React.FC<CalendarProps> = (props) => {
+export interface CalendarRef {
+  getDate: () => Time
+  setDate: (date: Time) => void
+}
+
+export const InternalCalendar: React.ForwardRefRenderFunction<CalendarRef, CalendarProps> = (props, ref) => {
   const { defaultValue = time(), onChange } = props
   const [date, setDate] = useState<Time>(defaultValue)
   const [selectedDate, setSelectedDate] = useState<Time | null>(defaultValue)
+
+  useImperativeHandle(ref, () => {
+    return {
+      getDate() {
+        return date
+      },
+      setDate(date: Time) {
+        setDate(date)
+      }
+    }
+  })
 
   const handlePreMonth = () => {
     setDate(date.add(-1, "month").clone)
@@ -68,3 +84,5 @@ export const Calendar: React.FC<CalendarProps> = (props) => {
     </div>
   )
 }
+
+export const Calendar = React.forwardRef(InternalCalendar)
