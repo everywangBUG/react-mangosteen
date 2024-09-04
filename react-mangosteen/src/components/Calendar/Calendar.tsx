@@ -6,11 +6,10 @@ interface CalendarProps {
   onChange?: (date: Date) => void
 }
 
-
-
 export const Calendar: React.FC<CalendarProps> = (props) => {
   const { defaultValue = time(), onChange } = props
   const [date, setDate] = useState<Time>(defaultValue)
+  const [selectedDate, setSelectedDate] = useState<Time | null>(defaultValue)
 
   const handlePreMonth = () => {
     setDate(date.add(-1, "month").clone)
@@ -28,7 +27,21 @@ export const Calendar: React.FC<CalendarProps> = (props) => {
       days.push(<div key={i}></div>)
     }) 
     Array.from({length: dayCount}).forEach((_, i) => {
-      days.push(<div key={i + dayCount}>{i + 1}</div>)
+      const curDate = date.clone.set({ day: i + 1 })
+      const selected = curDate.timestamp === (selectedDate?.timestamp ?? defaultValue.timestamp)
+      const handleClickDate = () => {
+        onChange?.(curDate.date)
+        setDate(curDate)
+        setSelectedDate(curDate)
+      }
+      days.push(
+        <div
+          key={i + dayCount}
+          className={selected ? "bg-blue-400 text-white" : ""}
+          onClick={handleClickDate}
+        >
+          {i + 1}
+        </div>)
     })
     return days
   }
